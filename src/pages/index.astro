@@ -1,29 +1,16 @@
 ---
-// index.astro — Placeholder page with section IDs for IntersectionObserver testing
-// Phase 1-B interim: BaseLayout verified, section anchors in place
-// Full section content will be implemented in Phase 2
+// index.astro — Top page (one-page layout)
+// Phase 2-A: Hero section implemented via HeroSection component
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
 ---
 
 <BaseLayout
   title="take77 | フリーランスエンジニア"
   description="システム開発・HP制作・経営企画・動画編集まで幅広く手がけるフリーランスエンジニア take77 のポートフォリオサイトです。"
 >
-  <!-- Hero section -->
-  <section id="hero" class="section section-hero">
-    <div class="section-inner">
-      <p class="section-eyebrow">Portfolio</p>
-      <h1 class="hero-title">Technology meets Creativity</h1>
-      <p class="hero-sub">
-        システム開発・HP制作・経営企画・動画編集まで<br />
-        幅広く手がけるフリーランスエンジニア
-      </p>
-      <div class="hero-cta">
-        <a href="#services" class="btn btn-primary">サービスを見る</a>
-        <a href="#contact" class="btn btn-outline">お問い合わせ</a>
-      </div>
-    </div>
-  </section>
+  <!-- Hero section (Phase 2-A) -->
+  <HeroSection />
 
   <!-- Services section -->
   <section id="services" class="section">
@@ -59,10 +46,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+  /* Placeholder styles for sections not yet implemented (Phase 2-B+) */
   .section {
     position: relative;
     padding: 5rem 1.5rem;
-    min-height: 100vh;
+    min-height: 60vh;
     display: flex;
     align-items: center;
   }
@@ -71,81 +59,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
-  }
-
-  .section-eyebrow {
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-text-accent);
-    margin-bottom: 1rem;
-  }
-
-  .hero-title {
-    font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 600;
-    color: var(--color-text-heading);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: 1.1rem;
-    color: var(--color-text-sub);
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.75rem;
-    border-radius: 8px;
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .btn-primary {
-    background: var(--color-accent);
-    color: #ffffff;
-    border: 1px solid var(--color-accent);
-  }
-
-  .btn-primary:hover {
-    background: var(--color-accent-hover);
-    border-color: var(--color-accent-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .btn-outline:hover {
-    border-color: rgba(255, 255, 255, 0.45);
-    color: #ffffff;
-    transform: translateY(-2px);
   }
 
   .section-title {
@@ -166,17 +79,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   @media (max-width: 639px) {
     .section {
       padding: 4rem 1rem;
-      min-height: 80vh;
-    }
-
-    .hero-cta {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .btn {
-      width: 100%;
-      justify-content: center;
+      min-height: 40vh;
     }
   }
 </style>
