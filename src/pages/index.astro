@@ -1,85 +1,30 @@
 ---
 // index.astro — Top page (one-page layout)
-// Phase 2-A: Hero section implemented via HeroSection component
+// Phase 2-B: All sections integrated (subtask_080e)
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
+import ServiceOverview from '../components/home/ServiceOverview.astro';
+import FeaturedWorks from '../components/home/FeaturedWorks.astro';
+import AboutSection from '../components/home/AboutSection.astro';
+import ContactSection from '../components/contact/ContactSection.tsx';
 ---
 
 <BaseLayout
   title="take77 | フリーランスエンジニア"
   description="システム開発・HP制作・経営企画・動画編集まで幅広く手がけるフリーランスエンジニア take77 のポートフォリオサイトです。"
 >
-  <!-- Hero section (Phase 2-A) -->
+  <!-- Hero section (#hero) — hana作成 -->
   <HeroSection />
 
-  <!-- Services section -->
-  <section id="services" class="section">
-    <div class="section-inner">
-      <h2 class="section-title">Services</h2>
-      <p class="section-lead">提供サービス — Phase 2 で実装予定</p>
-    </div>
-  </section>
+  <!-- Services section (#services) — rosehip作成 -->
+  <ServiceOverview />
 
-  <!-- Works highlight section (middle ground — no nav active) -->
-  <section id="works" class="section">
-    <div class="section-inner">
-      <h2 class="section-title">Works</h2>
-      <p class="section-lead">実績ハイライト — Phase 2 で実装予定</p>
-    </div>
-  </section>
+  <!-- Featured works section (#works) — marie作成 / 中間地帯: ナビ非アクティブ -->
+  <FeaturedWorks />
 
-  <!-- About section (middle ground — no nav active) -->
-  <section id="about" class="section">
-    <div class="section-inner">
-      <h2 class="section-title">About</h2>
-      <p class="section-lead">自己紹介 — Phase 2 で実装予定</p>
-    </div>
-  </section>
+  <!-- About section (#about) — oshida作成 / 中間地帯: ナビ非アクティブ -->
+  <AboutSection />
 
-  <!-- Contact section -->
-  <section id="contact" class="section">
-    <div class="section-inner">
-      <h2 class="section-title">Contact</h2>
-      <p class="section-lead">お問い合わせ — Phase 2 で実装予定</p>
-    </div>
-  </section>
+  <!-- Contact section (#contact) — Phase 1 実装済み: client:visible で遅延ハイドレーション -->
+  <ContactSection client:visible />
 </BaseLayout>
-
-<style>
-  /* Placeholder styles for sections not yet implemented (Phase 2-B+) */
-  .section {
-    position: relative;
-    padding: 5rem 1.5rem;
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-  }
-
-  .section-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .section-title {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 600;
-    color: var(--color-text-heading);
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    opacity: 0.3;
-  }
-
-  .section-lead {
-    color: var(--color-text-sub);
-    font-size: 0.95rem;
-  }
-
-  @media (max-width: 639px) {
-    .section {
-      padding: 4rem 1rem;
-      min-height: 40vh;
-    }
-  }
-</style>
