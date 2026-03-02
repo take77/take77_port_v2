@@ -1,0 +1,223 @@
+---
+// Header.astro
+// Fixed navigation header with 3 items, glass scroll effect, IntersectionObserver active state
+// spec §3.2: ホーム|サービス|お問い合わせ all anchor links to /#hero, /#services, /#contact
+// spec §5.4: glassmorphism applied on scroll
+import MobileMenu from './MobileMenu.tsx';
+---
+
+<header class="site-header" id="site-header">
+  <nav class="nav-container" aria-label="メインナビゲーション">
+    <a href="/#hero" class="nav-logo" aria-label="take77 ホームへ">
+      <span class="logo-text">take77</span>
+    </a>
+
+    <!-- Desktop navigation -->
+    <ul class="nav-links" role="list">
+      <li>
+        <a href="/#hero" class="nav-link" data-section="hero">ホーム</a>
+      </li>
+      <li>
+        <a href="/#services" class="nav-link" data-section="services">サービス</a>
+      </li>
+      <li>
+        <a href="/#contact" class="nav-link" data-section="contact">お問い合わせ</a>
+      </li>
+    </ul>
+
+    <!-- Mobile hamburger button -->
+    <button
+      class="hamburger"
+      id="hamburger-btn"
+      aria-label="メニューを開く"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile Menu React island -->
+<MobileMenu client:load />
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0 1.5rem;
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+
+  .site-header.scrolled {
+    background: rgba(26, 15, 36, 0.72);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-link:hover {
+    color: #ffffff;
+  }
+
+  .nav-link.active {
+    color: #ffffff;
+    border-bottom-color: #8b5cf6;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+  }
+
+  .hamburger:hover .hamburger-line {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 2px;
+    transition: background 0.2s ease;
+  }
+
+  @media (max-width: 639px) {
+    .nav-links {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // ---- Scroll handler: glass effect on scroll ----
+  const header = document.getElementById('site-header') as HTMLElement | null;
+
+  function updateHeaderScroll() {
+    if (window.scrollY > 20) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }
+
+  window.addEventListener('scroll', updateHeaderScroll, { passive: true });
+  updateHeaderScroll();
+
+  // ---- IntersectionObserver: active nav state ----
+  // Only hero, services, contact trigger active state (works, about = middle ground = none active)
+  const TRACKED_SECTIONS = ['hero', 'services', 'contact'] as const;
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link[data-section]');
+  const sectionVisibility: Record<string, boolean> = {};
+
+  function updateActiveNav() {
+    let activeSection: string | null = null;
+    // Last visible tracked section wins (scroll order: hero → services → contact)
+    for (const id of TRACKED_SECTIONS) {
+      if (sectionVisibility[id]) {
+        activeSection = id;
+      }
+    }
+    navLinks.forEach((link) => {
+      if (link.dataset.section === activeSection) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.id;
+        if ((TRACKED_SECTIONS as readonly string[]).includes(id)) {
+          sectionVisibility[id] = entry.isIntersecting;
+        }
+      });
+      updateActiveNav();
+    },
+    {
+      // Section is considered "active" when its top 20%–60% is in viewport
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0,
+    }
+  );
+
+  TRACKED_SECTIONS.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // ---- Hamburger button: dispatch custom event to MobileMenu React island ----
+  const hamburgerBtn = document.getElementById('hamburger-btn') as HTMLButtonElement | null;
+  hamburgerBtn?.addEventListener('click', () => {
+    const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+    const nextState = !expanded;
+    hamburgerBtn.setAttribute('aria-expanded', String(nextState));
+    document.dispatchEvent(
+      new CustomEvent('toggle-mobile-menu', { detail: { open: nextState } })
+    );
+  });
+</script>

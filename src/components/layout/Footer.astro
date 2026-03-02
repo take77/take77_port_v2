@@ -1,0 +1,82 @@
+---
+// Footer.astro
+// Simple footer — NO glassmorphism per spec §5.4
+// Links: About (/#about), external: Zenn, Note, GitHub
+---
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <nav class="footer-nav" aria-label="フッターナビゲーション">
+      <a href="/#about" class="footer-link">About</a>
+      <a
+        href="https://zenn.dev/take77"
+        class="footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Zenn（外部リンク）"
+      >Zenn</a>
+      <a
+        href="https://note.com/take77_note"
+        class="footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Note（外部リンク）"
+      >Note</a>
+      <a
+        href="https://github.com/take77"
+        class="footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub（外部リンク）"
+      >GitHub</a>
+    </nav>
+    <p class="footer-copyright">
+      &copy; {new Date().getFullYear()} take77. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    z-index: 10;
+    padding: 2.5rem 1.5rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .footer-copyright {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: 0.05em;
+  }
+</style>
