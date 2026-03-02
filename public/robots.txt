@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://take77-port.com/sitemap-index.xml

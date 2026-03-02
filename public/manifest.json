@@ -1,0 +1,11 @@
+{
+  "name": "take77 | フリーランスエンジニア",
+  "short_name": "take77",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a0a2e",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" }
+  ]
+}
