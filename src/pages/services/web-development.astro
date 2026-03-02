@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/common/Breadcrumb.astro';
+import SectionTitle from '../../components/common/SectionTitle.astro';
+import GlassCard from '../../components/common/GlassCard.astro';
+import DuotoneImage from '../../components/common/DuotoneImage.astro';
+import ContactSection from '../../components/contact/ContactSection.tsx';
+import { getCollection } from 'astro:content';
+
+const works = await getCollection('works', ({ data }) =>
+  !data.draft && data.serviceCategory.includes('web-development')
+);
+const sortedWorks = works.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  provider: { '@type': 'Person', name: 'take77' },
+  name: 'HP開発・運用',
+  description: 'コーポレートサイトからランディングページ、Webアプリまで。デザインから実装、運用まで一貫してサポートします。',
+  url: 'https://take77-port.com/services/web-development',
+};
+
+const features = [
+  { icon: '🏢', text: 'コーポレートサイト制作・リニューアル' },
+  { icon: '📄', text: 'ランディングページ（LP）制作' },
+  { icon: '⚙️', text: 'CMS導入・カスタマイズ' },
+  { icon: '📱', text: 'レスポンシブデザイン対応' },
+  { icon: '🔍', text: 'SEO対策・パフォーマンス最適化' },
+];
+---
+
+<BaseLayout
+  title="HP開発・運用 | take77"
+  description="コーポレートサイトからランディングページ、Webアプリまで。デザインから実装、運用まで一貫してサポートします。"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-wrap">
+    <div class="section-inner">
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: 'HP開発・運用' },
+      ]} />
+    </div>
+  </div>
+
+  <!-- Service Hero -->
+  <section class="section">
+    <div class="section-inner">
+      <SectionTitle
+        title="HP開発・運用"
+        subtitle="Web Development"
+        accent="Service"
+      />
+
+      <div class="service-layout">
+        <!-- Service description -->
+        <div class="service-description">
+          <p class="service-lead">
+            コーポレートサイトからランディングページ、Webアプリまで。
+            デザインから実装、運用まで一貫してサポートします。
+            ビジネスの目的に合わせた最適なWebサイトを、
+            スピード感を持ってお届けします。
+          </p>
+          <p class="service-body">
+            SEO・パフォーマンス・アクセシビリティを標準として設計し、
+            制作後の更新・保守まで安心してお任せいただける体制を整えています。
+            CMSの導入でコンテンツ更新を内製化したいお客様にも対応しています。
+          </p>
+        </div>
+
+        <!-- Features list -->
+        <GlassCard class="features-card">
+          <h3 class="features-heading">提供内容</h3>
+          <ul class="features-list" role="list">
+            {features.map((feature) => (
+              <li class="feature-item">
+                <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
+                <span class="feature-text">{feature.text}</span>
+              </li>
+            ))}
+          </ul>
+        </GlassCard>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Works -->
+  {sortedWorks.length > 0 && (
+    <section class="section section-works">
+      <div class="section-inner">
+        <SectionTitle title="関連実績" accent="Works" />
+        <div class="works-grid">
+          {sortedWorks.map((work) => (
+            <GlassCard href={`/works/${work.id}`} hoverable class="work-card">
+              <div class="work-image-wrap">
+                <DuotoneImage
+                  src={work.data.thumbnail}
+                  alt={work.data.title}
+                  width={600}
+                  height={400}
+                  themeColor="#6366f1"
+                />
+              </div>
+              <div class="work-body">
+                <h3 class="work-title">{work.data.title}</h3>
+                <p class="work-description">{work.data.description}</p>
+                <span class="work-link" aria-hidden="true">詳しく見る →</span>
+              </div>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Contact -->
+  <ContactSection client:visible />
+</BaseLayout>
+
+<style>
+  .breadcrumb-wrap {
+    padding: 1.5rem 2rem 0;
+  }
+
+  .section {
+    position: relative;
+    padding: 6rem 2rem;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .service-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .service-lead {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+  }
+
+  .service-body {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--color-text-sub);
+  }
+
+  .features-card {
+    padding: 2rem;
+  }
+
+  .features-heading {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-text-accent);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .feature-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  /* Related works */
+  .section-works {
+    padding-top: 2rem;
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .work-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .work-image-wrap {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+
+  .work-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .work-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-heading);
+    line-height: 1.4;
+  }
+
+  .work-description {
+    font-size: 0.875rem;
+    color: var(--color-text-sub);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .work-link {
+    font-size: 0.8rem;
+    color: var(--color-text-accent);
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 639px) {
+    .breadcrumb-wrap {
+      padding: 1.25rem 1.5rem 0;
+    }
+
+    .section {
+      padding: 4rem 1.5rem;
+    }
+
+    .service-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
