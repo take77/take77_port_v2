@@ -128,4 +128,11 @@ const categoryLabels: Record<string, string> = {
   .work-card:hover .card-link {
     color: #c4b5fd;
   }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .work-card {
+      background: rgba(30, 15, 40, 0.95);
+      backdrop-filter: none;
+    }
+  }
 </style>

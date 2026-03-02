@@ -106,4 +106,11 @@
     80%  { transform: translate(-3vw, -8vh); opacity: 0.9; }
     100% { transform: translate(0, 0); opacity: 1; }
   }
+
+  /* Stop all blob animations when user prefers reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .blob {
+      animation: none;
+    }
+  }
 </style>
