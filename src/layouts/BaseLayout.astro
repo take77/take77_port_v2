@@ -1,5 +1,11 @@
 ---
+// BaseLayout.astro — Full layout with Header, Footer, NoiseOverlay, BackgroundBlobs
+// Extends the Phase 1-A minimal skeleton (subtask_080a) with full visual layer
 import '../styles/global.css';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import NoiseOverlay from '../components/common/NoiseOverlay.astro';
+import BackgroundBlobs from '../components/common/BackgroundBlobs.astro';
 
 export interface Props {
   title?: string;
@@ -14,6 +20,29 @@ const {
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
+
+// JSON-LD structured data (spec §9.2)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'take77',
+    url: 'https://take77-port.com',
+    sameAs: [
+      'https://github.com/take77',
+      'https://zenn.dev/take77',
+      'https://note.com/take77_note',
+    ],
+    knowsAbout: [
+      'System Development',
+      'Web Development',
+      'Business Planning',
+      'Video Editing',
+    ],
+  },
+};
 ---
 
 <!doctype html>
@@ -34,19 +63,46 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:image" content={ogImageUrl} />
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="twitter:image" content={ogImageUrl} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- JSON-LD Structured Data (spec §9.2) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
-    <slot />
+    <!-- Layer 0: Background blobs (z-index: 0) -->
+    <BackgroundBlobs />
+
+    <!-- Layer 1: Noise texture overlay (z-index: 1) -->
+    <NoiseOverlay />
+
+    <!-- Layer 100: Fixed header -->
+    <Header />
+
+    <!-- Main content (z-index: 10, padded top for fixed header) -->
+    <main class="main-content">
+      <slot />
+    </main>
+
+    <!-- Footer (z-index: 10) -->
+    <Footer />
   </body>
 </html>
+
+<style>
+  .main-content {
+    position: relative;
+    z-index: 10;
+    padding-top: 64px; /* Height of fixed header */
+    min-height: calc(100vh - 64px);
+  }
+</style>
