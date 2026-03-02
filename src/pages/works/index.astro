@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/common/Breadcrumb.astro';
+import SectionTitle from '../../components/common/SectionTitle.astro';
+import WorkFilter from '../../components/WorkFilter';
+import ContactSection from '../../components/contact/ContactSection';
+
+// Get all non-draft works sorted by date descending
+const allWorks = await getCollection('works', ({ data }) => !data.draft);
+allWorks.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Serialize works data: process ImageMetadata → usable src/width/height
+const serializedWorks = await Promise.all(
+  allWorks.map(async (work) => {
+    const optimized = await getImage({ src: work.data.thumbnail });
+    return {
+      id: work.id,
+      title: work.data.title,
+      description: work.data.description,
+      date: work.data.date.toISOString().split('T')[0],
+      serviceCategory: work.data.serviceCategory as string[],
+      thumbnail: {
+        src: optimized.src,
+        width: work.data.thumbnail.width,
+        height: work.data.thumbnail.height,
+      },
+    };
+  })
+);
+---
+
+<BaseLayout
+  title="実績一覧 | take77"
+  description="take77のフリーランス実績一覧。システム開発・HP開発・運用・経営企画・動画編集のプロジェクト実績をご覧いただけます。"
+>
+  <div class="page-container">
+    <Breadcrumb items={[{ label: 'ホーム', href: '/' }, { label: '実績一覧' }]} />
+    <div class="title-wrapper">
+      <SectionTitle
+        accent="Works"
+        title="実績一覧"
+        subtitle="これまでに手がけたプロジェクトの一覧です。"
+      />
+    </div>
+    <WorkFilter client:load works={serializedWorks} />
+  </div>
+  <ContactSection client:visible />
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px clamp(24px, 6vw, 80px) 80px;
+  }
+
+  .title-wrapper {
+    margin-top: 32px;
+  }
+</style>

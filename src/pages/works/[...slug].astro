@@ -1,0 +1,498 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/common/Breadcrumb.astro';
+import SectionTitle from '../../components/common/SectionTitle.astro';
+import WorkCard from '../../components/works/WorkCard.astro';
+import ContactSection from '../../components/contact/ContactSection.tsx';
+
+export const getStaticPaths = (async () => {
+  const works = await getCollection('works', ({ data }) => !data.draft);
+  return works.map((work) => ({
+    params: { slug: work.id },
+    props: { work },
+  }));
+}) satisfies GetStaticPaths;
+
+const { work } = Astro.props;
+const { Content } = await render(work);
+
+const categoryLabels: Record<string, string> = {
+  'system-development': 'システム開発',
+  'web-development': 'HP開発・運用',
+  'business-planning': '経営企画',
+  'video-editing': '動画編集',
+};
+
+// Format date as YYYY年MM月
+const dateFormatted = new Intl.DateTimeFormat('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+}).format(work.data.date);
+
+// Get related works (same serviceCategory, excluding self, max 3)
+const allWorks = await getCollection('works', ({ data }) => !data.draft);
+const relatedWorks = allWorks
+  .filter(
+    (w) =>
+      w.id !== work.id &&
+      w.data.serviceCategory.some((cat) =>
+        work.data.serviceCategory.includes(cat),
+      ),
+  )
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={`${work.data.title} | take77`}
+  description={work.data.description}
+  ogImage={work.data.thumbnail.src}
+>
+  <div class="page-container">
+    <!-- Breadcrumb -->
+    <Breadcrumb
+      items={[
+        { label: 'ホーム', href: '/' },
+        { label: '実績一覧', href: '/works' },
+        { label: work.data.title },
+      ]}
+    />
+
+    <!-- Work header -->
+    <header class="work-header">
+      <div class="work-meta">
+        <time class="work-date" datetime={work.data.date.toISOString()}>
+          {dateFormatted}
+        </time>
+        <div class="category-tags">
+          {
+            work.data.serviceCategory.map((cat) => (
+              <a href={`/services/${cat}`} class="category-tag">
+                {categoryLabels[cat] ?? cat}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <h1 class="work-title">{work.data.title}</h1>
+      <p class="work-description">{work.data.description}</p>
+    </header>
+
+    <!-- Main image — original color (no duotone per spec §5.3) -->
+    <div class="main-image-wrapper">
+      <Image
+        src={work.data.thumbnail}
+        alt={work.data.title}
+        width={1200}
+        height={675}
+        class="main-image"
+        loading="eager"
+      />
+    </div>
+
+    <!-- Project metadata card -->
+    <div class="project-info">
+      {
+        work.data.client && (
+          <div class="info-row">
+            <span class="info-label">クライアント</span>
+            <span class="info-value">{work.data.client}</span>
+          </div>
+        )
+      }
+      {
+        work.data.technologies.length > 0 && (
+          <div class="info-row">
+            <span class="info-label">使用技術</span>
+            <div class="tech-badges">
+              {work.data.technologies.map((tech) => (
+                <span class="tech-badge">{tech}</span>
+              ))}
+            </div>
+          </div>
+        )
+      }
+      {
+        work.data.url && (
+          <div class="info-row">
+            <span class="info-label">URL</span>
+            <a
+              href={work.data.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link"
+            >
+              サイトを見る →
+            </a>
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Markdown body -->
+    <article class="prose-content">
+      <Content />
+    </article>
+
+    <!-- Related works section (only if any exist) -->
+    {
+      relatedWorks.length > 0 && (
+        <section class="related-section">
+          <SectionTitle title="関連する実績" accent="Related Works" />
+          <div class="related-grid">
+            {relatedWorks.map((relWork) => (
+              <WorkCard
+                slug={relWork.id}
+                title={relWork.data.title}
+                description={relWork.data.description}
+                thumbnail={relWork.data.thumbnail}
+                serviceCategory={relWork.data.serviceCategory}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </div>
+
+  <!-- Contact section (common component) -->
+  <ContactSection client:visible />
+</BaseLayout>
+
+<style>
+  .page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px clamp(24px, 6vw, 80px) 80px;
+  }
+
+  /* ── Work header ── */
+  .work-header {
+    margin: 32px 0 40px;
+  }
+
+  .work-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .work-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .category-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .category-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    text-decoration: none;
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+  }
+
+  .category-tag:hover {
+    background: rgba(139, 92, 246, 0.3);
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+
+  .work-title {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 16px;
+    line-height: 1.3;
+    font-family: 'Jost', 'Sawarabi Gothic', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  .work-description {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.8;
+    margin: 0;
+    max-width: 800px;
+  }
+
+  /* ── Main image ── */
+  .main-image-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .main-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* ── Project info card (glassmorphism) ── */
+  .project-info {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .info-label {
+    font-size: 0.75rem;
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.1em;
+    color: #a78bfa;
+    text-transform: uppercase;
+    min-width: 100px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .info-value {
+    font-size: 0.9rem;
+    color: #f0f0f5;
+  }
+
+  .tech-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tech-badge {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 8px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+  }
+
+  .external-link {
+    font-size: 0.9rem;
+    color: #a78bfa;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .external-link:hover {
+    color: #c4b5fd;
+  }
+
+  /* ── Prose content (Markdown body) ── */
+  .prose-content {
+    max-width: 800px;
+    margin-bottom: 80px;
+    line-height: 1.8;
+    color: #f0f0f5;
+  }
+
+  .prose-content :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 2.5rem 0 1rem;
+    font-family: 'Jost', 'Sawarabi Gothic', sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  .prose-content :global(h3) {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 2rem 0 0.75rem;
+    font-family: 'Jost', 'Sawarabi Gothic', sans-serif;
+  }
+
+  .prose-content :global(h4) {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .prose-content :global(p) {
+    color: #f0f0f5;
+    line-height: 1.8;
+    margin: 0 0 1.5rem;
+  }
+
+  .prose-content :global(ul),
+  .prose-content :global(ol) {
+    padding-left: 1.5rem;
+    margin: 0 0 1.5rem;
+    color: #f0f0f5;
+  }
+
+  .prose-content :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.8;
+  }
+
+  .prose-content :global(ul li::marker) {
+    color: #a78bfa;
+  }
+
+  .prose-content :global(ol li::marker) {
+    color: #a78bfa;
+  }
+
+  .prose-content :global(a) {
+    color: #a78bfa;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose-content :global(a:hover) {
+    color: #c4b5fd;
+  }
+
+  .prose-content :global(strong) {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .prose-content :global(code) {
+    font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+    font-size: 0.875em;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: #c4b5fd;
+  }
+
+  .prose-content :global(pre) {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 0 0 1.5rem;
+  }
+
+  .prose-content :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+    color: #f0f0f5;
+  }
+
+  .prose-content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .prose-content :global(th) {
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    padding: 10px 16px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+  }
+
+  .prose-content :global(td) {
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #f0f0f5;
+  }
+
+  .prose-content :global(tr:nth-child(even) td) {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .prose-content :global(blockquote) {
+    border-left: 3px solid rgba(139, 92, 246, 0.5);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+  }
+
+  .prose-content :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 2rem 0;
+  }
+
+  /* ── Related works ── */
+  .related-section {
+    margin-bottom: 80px;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* ── Mobile responsive ── */
+  @media (max-width: 640px) {
+    .page-container {
+      padding: 32px 24px 60px;
+    }
+
+    .work-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .project-info {
+      padding: 20px 24px;
+    }
+
+    .info-row {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-label {
+      min-width: unset;
+    }
+
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
