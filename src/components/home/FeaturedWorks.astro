@@ -1,0 +1,245 @@
+---
+import { getCollection } from "astro:content";
+import DuotoneImage from "../common/DuotoneImage.astro";
+import SectionTitle from "../common/SectionTitle.astro";
+import GlassCard from "../common/GlassCard.astro";
+
+const categoryColors: Record<string, string> = {
+  "system-development": "#6366f1",
+  "web-development": "#8b5cf6",
+  "business-planning": "#06b6d4",
+  "video-editing": "#ec4899",
+};
+
+const categoryLabels: Record<string, string> = {
+  "system-development": "システム開発",
+  "web-development": "HP開発・運用",
+  "business-planning": "経営企画",
+  "video-editing": "動画編集",
+};
+
+// Fetch featured works, sorted by date descending
+const featuredWorks = await getCollection("works", ({ data }) =>
+  !data.draft && data.featured
+);
+
+const sortedFeatured = featuredWorks.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+// Fallback: supplement with non-featured works if fewer than 3 featured exist
+let works = sortedFeatured.slice(0, 3);
+if (works.length < 3) {
+  const nonFeatured = await getCollection("works", ({ data }) =>
+    !data.draft && !data.featured
+  );
+  const sortedNonFeatured = nonFeatured.sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime()
+  );
+  works = [...works, ...sortedNonFeatured].slice(0, 3);
+}
+---
+
+<section id="works" class="featured-works-section">
+  <div class="featured-works-inner">
+    <SectionTitle accent="Featured Works" title="Works" subtitle="実績ハイライト" />
+
+    <div class="works-grid">
+      {works.map((work) => {
+        const primaryCategory = work.data.serviceCategory[0];
+        const themeColor = categoryColors[primaryCategory] ?? "#8b5cf6";
+        // work.id is like "corporate-site-redesign/index" from glob loader
+        const slug = work.id.split("/")[0];
+
+        return (
+          <GlassCard href={`/works/${slug}`} hoverable class="work-card">
+            <div class="work-image-wrapper">
+              <DuotoneImage
+                src={work.data.thumbnail}
+                alt={work.data.title}
+                width={640}
+                height={360}
+                themeColor={themeColor}
+              />
+            </div>
+            <div class="work-content">
+              <div class="work-badges">
+                {work.data.serviceCategory.map((cat) => (
+                  <span class="work-badge">{categoryLabels[cat]}</span>
+                ))}
+              </div>
+              <h3 class="work-title">{work.data.title}</h3>
+              <p class="work-description">{work.data.description}</p>
+              <div class="work-footer">
+                <div class="work-techs">
+                  {work.data.technologies.slice(0, 4).map((tech) => (
+                    <span class="work-tech">{tech}</span>
+                  ))}
+                </div>
+                <span class="work-cta">詳しく見る →</span>
+              </div>
+            </div>
+          </GlassCard>
+        );
+      })}
+    </div>
+
+    <div class="works-more">
+      <a href="/works" class="works-all-link">すべての実績を見る →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured-works-section {
+    padding: 80px clamp(24px, 6vw, 80px);
+  }
+
+  .featured-works-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Grid: 3 columns → 2 (tablet) → 1 (mobile) */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .works-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Card */
+  .work-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Image area — fixed height, duotone wrapper fills it */
+  .work-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .work-image-wrapper :global(.duotone-wrapper) {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Content area */
+  .work-content {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  /* Service category badges */
+  .work-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .work-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--color-text-accent);
+    letter-spacing: 0.05em;
+    font-family: var(--font-heading);
+  }
+
+  /* Title */
+  .work-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-text-heading);
+    margin: 0 0 8px;
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    font-family: var(--font-heading);
+  }
+
+  /* Description */
+  .work-description {
+    font-size: 13px;
+    color: var(--color-text-sub);
+    margin: 0 0 16px;
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  /* Footer: tech tags + CTA */
+  .work-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .work-techs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .work-tech {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .work-cta {
+    font-size: 12px;
+    color: var(--color-accent);
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+  }
+
+  .work-card:hover .work-cta {
+    color: #ffffff;
+  }
+
+  /* "すべての実績を見る →" */
+  .works-more {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .works-all-link {
+    display: inline-block;
+    color: var(--color-text-accent);
+    font-family: var(--font-heading);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .works-all-link:hover {
+    color: #ffffff;
+  }
+</style>
