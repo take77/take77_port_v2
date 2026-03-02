@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/common/Breadcrumb.astro';
+---
+
+<BaseLayout
+  title="プライバシーポリシー | take77"
+  description="take77.com のプライバシーポリシーページです。個人情報の取扱い、GA4の使用、お問い合わせフォームについて説明します。"
+>
+  <section class="section">
+    <div class="section-inner privacy-content">
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: 'プライバシーポリシー' }
+      ]} />
+
+      <h1>プライバシーポリシー</h1>
+
+      <h2>1. 個人情報の取得について</h2>
+      <p>当サイト（take77.com）は個人が運営するポートフォリオサイトです。</p>
+      <p>お問い合わせフォームから以下の情報を取得します。</p>
+      <ul>
+        <li>氏名</li>
+        <li>メールアドレス</li>
+        <li>お問い合わせ内容</li>
+      </ul>
+
+      <h2>2. 個人情報の利用目的</h2>
+      <p>取得した個人情報は、以下の目的に限り利用します。</p>
+      <ul>
+        <li>お問い合わせへの回答・連絡</li>
+        <li>サービスに関するご案内</li>
+      </ul>
+
+      <h2>3. 個人情報の第三者提供</h2>
+      <p>法令に基づく場合を除き、取得した個人情報を第三者に提供することはありません。</p>
+
+      <h2>4. アクセス解析ツールについて</h2>
+      <p>当サイトでは、Google Analytics 4（GA4）を使用してアクセス情報を収集しています。</p>
+      <ul>
+        <li>GA4はCookieを使用してアクセス情報を収集します</li>
+        <li>収集データは匿名であり、個人を特定するものではありません</li>
+        <li>Cookieの無効化はブラウザの設定から行うことができます</li>
+      </ul>
+      <p>
+        GA4の利用規約については
+        <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" rel="noopener noreferrer">
+          Google マーケティング プラットフォーム利用規約
+        </a>
+        をご確認ください。
+      </p>
+
+      <h2>5. お問い合わせフォームについて</h2>
+      <p>当サイトのお問い合わせフォームでは、以下のサービスを利用しています。</p>
+      <ul>
+        <li><strong>Web3Forms</strong> — フォーム送信の処理に利用しています</li>
+        <li><strong>Cloudflare Turnstile</strong> — スパム対策のために利用しています</li>
+      </ul>
+
+      <h2>6. 免責事項</h2>
+      <p>当サイトの情報は正確を期していますが、内容の完全性・正確性・有用性を保証するものではありません。当サイトの情報を利用したことによって生じた損害について、運営者は責任を負いかねます。</p>
+
+      <h2>7. プライバシーポリシーの変更</h2>
+      <p>本ポリシーは予告なく変更する場合があります。変更後のポリシーは当ページに掲載した時点で有効となります。</p>
+
+      <h2>8. お問い合わせ</h2>
+      <p>プライバシーポリシーに関するお問い合わせは、サイト内の<a href="/#contact">お問い合わせフォーム</a>よりご連絡ください。</p>
+
+      <p class="updated">最終更新日: 2026年3月3日</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    position: relative;
+    padding: 4rem 1.5rem 6rem;
+  }
+
+  .section-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .privacy-content {
+    max-width: 800px;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    color: var(--color-text-heading);
+    letter-spacing: -0.02em;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  p {
+    color: var(--color-text);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    color: var(--color-text);
+    line-height: 1.8;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    list-style-type: disc;
+  }
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  strong {
+    color: var(--color-text-heading);
+    font-weight: 600;
+  }
+
+  .updated {
+    margin-top: 3rem;
+    font-size: 0.875rem;
+    color: rgba(240, 240, 245, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    .section {
+      padding: 3rem 1rem 4rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-top: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.05rem;
+    }
+  }
+</style>
