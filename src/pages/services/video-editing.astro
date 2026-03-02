@@ -19,12 +19,22 @@ const serviceItems = [
   'モーショングラフィックス',
   '動画コンテンツ企画・構成',
 ];
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  provider: { '@type': 'Person', name: 'take77' },
+  name: '動画編集',
+  description: 'YouTube動画からプロモーション映像まで。企画・撮影サポートから編集・納品まで、映像制作をトータルでサポートします。',
+  url: 'https://take77-port.com/services/video-editing',
+};
 ---
 
 <BaseLayout
   title="動画編集 | take77"
   description="YouTube動画からプロモーション映像まで。企画・撮影サポートから編集・納品まで、映像制作をトータルでサポートします。"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
   <div class="breadcrumb-area">
     <Breadcrumb items={[
       { label: 'ホーム', href: '/' },

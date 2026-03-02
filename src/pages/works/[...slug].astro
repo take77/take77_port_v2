@@ -43,6 +43,19 @@ const relatedWorks = allWorks
       ),
   )
   .slice(0, 3);
+
+// CreativeWork JSON-LD (spec §9.2)
+const creativeWorkJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: work.data.title,
+  description: work.data.description,
+  author: { '@type': 'Person', name: 'take77', url: 'https://take77-port.com' },
+  dateCreated: work.data.date.toISOString().split('T')[0],
+  url: `https://take77-port.com/works/${work.id}`,
+  ...(work.data.url ? { sameAs: work.data.url } : {}),
+  ...(work.data.client ? { contributor: { '@type': 'Organization', name: work.data.client } } : {}),
+};
 ---
 
 <BaseLayout
@@ -50,6 +63,7 @@ const relatedWorks = allWorks
   description={work.data.description}
   ogImage={work.data.thumbnail.src}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(creativeWorkJsonLd)} />
   <div class="page-container">
     <!-- Breadcrumb -->
     <Breadcrumb

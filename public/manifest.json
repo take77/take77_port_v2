@@ -1,0 +1,16 @@
+{
+  "name": "take77 Portfolio",
+  "short_name": "take77",
+  "description": "フリーランスエンジニア take77 のポートフォリオサイト",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a0f24",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
