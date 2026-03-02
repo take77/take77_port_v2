@@ -121,6 +121,13 @@ img, video {
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* --- Focus visible accessibility (WCAG 2.4.7) --- */
+:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 /* --- Reduced transparency accessibility --- */
 @media (prefers-reduced-transparency: reduce) {
   .glass {
