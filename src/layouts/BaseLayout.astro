@@ -73,6 +73,13 @@ const jsonLd = {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImageUrl} />
 
+    <!-- Font Preload: Jost Variable (LCP heading font, self-hosted) -->
+    <link rel="preload" href="/fonts/jost-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- DNS prefetch / preconnect for Google Analytics -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
