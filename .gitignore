@@ -1,0 +1,32 @@
+# Environment variables (NEVER commit these)
+.env
+.env.local
+.env.*.local
+
+# Setup checklist (contains API keys)
+setup-checklist.md
+
+# Node.js
+node_modules/
+
+# Build outputs
+dist/
+.output/
+
+# Astro
+.astro/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Cloudflare
+.wrangler/
