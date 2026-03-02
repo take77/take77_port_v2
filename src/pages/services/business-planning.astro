@@ -19,12 +19,22 @@ const serviceItems = [
   'KPI設計・モニタリング体制構築',
   '経営会議資料作成支援',
 ];
+
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  provider: { '@type': 'Person', name: 'take77' },
+  name: '経営企画',
+  description: '事業計画の策定から新規事業の立ち上げ支援まで。データに基づく意思決定と戦略立案で、ビジネスの成長を加速します。',
+  url: 'https://take77-port.com/services/business-planning',
+};
 ---
 
 <BaseLayout
   title="経営企画 | take77"
   description="事業計画の策定から新規事業の立ち上げ支援まで。データに基づく意思決定と戦略立案で、ビジネスの成長を加速します。"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
   <div class="breadcrumb-area">
     <Breadcrumb items={[
       { label: 'ホーム', href: '/' },

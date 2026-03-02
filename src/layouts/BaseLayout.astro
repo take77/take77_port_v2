@@ -64,6 +64,7 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="ja_JP" />
 
     <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -73,10 +74,22 @@ const jsonLd = {
     <meta property="twitter:image" content={ogImageUrl} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- JSON-LD Structured Data (spec §9.2) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Google Analytics 4 -->
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA4_MEASUREMENT_ID}`}></script>
+    <script is:inline define:vars={{ gaId: import.meta.env.PUBLIC_GA4_MEASUREMENT_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
   </head>
   <body>
     <!-- Layer 0: Background blobs (z-index: 0) -->
