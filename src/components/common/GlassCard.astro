@@ -1,0 +1,42 @@
+---
+interface Props {
+  class?: string;
+  href?: string;
+  hoverable?: boolean;
+}
+
+const { class: className = '', href, hoverable = false } = Astro.props;
+
+const baseStyle = [
+  'glass',
+  hoverable ? 'glass-hoverable' : '',
+  className,
+].filter(Boolean).join(' ');
+---
+
+{href ? (
+  <a href={href} class={baseStyle}>
+    <slot />
+  </a>
+) : (
+  <div class={baseStyle}>
+    <slot />
+  </div>
+)}
+
+<style>
+  .glass-hoverable {
+    cursor: pointer;
+  }
+
+  .glass-hoverable:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-4px);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .glass-hoverable:hover {
+      transform: none;
+    }
+  }
+</style>

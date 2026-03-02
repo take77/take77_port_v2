@@ -1,0 +1,57 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+
+const schemaItems = items.map((item, index) => ({
+  '@type': 'ListItem',
+  position: index + 1,
+  name: item.label,
+  ...(item.href ? { item: item.href } : {}),
+}));
+
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: schemaItems,
+});
+---
+
+<script type="application/ld+json" set:html={schema} />
+
+<nav aria-label="パンくずリスト">
+  <ol class="flex flex-wrap items-center gap-1 text-sm">
+    {items.map((item, index) => {
+      const isLast = index === items.length - 1;
+      return (
+        <li class="flex items-center gap-1">
+          {isLast ? (
+            <span class="text-current-page" aria-current="page">{item.label}</span>
+          ) : (
+            <a href={item.href} class="text-breadcrumb hover:text-white transition-colors duration-200">{item.label}</a>
+          )}
+          {!isLast && (
+            <span class="text-breadcrumb select-none" aria-hidden="true">/</span>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+<style>
+  .text-breadcrumb {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .text-current-page {
+    color: #f0f0f5;
+  }
+</style>
