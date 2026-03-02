@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  width: number;
+  height: number;
+  themeColor: string;
+}
+
+const { src, alt, width, height, themeColor } = Astro.props;
+---
+
+<div class="duotone-wrapper">
+  {/* Layer 4 (bottom): base image with grayscale + brightness + contrast */}
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    class="duotone-image"
+    loading="lazy"
+  />
+  {/* Layer 3: color tint — mix-blend-mode: color */}
+  <div
+    class="duotone-layer duotone-color"
+    style={`background: linear-gradient(to bottom, ${themeColor}cc 0%, ${themeColor}66 100%);`}
+    aria-hidden="true"
+  />
+  {/* Layer 2: color overlay — mix-blend-mode: overlay */}
+  <div
+    class="duotone-layer duotone-overlay"
+    style={`background: linear-gradient(to bottom, ${themeColor}45 0%, transparent 100%);`}
+    aria-hidden="true"
+  />
+  {/* Layer 1 (top): bottom fade gradient */}
+  <div
+    class="duotone-layer duotone-fade"
+    aria-hidden="true"
+  />
+</div>
+
+<style>
+  .duotone-wrapper {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+
+  .duotone-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.6) contrast(1.1);
+  }
+
+  .duotone-layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  .duotone-color {
+    mix-blend-mode: color;
+  }
+
+  .duotone-overlay {
+    mix-blend-mode: overlay;
+  }
+
+  .duotone-fade {
+    background: linear-gradient(to bottom, transparent 50%, var(--color-bg-mid, #1a0f24) 100%);
+    mix-blend-mode: normal;
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .duotone-color,
+    .duotone-overlay {
+      display: none;
+    }
+
+    .duotone-image {
+      filter: grayscale(50%) brightness(0.8);
+    }
+  }
+</style>
