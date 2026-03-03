@@ -20,14 +20,6 @@ const serviceJsonLd = {
   description: 'Webアプリケーション開発からAPI設計、クラウドインフラ構築まで、ビジネスの成長を支えるシステムを設計・開発します。',
   url: 'https://take77-port.com/services/system-development',
 };
-
-const features = [
-  { icon: '🖥️', text: 'Webアプリケーション設計・開発' },
-  { icon: '⚡', text: 'REST API / GraphQL API 設計・実装' },
-  { icon: '☁️', text: 'クラウドインフラ構築（AWS / GCP）' },
-  { icon: '🗄️', text: 'データベース設計・最適化' },
-  { icon: '🔄', text: 'CI/CD パイプライン構築' },
-];
 ---
 
 <BaseLayout
@@ -37,54 +29,82 @@ const features = [
   <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
 
   <!-- Breadcrumb -->
-  <div class="breadcrumb-wrap">
-    <div class="section-inner">
-      <Breadcrumb items={[
-        { label: 'ホーム', href: '/' },
-        { label: 'システム開発' },
-      ]} />
-    </div>
+  <div class="breadcrumb-area">
+    <Breadcrumb items={[
+      { label: 'ホーム', href: '/' },
+      { label: 'システム開発' },
+    ]} />
   </div>
 
   <!-- Service Hero -->
   <section class="section">
     <div class="section-inner">
+      <!-- Service Icon -->
+      <div class="service-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6" />
+          <polyline points="8 6 2 12 8 18" />
+        </svg>
+      </div>
+
       <SectionTitle
         title="システム開発"
         subtitle="System Development"
         accent="Service"
       />
 
-      <div class="service-layout">
-        <!-- Service description -->
-        <div class="service-description">
-          <p class="service-lead">
-            Webアプリケーション開発からAPI設計、クラウドインフラ構築まで、
-            ビジネスの成長を支えるシステムを設計・開発します。
-            要件定義から設計、実装、運用まで一貫して対応し、
-            スケーラブルで保守性の高いシステムを提供します。
-          </p>
-          <p class="service-body">
-            フルスタック開発の経験を活かし、フロントエンドからバックエンド、
-            インフラまでトータルにサポート。
-            モダンな技術スタックと確立されたベストプラクティスで、
-            長期的に価値を生み出すシステムをご提供します。
-          </p>
-        </div>
-
-        <!-- Features list -->
-        <GlassCard class="features-card">
-          <h3 class="features-heading">提供内容</h3>
-          <ul class="features-list" role="list">
-            {features.map((feature) => (
-              <li class="feature-item">
-                <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
-                <span class="feature-text">{feature.text}</span>
-              </li>
-            ))}
-          </ul>
-        </GlassCard>
+      <!-- Service description -->
+      <div class="service-description">
+        <p class="service-lead">
+          Webアプリケーション開発からAPI設計、クラウドインフラ構築まで、
+          ビジネスの成長を支えるシステムを設計・開発します。
+          要件定義から設計、実装、運用まで一貫して対応し、
+          スケーラブルで保守性の高いシステムを提供します。
+        </p>
+        <p class="service-body">
+          フルスタック開発の経験を活かし、フロントエンドからバックエンド、
+          インフラまでトータルにサポート。
+          モダンな技術スタックと確立されたベストプラクティスで、
+          長期的に価値を生み出すシステムをご提供します。
+        </p>
       </div>
+
+      <!-- Features list -->
+      <GlassCard class="features-card">
+        <h3 class="features-heading">提供内容</h3>
+        <ul class="features-list" role="list">
+          <li class="feature-item">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+            <span class="feature-text">Webアプリケーション設計・開発</span>
+          </li>
+          <li class="feature-item">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+            </svg>
+            <span class="feature-text">REST API / GraphQL API 設計・実装</span>
+          </li>
+          <li class="feature-item">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+            </svg>
+            <span class="feature-text">クラウドインフラ構築（AWS / GCP）</span>
+          </li>
+          <li class="feature-item">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+            </svg>
+            <span class="feature-text">データベース設計・最適化</span>
+          </li>
+          <li class="feature-item">
+            <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="6" y1="3" x2="6" y2="15" /><circle cx="18" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M18 9a9 9 0 0 1-9 9" />
+            </svg>
+            <span class="feature-text">CI/CD パイプライン構築</span>
+          </li>
+        </ul>
+      </GlassCard>
     </div>
   </section>
 
@@ -122,8 +142,10 @@ const features = [
 </BaseLayout>
 
 <style>
-  .breadcrumb-wrap {
-    padding: 1.5rem 2rem 0;
+  .breadcrumb-area {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 2rem 0;
   }
 
   .section {
@@ -137,11 +159,13 @@ const features = [
     width: 100%;
   }
 
-  .service-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
+  .service-icon {
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .service-description {
+    margin-bottom: 3rem;
   }
 
   .service-lead {
@@ -149,33 +173,46 @@ const features = [
     line-height: 1.9;
     color: var(--color-text);
     margin-bottom: 1.25rem;
+    max-width: 720px;
   }
 
   .service-body {
     font-size: 0.95rem;
     line-height: 1.9;
     color: var(--color-text-sub);
+    max-width: 720px;
   }
 
   .features-card {
-    padding: 2rem;
+    padding: 2.5rem;
+    max-width: 720px;
+  }
+
+  /* Disable hover animation — 提供内容カードはリンクなし */
+  .features-card:hover {
+    transform: none;
+    border-color: var(--glass-border);
+    box-shadow:
+      0 8px 32px var(--glass-shadow),
+      inset 0 1px 0 var(--glass-highlight),
+      inset 0 0 20px var(--glass-glow);
+    cursor: default;
   }
 
   .features-heading {
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--color-text-accent);
-    text-transform: uppercase;
-    margin-bottom: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--color-text-heading);
+    margin-bottom: 1.5rem;
   }
 
   .features-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.875rem;
+    gap: 1.125rem;
   }
 
   .feature-item {
@@ -185,25 +222,26 @@ const features = [
   }
 
   .feature-icon {
-    font-size: 1.25rem;
     flex-shrink: 0;
+    color: var(--color-accent);
   }
 
   .feature-text {
-    font-size: 0.95rem;
+    font-size: 0.975rem;
     color: var(--color-text);
     line-height: 1.6;
   }
 
   /* Related works */
   .section-works {
-    padding-top: 2rem;
+    padding-top: 0;
   }
 
   .works-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
+    margin-top: 2.5rem;
   }
 
   .work-card {
@@ -251,18 +289,17 @@ const features = [
   }
 
   /* Responsive */
-  @media (max-width: 639px) {
-    .breadcrumb-wrap {
-      padding: 1.25rem 1.5rem 0;
+  @media (max-width: 640px) {
+    .breadcrumb-area {
+      padding: 1.5rem 1.5rem 0;
     }
 
     .section {
       padding: 4rem 1.5rem;
     }
 
-    .service-layout {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+    .features-card {
+      padding: 1.75rem;
     }
 
     .works-grid {
