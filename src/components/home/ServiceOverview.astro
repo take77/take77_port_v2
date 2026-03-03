@@ -85,14 +85,15 @@ const services = [
 <style>
   .services-section {
     padding: 80px clamp(24px, 6vw, 80px);
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
   }
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 2.5rem;
   }
 
   .service-card {
@@ -169,6 +170,7 @@ const services = [
 
     .services-grid {
       grid-template-columns: 1fr;
+      gap: 16px;
     }
   }
 </style>
