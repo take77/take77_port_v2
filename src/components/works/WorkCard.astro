@@ -53,21 +53,27 @@ const categoryLabels: Record<string, string> = {
 <style>
   .work-card {
     display: block;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--glass-bg, rgba(255, 255, 255, 0.09));
+    backdrop-filter: blur(var(--glass-blur, 20px)) saturate(var(--glass-saturate, 200%));
+    -webkit-backdrop-filter: blur(var(--glass-blur, 20px)) saturate(var(--glass-saturate, 200%));
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
     border-radius: 0.75rem;
     overflow: hidden;
     text-decoration: none;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35),
-                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.4)),
+      inset 0 1px 0 var(--glass-highlight, rgba(255, 255, 255, 0.28)),
+      inset 0 0 20px var(--glass-glow, rgba(255, 255, 255, 0.04));
   }
 
   .work-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45),
-                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      0 16px 40px var(--glass-shadow, rgba(0, 0, 0, 0.4)),
+      inset 0 1px 0 var(--glass-highlight, rgba(255, 255, 255, 0.28)),
+      inset 0 0 24px var(--glass-glow, rgba(255, 255, 255, 0.04));
   }
 
   .card-image {
@@ -133,6 +139,7 @@ const categoryLabels: Record<string, string> = {
     .work-card {
       background: rgba(30, 15, 40, 0.95);
       backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
   }
 </style>
