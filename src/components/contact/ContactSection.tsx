@@ -144,7 +144,7 @@ export default function ContactSection() {
   };
 
   const inputClass =
-    "w-full px-4 py-[14px] rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
+    "w-full px-4 py-[18px] rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
     "bg-white/[0.08] border border-white/[0.15] text-[#f0f0f5] placeholder:text-white/30 " +
     "focus:border-[#8b5cf6] focus:bg-white/[0.10]";
 
@@ -554,8 +554,19 @@ export default function ContactSection() {
           opacity: 0.6;
           cursor: not-allowed;
         }
+        /* Fix: select option white-on-white bug */
+        #contact select option {
+          background-color: #1a0f24;
+          color: #f0f0f5;
+        }
+        /* Hide Turnstile badge (officially permitted) */
         #contact .cf-turnstile {
-          margin-top: 4px;
+          position: absolute;
+          visibility: hidden;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+          pointer-events: none;
         }
       `}</style>
     </section>
