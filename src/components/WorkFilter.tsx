@@ -28,6 +28,36 @@ const categoryLabels: Record<string, string> = {
   'video-editing': '動画編集',
 };
 
+const serviceInfo: Record<
+  string,
+  { name: string; icon: string; description: string; slug: string }
+> = {
+  'system-development': {
+    name: 'システム開発',
+    icon: '💻',
+    description: '業務システム・Webアプリケーションの設計・開発',
+    slug: 'system-development',
+  },
+  'web-development': {
+    name: 'HP開発・運用',
+    icon: '🌐',
+    description: 'コーポレートサイト・ECサイトの制作・運用',
+    slug: 'web-development',
+  },
+  'business-planning': {
+    name: '経営企画',
+    icon: '📊',
+    description: 'DX推進・業務プロセス最適化コンサルティング',
+    slug: 'business-planning',
+  },
+  'video-editing': {
+    name: '動画編集',
+    icon: '🎬',
+    description: 'プロモーション動画・企業VP制作',
+    slug: 'video-editing',
+  },
+};
+
 export default function WorkFilter({ works }: Props) {
   const [activeFilter, setActiveFilter] = useState('all');
 
@@ -35,6 +65,8 @@ export default function WorkFilter({ works }: Props) {
     activeFilter === 'all'
       ? works
       : works.filter((w) => w.serviceCategory.includes(activeFilter));
+
+  const activeService = activeFilter !== 'all' ? serviceInfo[activeFilter] : null;
 
   return (
     <div>
@@ -44,7 +76,7 @@ export default function WorkFilter({ works }: Props) {
           display: 'flex',
           gap: '8px',
           flexWrap: 'wrap',
-          marginBottom: '40px',
+          marginBottom: '32px',
         }}
       >
         {FILTER_TABS.map((tab) => {
@@ -59,7 +91,7 @@ export default function WorkFilter({ works }: Props) {
                   : 'rgba(255, 255, 255, 0.04)',
                 border: `1px solid ${isActive ? 'rgba(139, 92, 246, 0.4)' : 'rgba(255, 255, 255, 0.08)'}`,
                 borderRadius: '100px',
-                padding: '6px 18px',
+                padding: '7px 20px',
                 fontSize: '12px',
                 color: isActive ? '#a78bfa' : 'rgba(255, 255, 255, 0.5)',
                 cursor: 'pointer',
@@ -74,6 +106,81 @@ export default function WorkFilter({ works }: Props) {
           );
         })}
       </div>
+
+      {/* Service Mini-card (shown when category filter is active) */}
+      {activeService && (
+        <a
+          key={activeFilter}
+          href={`/services/${activeService.slug}`}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px',
+            padding: '16px 24px',
+            marginBottom: '32px',
+            background: 'rgba(255, 255, 255, 0.06)',
+            backdropFilter: 'blur(16px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+            border: '1px solid rgba(139, 92, 246, 0.2)',
+            borderRadius: '16px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+            textDecoration: 'none',
+            color: 'inherit',
+            animation: 'wfFadeIn 200ms ease-in-out',
+          }}
+        >
+          {/* Icon */}
+          <span
+            style={{
+              fontSize: '28px',
+              lineHeight: 1,
+              flexShrink: 0,
+            }}
+          >
+            {activeService.icon}
+          </span>
+
+          {/* Text */}
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p
+              style={{
+                color: '#a78bfa',
+                fontSize: '11px',
+                fontFamily: "'Jost', sans-serif",
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                margin: '0 0 4px',
+              }}
+            >
+              {activeService.name}
+            </p>
+            <p
+              style={{
+                color: 'rgba(255, 255, 255, 0.6)',
+                fontSize: '13px',
+                margin: 0,
+                lineHeight: 1.5,
+              }}
+            >
+              {activeService.description}
+            </p>
+          </div>
+
+          {/* Link */}
+          <span
+            style={{
+              color: '#8b5cf6',
+              fontSize: '12px',
+              fontFamily: "'Jost', sans-serif",
+              letterSpacing: '0.05em',
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}
+          >
+            詳しく見る →
+          </span>
+        </a>
+      )}
 
       {/* Works Grid */}
       {filteredWorks.length > 0 ? (
@@ -109,8 +216,8 @@ export default function WorkFilter({ works }: Props) {
 
       <style>{`
         @keyframes wfFadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from { opacity: 0; transform: translateY(4px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>
@@ -143,7 +250,6 @@ function WorkCard({ work }: { work: Work }) {
     >
       {/* Duotone Image: 16:9 aspect ratio */}
       <div
-        className="card-image-wrapper"
         style={{
           position: 'relative',
           width: '100%',
@@ -189,14 +295,14 @@ function WorkCard({ work }: { work: Work }) {
       </div>
 
       {/* Card Content */}
-      <div style={{ padding: '20px 24px 24px' }}>
+      <div style={{ padding: '20px 24px 28px' }}>
         {/* Category Tags */}
         <div
           style={{
             display: 'flex',
             gap: '6px',
             flexWrap: 'wrap',
-            marginBottom: '12px',
+            marginBottom: '16px',
           }}
         >
           {work.serviceCategory.map((cat) => (
@@ -204,7 +310,7 @@ function WorkCard({ work }: { work: Work }) {
               key={cat}
               style={{
                 fontSize: '10px',
-                padding: '3px 10px',
+                padding: '4px 12px',
                 borderRadius: '100px',
                 background: 'rgba(139, 92, 246, 0.2)',
                 color: '#a78bfa',
@@ -223,7 +329,7 @@ function WorkCard({ work }: { work: Work }) {
             fontSize: '16px',
             fontWeight: 400,
             color: '#ffffff',
-            margin: '0 0 8px',
+            margin: '0 0 12px',
             fontFamily: "'Jost', 'Sawarabi Gothic', sans-serif",
             lineHeight: 1.6,
           }}
@@ -237,7 +343,7 @@ function WorkCard({ work }: { work: Work }) {
             fontSize: '13px',
             color: 'rgba(255, 255, 255, 0.5)',
             margin: 0,
-            lineHeight: 1.7,
+            lineHeight: 1.75,
             display: '-webkit-box',
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
