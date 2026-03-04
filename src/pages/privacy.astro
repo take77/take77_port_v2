@@ -74,7 +74,7 @@ import Breadcrumb from '../components/common/Breadcrumb.astro';
 <style>
   .section {
     position: relative;
-    padding: 4rem 1.5rem 6rem;
+    padding: 4rem clamp(1.5rem, 6vw, 5rem) 6rem;
   }
 
   .section-inner {
@@ -149,7 +149,7 @@ import Breadcrumb from '../components/common/Breadcrumb.astro';
 
   @media (max-width: 640px) {
     .section {
-      padding: 3rem 1rem 4rem;
+      padding: 3rem 1.5rem 4rem;
     }
 
     h1 {

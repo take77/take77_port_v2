@@ -107,7 +107,7 @@ const creativeWorkJsonLd = {
     </div>
 
     <!-- Project metadata card -->
-    <div class="project-info">
+    <div class="glass project-info">
       {
         work.data.client && (
           <div class="info-row">
@@ -177,9 +177,9 @@ const creativeWorkJsonLd = {
 
 <style>
   .page-container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 48px clamp(24px, 6vw, 80px) 80px;
+    padding: 48px clamp(1.5rem, 6vw, 5rem) 80px;
   }
 
   /* ── Work header ── */
@@ -260,22 +260,18 @@ const creativeWorkJsonLd = {
     object-fit: cover;
   }
 
-  /* ── Project info card (glassmorphism) ── */
+  /* ── Project info card (.glass from global.css) ── */
   .project-info {
-    background: var(--glass-bg, rgba(255, 255, 255, 0.09));
-    backdrop-filter: blur(var(--glass-blur, 20px)) saturate(var(--glass-saturate, 200%));
-    -webkit-backdrop-filter: blur(var(--glass-blur, 20px)) saturate(var(--glass-saturate, 200%));
-    border-radius: var(--glass-radius, 16px);
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
-    box-shadow:
-      0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.4)),
-      inset 0 1px 0 var(--glass-highlight, rgba(255, 255, 255, 0.28)),
-      inset 0 0 20px var(--glass-glow, rgba(255, 255, 255, 0.04));
     padding: 28px 32px;
     margin-bottom: 48px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+  }
+
+  /* Suppress hover lift on this static info card */
+  .project-info:hover {
+    transform: none;
   }
 
   .info-row {
@@ -308,12 +304,18 @@ const creativeWorkJsonLd = {
   }
 
   .tech-badge {
-    font-size: 0.8rem;
-    padding: 4px 12px;
+    font-size: 0.75rem;
+    padding: 5px 14px;
     border-radius: 8px;
-    background: rgba(139, 92, 246, 0.1);
-    border: 1px solid rgba(139, 92, 246, 0.15);
-    color: #a78bfa;
+    background: rgba(139, 92, 246, 0.18);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    color: #c4b5fd;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    font-family: 'Jost', sans-serif;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 
   .external-link {
