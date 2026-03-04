@@ -255,6 +255,8 @@ function WorkCard({ work }: { work: Work }) {
           width: '100%',
           aspectRatio: '16 / 9',
           overflow: 'hidden',
+          borderTopLeftRadius: '16px',
+          borderTopRightRadius: '16px',
         }}
       >
         <img
