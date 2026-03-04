@@ -144,7 +144,7 @@ export default function ContactSection() {
   };
 
   const inputClass =
-    "w-full px-6 py-[14px] rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
+    "w-full rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
     "bg-white/[0.08] border border-white/[0.15] text-[#f0f0f5] placeholder:text-white/30 " +
     "focus:border-[#8b5cf6] focus:bg-white/[0.10]";
 
@@ -543,22 +543,20 @@ export default function ContactSection() {
           to { transform: rotate(360deg); }
         }
         /* Unified padding for all form fields: px=24px, py=14px (Stripe/Linear style) */
+        /* All padding managed here to avoid Tailwind specificity conflicts */
         #contact input[type="text"],
         #contact input[type="email"] {
-          padding-top: 14px;
-          padding-bottom: 14px;
+          padding: 14px 24px;
           min-height: 48px;
           box-sizing: border-box;
         }
         #contact select {
-          padding-top: 14px;
-          padding-bottom: 14px;
+          padding: 14px 24px;
           height: 48px;
           box-sizing: border-box;
         }
         #contact textarea {
-          padding-top: 14px;
-          padding-bottom: 14px;
+          padding: 14px 24px;
           box-sizing: border-box;
         }
         #contact input:focus,
