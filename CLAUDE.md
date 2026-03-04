@@ -72,3 +72,5 @@
 - 全画像にalt属性必須
 - Astroの<Image />コンポーネントで画像最適化
 - CSSカスタムプロパティでデザイントークン管理
+- **CSS 棲み分けルール**: `docs/css-strategy.md` を参照すること
+  （Tailwind と style タグの混在禁止、詳細度競合の防止策）
