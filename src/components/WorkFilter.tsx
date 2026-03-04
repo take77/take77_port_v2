@@ -214,12 +214,6 @@ export default function WorkFilter({ works }: Props) {
         </div>
       )}
 
-      <style>{`
-        @keyframes wfFadeIn {
-          from { opacity: 0; transform: translateY(4px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </div>
   );
 }

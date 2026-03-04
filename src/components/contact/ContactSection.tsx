@@ -145,8 +145,7 @@ export default function ContactSection() {
 
   const inputClass =
     "w-full rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
-    "bg-white/[0.08] border border-white/[0.15] text-[#f0f0f5] placeholder:text-white/30 " +
-    "focus:border-[#8b5cf6] focus:bg-white/[0.10]";
+    "bg-white/[0.08] border border-white/[0.15] text-[#f0f0f5] placeholder:text-white/30";
 
   return (
     <section
