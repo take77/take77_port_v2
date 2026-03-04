@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import SectionTitle from '../common/SectionTitle.astro';
+import SectionWrapper from '../common/SectionWrapper.astro';
 import avatarImg from '../../../avatar.jpg';
 ---
 
-<section id="about" class="about-section">
-  <div class="about-container">
-    <SectionTitle accent="About" title="自己紹介" />
+<SectionWrapper id="about">
+  <SectionTitle accent="About" title="自己紹介" />
 
     <div class="glass about-card">
       <div class="about-grid">
@@ -146,19 +146,9 @@ import avatarImg from '../../../avatar.jpg';
 
       </div>
     </div>
-  </div>
-</section>
+</SectionWrapper>
 
 <style>
-  .about-section {
-    padding: 80px clamp(24px, 6vw, 80px);
-  }
-
-  .about-container {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
   .about-card {
     padding: 0;
     overflow: hidden;
@@ -318,10 +308,6 @@ import avatarImg from '../../../avatar.jpg';
 
   /* ── Responsive: Mobile (≤640px) ── */
   @media (max-width: 640px) {
-    .about-section {
-      padding: 60px clamp(20px, 5vw, 40px);
-    }
-
     .about-grid {
       grid-template-columns: 1fr;
     }

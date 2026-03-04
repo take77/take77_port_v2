@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import SectionTitle from "../common/SectionTitle.astro";
 import WorkCard from "../works/WorkCard.astro";
+import SectionWrapper from "../common/SectionWrapper.astro";
 
 const categoryColors: Record<string, string> = {
   "system-development": "#6366f1",
@@ -32,47 +33,36 @@ if (works.length < 3) {
 }
 ---
 
-<section id="works" class="featured-works-section">
-  <div class="featured-works-inner">
-    <SectionTitle accent="Featured Works" title="Works" subtitle="実績ハイライト" />
+<SectionWrapper id="works">
+  <SectionTitle accent="Featured Works" title="Works" subtitle="実績ハイライト" />
 
-    <div class="works-grid">
-      {works.map((work) => {
-        const primaryCategory = work.data.serviceCategory[0];
-        const themeColor = categoryColors[primaryCategory] ?? "#8b5cf6";
-        // work.id is like "corporate-site-redesign/index" from glob loader
-        const slug = work.id.split("/")[0];
+  <div class="works-grid">
+    {works.map((work) => {
+      const primaryCategory = work.data.serviceCategory[0];
+      const themeColor = categoryColors[primaryCategory] ?? "#8b5cf6";
+      // work.id is like "corporate-site-redesign/index" from glob loader
+      const slug = work.id.split("/")[0];
 
-        return (
-          <WorkCard
-            slug={slug}
-            title={work.data.title}
-            description={work.data.description}
-            thumbnail={work.data.thumbnail}
-            serviceCategory={work.data.serviceCategory}
-            themeColor={themeColor}
-            technologies={work.data.technologies.slice(0, 4)}
-          />
-        );
-      })}
-    </div>
-
-    <div class="works-more">
-      <a href="/works" class="works-all-link">すべての実績を見る →</a>
-    </div>
+      return (
+        <WorkCard
+          slug={slug}
+          title={work.data.title}
+          description={work.data.description}
+          thumbnail={work.data.thumbnail}
+          serviceCategory={work.data.serviceCategory}
+          themeColor={themeColor}
+          technologies={work.data.technologies.slice(0, 4)}
+        />
+      );
+    })}
   </div>
-</section>
+
+  <div class="works-more">
+    <a href="/works" class="works-all-link">すべての実績を見る →</a>
+  </div>
+</SectionWrapper>
 
 <style>
-  .featured-works-section {
-    padding: 80px clamp(24px, 6vw, 80px);
-  }
-
-  .featured-works-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
   /* Grid: 3 columns → 2 (tablet) → 1 (mobile) */
   .works-grid {
     display: grid;

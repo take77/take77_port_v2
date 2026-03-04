@@ -1,0 +1,38 @@
+---
+interface Props {
+  class?: string;
+  id?: string;
+  as?: string;
+}
+const { class: className, id, as: Tag = 'section' } = Astro.props;
+---
+
+<Tag id={id} class:list={["section-wrapper", className]}>
+  <div class="section-inner">
+    <slot />
+  </div>
+</Tag>
+
+<style>
+  /* ── Outer shell: vertical rhythm only ── */
+  .section-wrapper {
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  /* ── Inner container: max-width + horizontal padding ── */
+  .section-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: clamp(1.5rem, 6vw, 5rem);
+    padding-right: clamp(1.5rem, 6vw, 5rem);
+  }
+
+  @media (max-width: 640px) {
+    .section-wrapper {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+  }
+</style>

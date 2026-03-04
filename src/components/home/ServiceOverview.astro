@@ -1,6 +1,7 @@
 ---
 import GlassCard from '../common/GlassCard.astro';
 import SectionTitle from '../common/SectionTitle.astro';
+import SectionWrapper from '../common/SectionWrapper.astro';
 
 const services = [
   {
@@ -38,7 +39,7 @@ const services = [
 ];
 ---
 
-<section id="services" class="services-section">
+<SectionWrapper id="services">
   <SectionTitle title="提供サービス" accent="Services" />
   <div class="services-grid">
     {services.map((service) => (
@@ -80,15 +81,9 @@ const services = [
       </GlassCard>
     ))}
   </div>
-</section>
+</SectionWrapper>
 
 <style>
-  .services-section {
-    padding: 80px clamp(24px, 6vw, 80px);
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
   .services-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -164,10 +159,6 @@ const services = [
   }
 
   @media (max-width: 640px) {
-    .services-section {
-      padding: 60px clamp(16px, 5vw, 24px);
-    }
-
     .services-grid {
       grid-template-columns: 1fr;
       gap: 16px;
