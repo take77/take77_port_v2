@@ -1,24 +1,5 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../components/common/Breadcrumb.astro';
-import SectionTitle from '../../components/common/SectionTitle.astro';
-import GlassCard from '../../components/common/GlassCard.astro';
-import DuotoneImage from '../../components/common/DuotoneImage.astro';
-import ContactSection from '../../components/contact/ContactSection.tsx';
-import { getCollection } from 'astro:content';
-
-const works = await getCollection('works', ({ data }) =>
-  !data.draft && data.serviceCategory.includes('video-editing')
-);
-const sortedWorks = works.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-const serviceItems = [
-  'YouTube動画編集・サムネイル制作',
-  '企業プロモーション映像制作',
-  'SNS向けショート動画制作',
-  'モーショングラフィックス',
-  '動画コンテンツ企画・構成',
-];
+import ServiceDetailLayout from '../../components/ServiceDetailLayout.astro';
 
 const serviceJsonLd = {
   '@context': 'https://schema.org',
@@ -28,251 +9,27 @@ const serviceJsonLd = {
   description: 'YouTube動画からプロモーション映像まで。企画・撮影サポートから編集・納品まで、映像制作をトータルでサポートします。',
   url: 'https://take77-port.com/services/video-editing',
 };
+
+const checkIcon = '<polyline points="20 6 9 17 4 12" />';
+
+const features = [
+  { icon: checkIcon, label: 'YouTube動画編集・サムネイル制作' },
+  { icon: checkIcon, label: '企業プロモーション映像制作' },
+  { icon: checkIcon, label: 'SNS向けショート動画制作' },
+  { icon: checkIcon, label: 'モーショングラフィックス' },
+  { icon: checkIcon, label: '動画コンテンツ企画・構成' },
+];
 ---
 
-<BaseLayout
-  title="動画編集 | take77"
-  description="YouTube動画からプロモーション映像まで。企画・撮影サポートから編集・納品まで、映像制作をトータルでサポートします。"
->
-  <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
-
-  <!-- Breadcrumb -->
-  <div class="breadcrumb-area">
-    <Breadcrumb items={[
-      { label: 'ホーム', href: '/' },
-      { label: '動画編集' },
-    ]} />
-  </div>
-
-  <!-- Service Detail Section -->
-  <section class="section">
-    <div class="section-inner">
-      <!-- Service Icon -->
-      <div class="service-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="23 7 16 12 23 17 23 7" />
-          <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
-        </svg>
-      </div>
-
-      <SectionTitle title="動画編集" subtitle="Video Editing" accent="Service" />
-
-      <!-- Service description -->
-      <div class="service-description">
-        <p class="service-lead">
-          YouTube動画からプロモーション映像まで。企画・撮影サポートから編集・納品まで、映像制作をトータルでサポートします。
-        </p>
-      </div>
-
-      <!-- Features list -->
-      <GlassCard class="features-card">
-        <div class="features-inner">
-        <h3 class="features-heading">提供内容</h3>
-        <ul class="features-list" role="list">
-          {serviceItems.map((item) => (
-            <li class="feature-item">
-              <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <span class="feature-text">{item}</span>
-            </li>
-          ))}
-        </ul>
-        </div>
-      </GlassCard>
-    </div>
-  </section>
-
-  <!-- Related Works (hidden if empty) -->
-  {sortedWorks.length > 0 && (
-    <section class="section section-works">
-      <div class="section-inner">
-        <SectionTitle title="関連実績" accent="Works" />
-        <div class="works-grid">
-          {sortedWorks.map((work) => (
-            <GlassCard href={`/works/${work.id}`} hoverable class="work-card">
-              <div class="work-image-wrap">
-                <DuotoneImage
-                  src={work.data.thumbnail}
-                  alt={work.data.title}
-                  width={600}
-                  height={400}
-                  themeColor="#8b5cf6"
-                />
-              </div>
-              <div class="work-body">
-                <h3 class="work-title">{work.data.title}</h3>
-                <p class="work-description">{work.data.description}</p>
-                <span class="work-link" aria-hidden="true">詳しく見る →</span>
-              </div>
-            </GlassCard>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <ContactSection client:visible />
-</BaseLayout>
-
-<style>
-  .breadcrumb-area {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 2rem 0;
-  }
-
-  .section {
-    position: relative;
-    padding: 6rem 2rem;
-  }
-
-  .section-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .service-icon {
-    color: var(--color-accent);
-    margin-bottom: 1.5rem;
-  }
-
-  .service-description {
-    margin-bottom: 3rem;
-  }
-
-  .service-lead {
-    font-size: 1.1rem;
-    line-height: 1.9;
-    color: var(--color-text);
-    max-width: 720px;
-  }
-
-  .features-card {
-    max-width: 720px;
-  }
-
-  .features-inner {
-    padding: 1.5rem 2rem;
-  }
-
-  /* Disable hover animation — 提供内容カードはリンクなし */
-  .features-card:hover {
-    transform: none;
-    border-color: var(--glass-border);
-    box-shadow:
-      0 8px 32px var(--glass-shadow),
-      inset 0 1px 0 var(--glass-highlight),
-      inset 0 0 20px var(--glass-glow);
-    cursor: default;
-  }
-
-  .features-heading {
-    font-family: var(--font-heading);
-    font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--color-text-heading);
-    margin-bottom: 1.5rem;
-  }
-
-  .features-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1.125rem;
-  }
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-  }
-
-  .feature-icon {
-    flex-shrink: 0;
-    color: var(--color-accent);
-  }
-
-  .feature-text {
-    font-size: 0.975rem;
-    color: var(--color-text);
-    line-height: 1.6;
-  }
-
-  /* Related works */
-  .section-works {
-    padding-top: 0;
-  }
-
-  .works-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-  }
-
-  .work-card {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .work-image-wrap {
-    aspect-ratio: 3 / 2;
-    overflow: hidden;
-  }
-
-  .work-body {
-    padding: 1.25rem 1.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex: 1;
-  }
-
-  .work-title {
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-text-heading);
-    line-height: 1.4;
-  }
-
-  .work-description {
-    font-size: 0.875rem;
-    color: var(--color-text-sub);
-    line-height: 1.7;
-    flex: 1;
-  }
-
-  .work-link {
-    font-size: 0.8rem;
-    color: var(--color-text-accent);
-    font-family: var(--font-heading);
-    letter-spacing: 0.05em;
-    margin-top: 0.25rem;
-  }
-
-  /* Responsive */
-  @media (max-width: 640px) {
-    .breadcrumb-area {
-      padding: 1.5rem 1.5rem 0;
-    }
-
-    .section {
-      padding: 4rem 1.5rem;
-    }
-
-    .features-inner {
-      padding: 1.25rem 1.5rem;
-    }
-
-    .works-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+<ServiceDetailLayout
+  pageTitle="動画編集 | take77"
+  pageDescription="YouTube動画からプロモーション映像まで。企画・撮影サポートから編集・納品まで、映像制作をトータルでサポートします。"
+  breadcrumbLabel="動画編集"
+  iconSvg="<polygon points='23 7 16 12 23 17 23 7' /><rect x='1' y='5' width='15' height='14' rx='2' ry='2' />"
+  title="動画編集"
+  subtitle="Video Editing"
+  leadText="YouTube動画からプロモーション映像まで。企画・撮影サポートから編集・納品まで、映像制作をトータルでサポートします。"
+  features={features}
+  category="video-editing"
+  serviceJsonLd={serviceJsonLd}
+/>

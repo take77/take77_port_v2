@@ -1,0 +1,286 @@
+---
+/**
+ * ServiceDetailLayout.astro
+ * 全サービス詳細ページ共通レイアウト
+ * Hero + Features card + 関連実績(WorkCard) + Contact を統一構成で提供
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from './common/Breadcrumb.astro';
+import SectionTitle from './common/SectionTitle.astro';
+import GlassCard from './common/GlassCard.astro';
+import WorkCard from './works/WorkCard.astro';
+import ContactSection from './contact/ContactSection.tsx';
+import { getCollection } from 'astro:content';
+
+interface Feature {
+  /** SVG inner HTML (set:html に渡す) */
+  icon: string;
+  /** 提供内容のラベル */
+  label: string;
+}
+
+interface Props {
+  /** <title> / OGP 用ページタイトル */
+  pageTitle: string;
+  /** meta description */
+  pageDescription: string;
+  /** パンくずリスト最終ラベル */
+  breadcrumbLabel: string;
+  /** SectionTitle に渡すタイトル（日本語） */
+  title: string;
+  /** SectionTitle に渡すサブタイトル（英語） */
+  subtitle: string;
+  /** ヒーローアイコン SVG inner HTML */
+  iconSvg: string;
+  /** 主説明文（リード） */
+  leadText: string;
+  /** 副説明文（任意） */
+  bodyText?: string;
+  /** 提供内容リスト */
+  features: Feature[];
+  /** getCollection フィルタ用カテゴリスラッグ */
+  category: string;
+  /** JSON-LD 構造化データ */
+  serviceJsonLd: object;
+  /** WorkCard テーマカラー（省略時 #8b5cf6） */
+  themeColor?: string;
+}
+
+const {
+  pageTitle,
+  pageDescription,
+  breadcrumbLabel,
+  title,
+  subtitle,
+  iconSvg,
+  leadText,
+  bodyText,
+  features,
+  category,
+  serviceJsonLd,
+  themeColor = '#8b5cf6',
+} = Astro.props;
+
+const allWorks = await getCollection('works', ({ data }) =>
+  !data.draft && data.serviceCategory.includes(category)
+);
+const relatedWorks = allWorks.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-area">
+    <Breadcrumb items={[
+      { label: 'ホーム', href: '/' },
+      { label: breadcrumbLabel },
+    ]} />
+  </div>
+
+  <!-- Service Hero -->
+  <section class="section">
+    <div class="section-inner">
+      <!-- Hero icon -->
+      <div class="service-icon" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          set:html={iconSvg}
+        />
+      </div>
+
+      <SectionTitle title={title} subtitle={subtitle} accent="Service" />
+
+      <!-- Description -->
+      <div class="service-description">
+        <p class="service-lead">{leadText}</p>
+        {bodyText && <p class="service-body">{bodyText}</p>}
+      </div>
+
+      <!-- Features card -->
+      <GlassCard class="features-card">
+        <div class="features-inner">
+          <h3 class="features-heading">提供内容</h3>
+          <ul class="features-list" role="list">
+            {features.map((feature) => (
+              <li class="feature-item">
+                <svg
+                  class="feature-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={feature.icon}
+                />
+                <span class="feature-text">{feature.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </GlassCard>
+    </div>
+  </section>
+
+  <!-- Related Works -->
+  {relatedWorks.length > 0 && (
+    <section class="section section-works">
+      <div class="section-inner">
+        <SectionTitle title="関連実績" accent="Works" />
+        <div class="works-grid">
+          {relatedWorks.map((work) => (
+            <WorkCard
+              slug={work.id}
+              title={work.data.title}
+              description={work.data.description}
+              thumbnail={work.data.thumbnail}
+              serviceCategory={work.data.serviceCategory}
+              themeColor={themeColor}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <ContactSection client:visible />
+</BaseLayout>
+
+<style>
+  .breadcrumb-area {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 2rem 0;
+  }
+
+  .section {
+    position: relative;
+    padding: 6rem 2rem;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .service-icon {
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .service-description {
+    margin-bottom: 3rem;
+  }
+
+  .service-lead {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+    max-width: 720px;
+  }
+
+  .service-body {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--color-text-sub);
+    max-width: 720px;
+  }
+
+  .features-card {
+    max-width: 720px;
+  }
+
+  .features-inner {
+    padding: 1.5rem 2rem;
+  }
+
+  /* 提供内容カードはリンクなし — hover アニメーション無効化 */
+  .features-card:hover {
+    transform: none;
+    border-color: var(--glass-border);
+    box-shadow:
+      0 8px 32px var(--glass-shadow),
+      inset 0 1px 0 var(--glass-highlight),
+      inset 0 0 20px var(--glass-glow);
+    cursor: default;
+  }
+
+  .features-heading {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-text-heading);
+    margin-bottom: 1.5rem;
+  }
+
+  .features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .feature-icon {
+    flex-shrink: 0;
+    color: var(--color-accent);
+  }
+
+  .feature-text {
+    font-size: 0.975rem;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  /* Related works */
+  .section-works {
+    padding-top: 0;
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .breadcrumb-area {
+      padding: 1.5rem 1.5rem 0;
+    }
+
+    .section {
+      padding: 4rem 1.5rem;
+    }
+
+    .features-inner {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .works-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
