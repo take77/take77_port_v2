@@ -144,7 +144,7 @@ export default function ContactSection() {
   };
 
   const inputClass =
-    "w-full px-5 py-[28px] rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
+    "w-full px-6 py-[14px] rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
     "bg-white/[0.08] border border-white/[0.15] text-[#f0f0f5] placeholder:text-white/30 " +
     "focus:border-[#8b5cf6] focus:bg-white/[0.10]";
 
@@ -542,23 +542,23 @@ export default function ContactSection() {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
-        /* Ensure sufficient padding and unified height for all form fields */
+        /* Unified padding for all form fields: px=24px, py=14px (Stripe/Linear style) */
         #contact input[type="text"],
         #contact input[type="email"] {
-          padding-top: 20px;
-          padding-bottom: 20px;
-          min-height: 60px;
+          padding-top: 14px;
+          padding-bottom: 14px;
+          min-height: 48px;
           box-sizing: border-box;
         }
         #contact select {
-          padding-top: 20px;
-          padding-bottom: 20px;
-          height: 60px;
+          padding-top: 14px;
+          padding-bottom: 14px;
+          height: 48px;
           box-sizing: border-box;
         }
         #contact textarea {
-          padding-top: 20px;
-          padding-bottom: 20px;
+          padding-top: 14px;
+          padding-bottom: 14px;
           box-sizing: border-box;
         }
         #contact input:focus,
