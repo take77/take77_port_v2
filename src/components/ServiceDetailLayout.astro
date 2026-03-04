@@ -209,15 +209,13 @@ const relatedWorks = allWorks.sort((a, b) => b.data.date.getTime() - a.data.date
     padding: 1.5rem 2rem;
   }
 
-  /* 提供内容カードはリンクなし — hover アニメーション無効化 */
+  /* 提供内容カードはリンクなし — ホバー視覚フィードバック抑制 */
   .features-card:hover {
-    transform: none;
     border-color: var(--glass-border);
     box-shadow:
       0 8px 32px var(--glass-shadow),
       inset 0 1px 0 var(--glass-highlight),
       inset 0 0 20px var(--glass-glow);
-    cursor: default;
   }
 
   .features-heading {
