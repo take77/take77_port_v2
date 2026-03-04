@@ -144,14 +144,14 @@ export default function ContactSection() {
   };
 
   const inputClass =
-    "w-full px-4 py-[18px] rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
+    "w-full px-5 py-[22px] rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
     "bg-white/[0.08] border border-white/[0.15] text-[#f0f0f5] placeholder:text-white/30 " +
     "focus:border-[#8b5cf6] focus:bg-white/[0.10]";
 
   return (
     <section
       id="contact"
-      style={{ maxWidth: 1200, margin: "0 auto", padding: "80px clamp(24px, 6vw, 80px) 100px" }}
+      style={{ maxWidth: 1280, margin: "0 auto", padding: "80px clamp(24px, 6vw, 80px) 100px" }}
     >
       {/* Section Title */}
       <div style={{ marginBottom: 40 }}>
