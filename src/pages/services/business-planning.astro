@@ -67,6 +67,7 @@ const serviceJsonLd = {
 
       <!-- Features list -->
       <GlassCard class="features-card">
+        <div class="features-inner">
         <h3 class="features-heading">提供内容</h3>
         <ul class="features-list" role="list">
           {serviceItems.map((item) => (
@@ -78,6 +79,7 @@ const serviceJsonLd = {
             </li>
           ))}
         </ul>
+        </div>
       </GlassCard>
     </div>
   </section>
@@ -149,8 +151,11 @@ const serviceJsonLd = {
   }
 
   .features-card {
-    padding: 2.5rem;
     max-width: 720px;
+  }
+
+  .features-inner {
+    padding: 1.5rem 2rem;
   }
 
   /* Disable hover animation — 提供内容カードはリンクなし */
@@ -263,8 +268,8 @@ const serviceJsonLd = {
       padding: 4rem 1.5rem;
     }
 
-    .features-card {
-      padding: 1.75rem;
+    .features-inner {
+      padding: 1.25rem 1.5rem;
     }
 
     .works-grid {
