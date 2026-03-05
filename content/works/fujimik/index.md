@@ -10,6 +10,7 @@ thumbnail: ./thumbnail.jpg
 url: "https://fujimik.com"
 featured: true
 draft: false
+order: 5
 ---
 
 ## プロジェクト概要

@@ -10,6 +10,7 @@ thumbnail: ./thumbnail.jpg
 url: "https://www.youtube.com/@user-Agost"
 featured: false
 draft: false
+order: 9
 ---
 
 ## プロジェクト概要

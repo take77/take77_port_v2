@@ -10,6 +10,7 @@ thumbnail: ./thumbnail.jpg
 url: "https://suzuki-zei.com"
 featured: false
 draft: false
+order: 6
 ---
 
 ## プロジェクト概要
