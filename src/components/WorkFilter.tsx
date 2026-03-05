@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Monitor, Globe, BarChart3, Film } from 'lucide-react';
 
 interface Work {
   id: string;
@@ -28,31 +29,34 @@ const categoryLabels: Record<string, string> = {
   'video-editing': '動画編集',
 };
 
+const ICON_COLOR = '#a78bfa';
+const ICON_SIZE = 28;
+
 const serviceInfo: Record<
   string,
-  { name: string; icon: string; description: string; slug: string }
+  { name: string; icon: React.ReactNode; description: string; slug: string }
 > = {
   'system-development': {
     name: 'システム開発',
-    icon: '💻',
+    icon: <Monitor size={ICON_SIZE} color={ICON_COLOR} strokeWidth={1.5} />,
     description: '業務システム・Webアプリケーションの設計・開発',
     slug: 'system-development',
   },
   'web-development': {
     name: 'HP開発・運用',
-    icon: '🌐',
+    icon: <Globe size={ICON_SIZE} color={ICON_COLOR} strokeWidth={1.5} />,
     description: 'コーポレートサイト・ECサイトの制作・運用',
     slug: 'web-development',
   },
   'business-planning': {
     name: '経営企画',
-    icon: '📊',
+    icon: <BarChart3 size={ICON_SIZE} color={ICON_COLOR} strokeWidth={1.5} />,
     description: 'DX推進・業務プロセス最適化コンサルティング',
     slug: 'business-planning',
   },
   'video-editing': {
     name: '動画編集',
-    icon: '🎬',
+    icon: <Film size={ICON_SIZE} color={ICON_COLOR} strokeWidth={1.5} />,
     description: 'プロモーション動画・企業VP制作',
     slug: 'video-editing',
   },
@@ -87,9 +91,9 @@ export default function WorkFilter({ works }: Props) {
               onClick={() => setActiveFilter(tab.id)}
               style={{
                 background: isActive
-                  ? 'rgba(139, 92, 246, 0.2)'
+                  ? 'rgba(139, 92, 246, 0.35)'
                   : 'rgba(255, 255, 255, 0.04)',
-                border: `1px solid ${isActive ? 'rgba(139, 92, 246, 0.4)' : 'rgba(255, 255, 255, 0.08)'}`,
+                border: `1px solid ${isActive ? 'rgba(139, 92, 246, 0.6)' : 'rgba(255, 255, 255, 0.08)'}`,
                 borderRadius: '100px',
                 padding: '7px 20px',
                 fontSize: '12px',
@@ -99,6 +103,8 @@ export default function WorkFilter({ works }: Props) {
                 letterSpacing: '0.05em',
                 transition: 'all 0.3s ease',
                 outline: 'none',
+                fontWeight: isActive ? 600 : 400,
+                boxShadow: isActive ? '0 0 12px rgba(139, 92, 246, 0.3)' : 'none',
               }}
             >
               {tab.label}
@@ -110,7 +116,7 @@ export default function WorkFilter({ works }: Props) {
       {/* Service Mini-card (shown when category filter is active) */}
       {activeService && (
         <a
-          key={activeFilter}
+          key={`mini-${activeFilter}`}
           href={`/services/${activeService.slug}`}
           style={{
             display: 'flex',
@@ -132,9 +138,10 @@ export default function WorkFilter({ works }: Props) {
           {/* Icon */}
           <span
             style={{
-              fontSize: '28px',
               lineHeight: 1,
               flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
             }}
           >
             {activeService.icon}
@@ -185,7 +192,7 @@ export default function WorkFilter({ works }: Props) {
       {/* Works Grid */}
       {filteredWorks.length > 0 ? (
         <div
-          key={activeFilter}
+          key={`grid-${activeFilter}`}
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
@@ -199,7 +206,7 @@ export default function WorkFilter({ works }: Props) {
         </div>
       ) : (
         <div
-          key={activeFilter}
+          key={`empty-${activeFilter}`}
           style={{
             textAlign: 'center',
             padding: '60px 20px',
