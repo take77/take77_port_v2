@@ -91,128 +91,211 @@ draft: false
 
 ---
 
-### 実績リスト（現在 6 件）
+### 実績リスト（現在 10 件）
 
 件数は自由（最低 2 件推奨、上限なし）。`featured: true` にした実績がトップページに最大 3 件表示されます。
 
 ---
 
-#### 1. `content/works/corporate-site-redesign/`
+#### 1. `content/works/agost-youtube/`
 
 | フィールド | 現在の値（ダミー） | 本番の値 |
 |-----------|-----------------|---------|
-| title | 株式会社〇〇 コーポレートサイトリニューアル | |
-| description | 老朽化した企業サイトをNext.js + microCMSで再構築し、表示速度を3倍に改善。SEO強化により月間流入数が2倍に増加 | |
-| date | 2025-08-15 | |
-| client | 株式会社〇〇（製造業） | |
-| serviceCategory | web-development | |
-| technologies | Next.js, TypeScript, Tailwind CSS, microCMS, Vercel | |
-| url | https://example.com | |
-| featured | true | |
-| thumbnail | thumbnail.jpg（差し替え要） | |
+| title | — | あごすと【あのころ遊戯王】— YouTube動画 エフェクト制作・出演 |
+| description | — | 登録者約1.5万人のYouTubeチャンネルに出演者・エフェクト担当として参加。After Effectsを用いた演出エフェクトの制作と編集テンプレートの整備を担当し、動画クオリティの底上げに貢献 |
+| date | — | 2020-01-01 |
+| client | — | 個人クリエイター（非公開） |
+| serviceCategory | — | video-editing |
+| technologies | — | Adobe Premiere Pro, Adobe After Effects |
+| url | — | https://www.youtube.com/@user-Agost |
+| featured | — | false |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
 
-- [ ] フロントマター更新
-- [ ] 本文（## プロジェクト概要〜## 成果）を実際の内容に書き換え
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文（## プロジェクト概要〜## 成果）を実際の内容で記入済み
 - [ ] thumbnail.jpg を差し替え
 
 ---
 
-#### 2. `content/works/business-process-optimization/`
+#### 2. `content/works/business-consulting/`
 
 | フィールド | 現在の値（ダミー） | 本番の値 |
 |-----------|-----------------|---------|
-| title | 業務プロセス最適化コンサルティング | |
-| description | 製造業のDX推進を支援。RPAとワークフローシステム導入で月間40時間の工数削減を実現 | |
-| date | 2025-09-10 | |
-| client | 〇〇製造株式会社 | |
-| serviceCategory | business-planning | |
-| technologies | UiPath, Power Automate, kintone, Python | |
-| url | （なし） | |
-| featured | false | |
-| thumbnail | thumbnail.jpg（差し替え要） | |
+| title | — | メンタルコーチ向け ビジネス講座 カリキュラム設計コンサルティング |
+| description | — | 個人事業主として活躍するメンタルコーチ・カウンセラーに対し、高額ビジネス講座のカリキュラム設計をコンサルティング。マインドセットから商品計画・顧客関係構築まで、10日間・20名弱の講座を共に作り上げた |
+| date | — | 2025-09-01 |
+| client | — | 個人事業主（メンタルコーチ・カウンセラー） |
+| serviceCategory | — | business-planning |
+| technologies | — | （なし） |
+| url | — | （なし） |
+| featured | — | false |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
 
-- [ ] フロントマター更新
-- [ ] 本文を実際の内容に書き換え
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
 - [ ] thumbnail.jpg を差し替え
 
 ---
 
-#### 3. `content/works/ec-site-renewal/`
+#### 3. `content/works/fujimik/`
 
 | フィールド | 現在の値（ダミー） | 本番の値 |
 |-----------|-----------------|---------|
-| title | ECサイト全面リニューアル — アパレルブランド | |
-| description | Shopify + Headless CMS構成で自社ECサイトを刷新。コンバージョン率が1.5倍に向上 | |
-| date | 2025-06-20 | |
-| client | 〇〇アパレル株式会社 | |
-| serviceCategory | web-development | |
-| technologies | Shopify, Liquid, Next.js, Tailwind CSS, Cloudflare | |
-| url | （なし） | |
-| featured | false | |
-| thumbnail | thumbnail.jpg（差し替え要） | |
+| title | — | 富士見工務店 — 公式サイトリニューアル |
+| description | — | 創業60年超の工務店サイトをGatsby.jsでフルリニューアル。SSG採用によりサーバーサイドの攻撃経路を排除し、セキュリティと表示速度を同時に改善。海外スパムを含む不正アクセスをゼロに抑制 |
+| date | — | 2022-01-01 |
+| client | — | 株式会社富士見工務店 |
+| serviceCategory | — | web-development |
+| technologies | — | Gatsby.js, React, Netlify |
+| url | — | https://fujimik.com |
+| featured | — | true ★ |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
 
-- [ ] フロントマター更新
-- [ ] 本文を実際の内容に書き換え
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
 - [ ] thumbnail.jpg を差し替え
 
 ---
 
-#### 4. `content/works/inventory-management-system/`
+#### 4. `content/works/fukugyo-sensei-biz/`
 
 | フィールド | 現在の値（ダミー） | 本番の値 |
 |-----------|-----------------|---------|
-| title | 在庫管理システム刷新 — 製造業向け基幹システム | |
-| description | Excel管理からの脱却。Ruby on Rails + Reactによるフルスタック在庫管理システムを構築し、在庫ロスを年間800万円削減 | |
-| date | 2025-05-20 | |
-| client | 〇〇製造株式会社 | |
-| serviceCategory | system-development, business-planning | |
-| technologies | Ruby on Rails, React, PostgreSQL, AWS, Docker | |
-| url | （なし） | |
-| featured | true | |
-| thumbnail | thumbnail.jpg（差し替え要） | |
+| title | — | オンライン非常勤講師マッチング — 新規事業立ち上げ・実証推進 |
+| description | — | 教員免許保有者によるオンライン非常勤講師マッチングの新規事業化を、事業責任者として推進。1年間の実証を経て撤退判断まで担い、事業開発の全工程を経験 |
+| date | — | 2024-02-01 |
+| client | — | 株式会社LX DESIGN |
+| serviceCategory | — | business-planning |
+| technologies | — | （なし） |
+| url | — | （なし） |
+| featured | — | false |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
 
-- [ ] フロントマター更新
-- [ ] 本文を実際の内容に書き換え
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
 - [ ] thumbnail.jpg を差し替え
 
 ---
 
-#### 5. `content/works/promo-video-production/`
+#### 5. `content/works/fukugyo-sensei-product/`
 
 | フィールド | 現在の値（ダミー） | 本番の値 |
 |-----------|-----------------|---------|
-| title | 新製品ローンチ プロモーション動画制作 | |
-| description | DaVinci Resolve + After Effectsによる2分間のプロモーション動画。製品の世界観を表現する映像編集と3Dモーショングラフィックスを担当 | |
-| date | 2025-03-10 | |
-| client | 〇〇テクノロジー株式会社 | |
-| serviceCategory | video-editing | |
-| technologies | DaVinci Resolve, After Effects, Premiere Pro | |
-| url | （なし） | |
-| featured | false | |
-| thumbnail | thumbnail.jpg（差し替え要） | |
+| title | — | 複業先生 — 教育特化型外部人材マッチングプラットフォーム開発 |
+| description | — | 学校と複業人材をつなぐEdTechプラットフォームに0→1フェーズから業務委託として長期参画。「授業の募集」機能を企画・実装・改善まで主導し、導入350校・登録2,500名規模のプロダクトを牽引 |
+| date | — | 2021-06-01 |
+| client | — | 株式会社LX DESIGN |
+| serviceCategory | — | system-development, web-development |
+| technologies | — | Next.js, TypeScript, React, Ruby on Rails, AWS |
+| url | — | https://fukugyo-sensei.net |
+| featured | — | true ★ |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
 
-- [ ] フロントマター更新
-- [ ] 本文を実際の内容に書き換え
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
 - [ ] thumbnail.jpg を差し替え
 
 ---
 
-#### 6. `content/works/saas-analytics-dashboard/`
+#### 6. `content/works/plaru-app/`
 
 | フィールド | 現在の値（ダミー） | 本番の値 |
 |-----------|-----------------|---------|
-| title | SaaS型アナリティクスダッシュボード開発 | |
-| description | データドリブンな経営判断を支援するリアルタイムダッシュボード。月次レポート作成時間を90%削減 | |
-| date | 2025-11-01 | |
-| client | 株式会社△△テクノロジー | |
-| serviceCategory | system-development | |
-| technologies | Next.js, TypeScript, Python, FastAPI, PostgreSQL, AWS | |
-| url | （なし） | |
-| featured | true | |
-| thumbnail | thumbnail.jpg（差し替え要） | |
+| title | — | Plaru — AI旅行計画アプリ 機能開発 |
+| description | — | 観光DXを目指すAI旅行計画アプリ『ぷらる』の機能開発に業務委託として参画。React Nativeによるクロスプラットフォーム実装を担当し、iOS・Android両対応のプロダクト開発を支援 |
+| date | — | 2022-10-01 |
+| client | — | 株式会社Plaru |
+| serviceCategory | — | system-development |
+| technologies | — | React Native, TypeScript, Go, AWS Lambda |
+| url | — | https://www.plaru.co.jp |
+| featured | — | false |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
 
-- [ ] フロントマター更新
-- [ ] 本文を実際の内容に書き換え
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
+- [ ] thumbnail.jpg を差し替え
+
+---
+
+#### 7. `content/works/plaru-biz/`
+
+| フィールド | 現在の値（ダミー） | 本番の値 |
+|-----------|-----------------|---------|
+| title | — | Plaru — 創業期からの経営企画・戦略サポート |
+| description | — | 観光DXスタートアップPlaruに創業時取締役として参画し、事業計画策定・チーム体制構築・経営戦略立案を支援。退任後も業務委託として中期経営計画の構築サポートを継続中 |
+| date | — | 2022-10-01 |
+| client | — | 株式会社Plaru |
+| serviceCategory | — | business-planning |
+| technologies | — | （なし） |
+| url | — | https://www.plaru.co.jp |
+| featured | — | true ★ |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
+
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
+- [ ] thumbnail.jpg を差し替え
+
+---
+
+#### 8. `content/works/plaru-hp/`
+
+| フィールド | 現在の値（ダミー） | 本番の値 |
+|-----------|-----------------|---------|
+| title | — | Plaru — コーポレートサイト構築・運用 |
+| description | — | 観光DXスタートアップPlaruのコーポレートサイトをStudioで構築。デザインのベースから運用体制への乗せ込みまでを担当 |
+| date | — | 2022-10-01 |
+| client | — | 株式会社Plaru |
+| serviceCategory | — | web-development |
+| technologies | — | Studio |
+| url | — | https://www.plaru.co.jp |
+| featured | — | false |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
+
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
+- [ ] thumbnail.jpg を差し替え
+
+---
+
+#### 9. `content/works/reco-style/`
+
+| フィールド | 現在の値（ダミー） | 本番の値 |
+|-----------|-----------------|---------|
+| title | — | リコ・スタイル — 産業廃棄物処理業 コーポレートサイト制作 |
+| description | — | 産業廃棄物処理業者のコーポレートサイトをNext.js + microCMSでスクラッチ開発。先方のイメージを丁寧にヒアリングし、何度も対面で調整を重ねながら「スッキリシンプル」なデザインを継続的に構築中 |
+| date | — | 2023-09-01 |
+| client | — | リコ・スタイル株式会社 |
+| serviceCategory | — | web-development |
+| technologies | — | Next.js, TypeScript, microCMS, Netlify |
+| url | — | （なし） |
+| featured | — | false |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
+
+> ⚠️ 現在 `draft: true`（非公開）。公開時は `draft: false` に変更すること。
+
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
+- [ ] thumbnail.jpg を差し替え
+- [ ] 公開時に `draft: false` に変更
+
+---
+
+#### 10. `content/works/suzuki-zei/`
+
+| フィールド | 現在の値（ダミー） | 本番の値 |
+|-----------|-----------------|---------|
+| title | — | 鈴木弘基税理士事務所 — 公式サイトリニューアル |
+| description | — | 創業50年超の税理士事務所のWebサイトをフルリニューアル。スマートフォン非対応だった旧サイトをGatsby.js + Contentfulで再構築し、レスポンシブ対応とCMSによる自社運用を実現 |
+| date | — | 2020-06-01 |
+| client | — | 鈴木弘基税理士事務所 |
+| serviceCategory | — | web-development |
+| technologies | — | Gatsby.js, React, Contentful, Netlify |
+| url | — | https://suzuki-zei.com |
+| featured | — | false |
+| thumbnail | — | thumbnail.jpg（要差し替え） |
+
+- [x] フロントマター更新済み（本番データ）
+- [x] 本文を実際の内容で記入済み
 - [ ] thumbnail.jpg を差し替え
 
 ---
@@ -494,7 +577,7 @@ const features = [
 
 ## 完了チェック
 
-- [ ] セクション 1: 実績（Works）— 全件差し替え完了
+- [x] セクション 1: 実績（Works）— 全件差し替え完了（10件・フロントマター＆本文は本番データ済み、thumbnail差し替えは別途）
 - [ ] セクション 2: サービス説明（4ページ）— 確認・更新完了
 - [ ] セクション 3: About（自己紹介）— 更新完了
 - [ ] セクション 4: ヒーローセクション — 確認・更新完了
