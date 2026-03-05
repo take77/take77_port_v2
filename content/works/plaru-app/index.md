@@ -10,6 +10,7 @@ thumbnail: ./thumbnail.jpg
 url: "https://www.plaru.co.jp"
 featured: false
 draft: false
+order: 2
 ---
 
 ## プロジェクト概要

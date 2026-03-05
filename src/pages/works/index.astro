@@ -7,9 +7,13 @@ import SectionTitle from '../../components/common/SectionTitle.astro';
 import WorkFilter from '../../components/WorkFilter';
 import ContactSection from '../../components/contact/ContactSection';
 
-// Get all non-draft works sorted by date descending
+// Get all non-draft works sorted by order ascending (then date descending as fallback)
 const allWorks = await getCollection('works', ({ data }) => !data.draft);
-allWorks.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+allWorks.sort((a, b) => {
+  const orderDiff = (a.data.order ?? 100) - (b.data.order ?? 100);
+  if (orderDiff !== 0) return orderDiff;
+  return b.data.date.getTime() - a.data.date.getTime();
+});
 
 // Serialize works data: process ImageMetadata → usable src/width/height
 const serializedWorks = await Promise.all(

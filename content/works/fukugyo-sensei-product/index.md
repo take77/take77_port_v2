@@ -11,6 +11,7 @@ thumbnail: ./thumbnail.jpg
 url: "https://fukugyo-sensei.net"
 featured: true
 draft: false
+order: 1
 ---
 
 ## プロジェクト概要

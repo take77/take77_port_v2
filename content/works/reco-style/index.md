@@ -9,6 +9,7 @@ technologies: ["Next.js", "TypeScript", "microCMS", "Netlify"]
 thumbnail: ./thumbnail.jpg
 featured: false
 draft: true
+order: 50
 ---
 
 ## プロジェクト概要

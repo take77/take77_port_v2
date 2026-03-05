@@ -22,6 +22,7 @@ const works = defineCollection({
       url: z.string().url().optional(),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
+      order: z.number().default(100),
     }),
 });
 

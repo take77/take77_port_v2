@@ -9,6 +9,7 @@ technologies: []
 thumbnail: ./thumbnail.jpg
 featured: false
 draft: false
+order: 3
 ---
 
 ## プロジェクト概要
