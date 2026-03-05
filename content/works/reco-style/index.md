@@ -7,7 +7,6 @@ serviceCategory:
   - "web-development"
 technologies: ["Next.js", "TypeScript", "microCMS", "Netlify"]
 thumbnail: ./thumbnail.jpg
-url: ""
 featured: false
 draft: true
 ---
