@@ -39,7 +39,7 @@ interface Props {
   /** 提供内容リスト */
   features: Feature[];
   /** getCollection フィルタ用カテゴリスラッグ */
-  category: string;
+  category: 'system-development' | 'web-development' | 'business-planning' | 'video-editing';
   /** JSON-LD 構造化データ */
   serviceJsonLd: object;
   /** WorkCard テーマカラー（省略時 #8b5cf6） */
@@ -183,6 +183,7 @@ const relatedWorks = allWorks.sort((a, b) => b.data.date.getTime() - a.data.date
   }
 
   .service-description {
+    margin-top: 2rem;
     margin-bottom: 3rem;
   }
 

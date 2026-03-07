@@ -95,12 +95,17 @@ import avatarImg from '../../../avatar.jpg';
 
         <!-- Right Panel: Bio + Strengths -->
         <div class="about-right">
-          <p class="bio-text">
-            フリーランスとして、EdTechスタートアップ（導入350校・登録2,500名・利用生徒40,000名規模）の
-            プロダクト立ち上げから継続的な機能開発、スタートアップへの取締役参画・経営サポートまで
-            幅広く手がけてきました。エンジニアリングとビジネスの両軸を持つことで、
-            開発観点だけでなくプロダクト全体の成長を見据えた提案ができることが強みです。
-          </p>
+          <div class="bio-group">
+            <p class="bio-text">
+              フリーランスとしてキャリアをスタートし、お取引先からのご紹介を通じて仕事を広げながら、エンジニアリングと経営企画の両軸で経験を積んできました。
+            </p>
+            <p class="bio-text">
+              「納品して終わり」ではなく、クライアントの事業に当事者として向き合うこと。技術的な正しさだけでなく、その先にあるビジネスの成長まで一緒に考えること。関わる方々との信頼関係を長期的に築いていくこと。これが自分の仕事の軸です。
+            </p>
+            <p class="bio-text">
+              現在はEdTechスタートアップのプロダクト開発（導入350校・利用生徒40,000名規模）への初期からの参画や、スタートアップの創業期における経営サポートなど、技術とビジネスの両面から事業の成長を支えています。
+            </p>
+          </div>
 
           <div class="strengths">
             <div class="strength-item">
@@ -111,8 +116,8 @@ import avatarImg from '../../../avatar.jpg';
                 </svg>
               </div>
               <div class="strength-text">
-                <div class="strength-label">フリーランスの機動力</div>
-                <div class="strength-desc">開発観点にとどまらず、皆様にとって最適な解決策を提案します。</div>
+                <div class="strength-label">幅広い視点からの提案</div>
+                <div class="strength-desc">開発、経営、様々な視点から最適なソリューションを提供します。</div>
               </div>
             </div>
 
@@ -126,7 +131,7 @@ import avatarImg from '../../../avatar.jpg';
               </div>
               <div class="strength-text">
                 <div class="strength-label">フルスタック対応</div>
-                <div class="strength-desc">システム開発だけでなく、HP制作や経営企画まで幅広く手がけます。</div>
+                <div class="strength-desc">デザインからリリースまで一貫して対応します。</div>
               </div>
             </div>
 
@@ -139,8 +144,8 @@ import avatarImg from '../../../avatar.jpg';
                 </svg>
               </div>
               <div class="strength-text">
-                <div class="strength-label">経営視点の開発</div>
-                <div class="strength-desc">必要なものを必要なだけ。あなたに最適な提案を。</div>
+                <div class="strength-label">徹底的な伴走</div>
+                <div class="strength-desc">プロジェクトの完遂まで責任を持ってサポートします。</div>
               </div>
             </div>
           </div>
@@ -246,6 +251,12 @@ import avatarImg from '../../../avatar.jpg';
     flex-direction: column;
     justify-content: center;
     gap: 28px;
+  }
+
+  .bio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .bio-text {
