@@ -3,12 +3,12 @@ import GlassCard from '../common/GlassCard.astro';
 import SectionTitle from '../common/SectionTitle.astro';
 import SectionWrapper from '../common/SectionWrapper.astro';
 
-const services = [
+const mainServices = [
   {
     id: 'system-development',
     title: 'システム開発',
     titleEn: 'System Development',
-    description: '業務システムやWebアプリケーションの設計・開発。要件定義からリリース後の運用保守まで一貫して対応します。',
+    description: '「何を作るか」の事業判断から一緒に考え、設計・開発・運用まで一貫して対応。0→1のプロダクト立ち上げ経験を活かし、経営視点で優先度を整理しながら開発を進めます。',
     href: '/services/system-development',
     icon: `<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>`,
   },
@@ -16,7 +16,7 @@ const services = [
     id: 'web-development',
     title: 'HP開発・運用',
     titleEn: 'Web Development',
-    description: 'コーポレートサイト、LP、ECサイトの企画・制作・運用。高速表示とSEOを重視した、成果につながるサイトを構築します。',
+    description: 'デザインの前に、まず事業やサービスへの理解から。「誰に何を届けたいか」を一緒に整理した上で、成果につながるサイトを設計・構築します。公開後の運用・改善まで伴走します。',
     href: '/services/web-development',
     icon: `<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`,
   },
@@ -24,15 +24,18 @@ const services = [
     id: 'business-planning',
     title: '経営企画',
     titleEn: 'Business Planning',
-    description: '事業計画策定、KPI設計、データ分析に基づく経営判断支援。テクノロジーとビジネスの架け橋になります。',
+    description: '技術が分かるからこそ、「それは実現できるのか」を即座に判断できます。創業期の混沌を共に乗り越えた経験をもとに、仮説検証型で小さく回しながら事業の成長を支えます。',
     href: '/services/business-planning',
     icon: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
   },
+];
+
+const subServices = [
   {
     id: 'video-editing',
     title: '動画編集',
     titleEn: 'Video Editing',
-    description: 'プロモーション動画、採用動画、SNS向けショート動画の企画・撮影・編集。ブランドの世界観を映像で表現します。',
+    description: 'プロモーション動画やSNS向けショート動画の企画・編集にも対応可能です。',
     href: '/services/video-editing',
     icon: `<rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/>`,
   },
@@ -42,7 +45,7 @@ const services = [
 <SectionWrapper id="services">
   <SectionTitle title="提供サービス" accent="Services" />
   <div class="services-grid">
-    {services.map((service) => (
+    {mainServices.map((service) => (
       <GlassCard href={service.href} hoverable>
         <div class="service-card">
           <div class="service-icon" aria-hidden="true">
@@ -81,12 +84,39 @@ const services = [
       </GlassCard>
     ))}
   </div>
+
+  <div class="sub-services">
+    <p class="sub-services-label">その他対応可能なサービス</p>
+    <div class="sub-services-list">
+      {subServices.map((service) => (
+        <a href={service.href} class="sub-service-item">
+          <div class="service-icon service-icon--sm" aria-hidden="true">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#a78bfa"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              set:html={service.icon}
+            />
+          </div>
+          <div class="sub-service-text">
+            <span class="sub-service-title">{service.title}</span>
+            <span class="sub-service-desc">{service.description}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
 </SectionWrapper>
 
 <style>
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     margin-top: 2.5rem;
   }
@@ -156,6 +186,62 @@ const services = [
     background: rgba(139, 92, 246, 0.18);
     border-color: rgba(139, 92, 246, 0.3);
     box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+  }
+
+  /* ── Sub services ── */
+  .sub-services {
+    margin-top: 2rem;
+  }
+
+  .sub-services-label {
+    font-size: 0.75rem;
+    color: var(--color-text-sub);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+
+  .sub-service-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .sub-service-item:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  .service-icon--sm {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    margin-bottom: 0;
+  }
+
+  .sub-service-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .sub-service-title {
+    font-size: 0.8125rem;
+    color: var(--color-text-heading);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+
+  .sub-service-desc {
+    font-size: 0.75rem;
+    color: var(--color-text-sub);
+    line-height: 1.6;
   }
 
   @media (max-width: 640px) {

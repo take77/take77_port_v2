@@ -1,9 +1,6 @@
 ---
-// HeroSection.astro — Hero section: catch copy + CTA + avatar + strengths
-// subtask_080a: cmd_080_phase2a_toppage
-import { Image } from 'astro:assets';
+// HeroSection.astro — Hero section: catch copy + CTA
 import GridPattern from './common/GridPattern.astro';
-import avatarSrc from '../../avatar.jpg';
 ---
 
 <section id="hero" class="hero">
@@ -11,66 +8,21 @@ import avatarSrc from '../../avatar.jpg';
   <GridPattern />
 
   <div class="hero-inner">
-    <!-- ── Left: Main message ── -->
     <div class="hero-content">
       <p class="hero-eyebrow">Portfolio</p>
 
       <h1 class="hero-title">
-        Technology meets Creativity
+        Grow <span class="hero-title-accent">Business</span>,<br />Beyond <span class="hero-title-accent">Code</span>
       </h1>
 
       <p class="hero-sub">
-        システム開発・HP制作・経営企画・動画編集まで<span class="hero-br"> </span>幅広く手がけるフリーランスエンジニア
+        開発も、経営も。<br class="hero-sub-br" />事業に伴走するフリーランスエンジニア
       </p>
 
       <div class="hero-cta">
         <a href="#services" class="btn btn-primary">サービスを見る</a>
         <a href="#contact" class="btn btn-outline">お問い合わせ</a>
       </div>
-    </div>
-
-    <!-- ── Right: Identity card ── -->
-    <div class="hero-profile">
-      <div class="hero-avatar-wrap">
-        <Image
-          src={avatarSrc}
-          alt="take77 / 武田政和 のアバター画像"
-          width={160}
-          height={160}
-          class="hero-avatar"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
-
-      <div class="hero-identity">
-        <p class="hero-name">take77 / 武田政和</p>
-        <p class="hero-job">フリーランスエンジニア / 経営企画</p>
-      </div>
-
-      <ul class="hero-strengths" role="list">
-        <li class="strength">
-          <span class="strength-dot" aria-hidden="true"></span>
-          <div>
-            <span class="strength-label">フリーランスの機動力</span>
-            <span class="strength-desc">開発観点にとどまらず、皆様にとって最適な解決策を提案します。</span>
-          </div>
-        </li>
-        <li class="strength">
-          <span class="strength-dot" aria-hidden="true"></span>
-          <div>
-            <span class="strength-label">フルスタック対応</span>
-            <span class="strength-desc">システム開発だけでなく、HP制作や経営企画まで幅広く手がけます。</span>
-          </div>
-        </li>
-        <li class="strength">
-          <span class="strength-dot" aria-hidden="true"></span>
-          <div>
-            <span class="strength-label">経営視点の開発</span>
-            <span class="strength-desc">必要なものを必要なだけ。あなたに最適な提案を。</span>
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
 
@@ -90,22 +42,17 @@ import avatarSrc from '../../avatar.jpg';
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Minimal top/bottom breathing room — header offset is handled by BaseLayout */
-    padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+    /* Shift optical center upward — more bottom padding than top */
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 6vw, 5rem) clamp(6rem, 12vw, 12rem);
     overflow: hidden;
   }
 
-  /* ── Two-column inner ── */
   .hero-inner {
     position: relative;
     z-index: 1;
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr minmax(0, 360px);
-    gap: clamp(40px, 6vw, 80px);
-    align-items: center;
   }
 
   /* ── Eyebrow ── */
@@ -129,12 +76,16 @@ import avatarSrc from '../../avatar.jpg';
     line-height: 1.1;
     letter-spacing: 0.02em;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+    color: #ffffff;
+    animation: fadeInUp 0.8s ease both;
+    animation-delay: 0.2s;
+  }
+
+  .hero-title-accent {
+    background: linear-gradient(135deg, #b8a5f8 0%, #c084d4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: fadeInUp 0.8s ease both;
-    animation-delay: 0.2s;
   }
 
   /* ── Sub text ── */
@@ -146,6 +97,10 @@ import avatarSrc from '../../avatar.jpg';
     margin-bottom: 2.5rem;
     animation: fadeInUp 0.8s ease both;
     animation-delay: 0.3s;
+  }
+
+  .hero-sub-br {
+    display: none;
   }
 
   /* ── CTA buttons ── */
@@ -196,111 +151,6 @@ import avatarSrc from '../../avatar.jpg';
     transform: translateY(-2px);
   }
 
-  /* ── Profile card (glass morphism, no hover translate) ── */
-  .hero-profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 2rem 1.75rem;
-    background: var(--color-glass-bg);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border-radius: 16px;
-    border: 1px solid var(--color-glass-border);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.35),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    animation: fadeInRight 0.9s ease both;
-    animation-delay: 0.3s;
-  }
-
-  /* ── Avatar ── */
-  .hero-avatar-wrap {
-    position: relative;
-    margin-bottom: 1.25rem;
-    border-radius: 50%;
-    padding: 3px;
-    background: linear-gradient(
-      135deg,
-      rgba(139, 92, 246, 0.5),
-      rgba(236, 72, 153, 0.3)
-    );
-  }
-
-  .hero-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid rgba(26, 15, 36, 0.6);
-    display: block;
-  }
-
-  /* ── Identity ── */
-  .hero-identity {
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-name {
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    font-weight: 400;
-    color: var(--color-text-heading);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.3rem;
-  }
-
-  .hero-job {
-    font-size: 0.78rem;
-    color: var(--color-text-sub);
-    letter-spacing: 0.06em;
-  }
-
-  /* ── Strengths list ── */
-  .hero-strengths {
-    list-style: none;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.875rem;
-    text-align: left;
-    border-top: 1px solid var(--color-glass-border);
-    padding-top: 1.25rem;
-  }
-
-  .strength {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-  }
-
-  .strength-dot {
-    flex-shrink: 0;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-text-accent);
-    margin-top: 0.45rem;
-  }
-
-  .strength-label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-text-heading);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.2rem;
-  }
-
-  .strength-desc {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--color-text-sub);
-    line-height: 1.65;
-    letter-spacing: 0.02em;
-  }
-
   /* ── Scroll indicator ── */
   .hero-scroll {
     position: absolute;
@@ -336,31 +186,14 @@ import avatarSrc from '../../avatar.jpg';
     }
   }
 
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(24px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
   /* ── Mobile (≤ 639px) ── */
   @media (max-width: 639px) {
     .hero {
       padding: 1.5rem 1.5rem 2.5rem;
     }
 
-    .hero-inner {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    /* Profile card uses same fadeInUp on mobile */
-    .hero-profile {
-      animation-name: fadeInUp;
+    .hero-sub-br {
+      display: block;
     }
 
     .hero-cta {
@@ -371,11 +204,6 @@ import avatarSrc from '../../avatar.jpg';
     .btn {
       justify-content: center;
     }
-
-    /* Suppress <br>-like spacing on mobile */
-    .hero-br {
-      display: none;
-    }
   }
 
   /* ── Reduced motion ── */
@@ -384,7 +212,6 @@ import avatarSrc from '../../avatar.jpg';
     .hero-title,
     .hero-sub,
     .hero-cta,
-    .hero-profile,
     .hero-scroll {
       animation: none;
       opacity: 1;
@@ -392,12 +219,4 @@ import avatarSrc from '../../avatar.jpg';
     }
   }
 
-  /* ── Reduced transparency ── */
-  @media (prefers-reduced-transparency: reduce) {
-    .hero-profile {
-      background: rgba(30, 15, 40, 0.95);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-    }
-  }
 </style>
