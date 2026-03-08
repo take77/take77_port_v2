@@ -30,3 +30,7 @@ Thumbs.db
 
 # Cloudflare
 .wrangler/
+
+# Docs (setup guides, screenshots, internal notes)
+docs/*
+!docs/css-strategy.md
