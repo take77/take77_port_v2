@@ -110,28 +110,42 @@ npm run deploy
 
 ---
 
-## 5. 環境変数の設定
+## 5. GitHub Actions 自動デプロイの設定
 
-> **推定所要時間**: 5分
+> **推定所要時間**: 10分
 
-Web3Forms・GA4 が正常動作するには、本番用の環境変数を設定する必要がある。
+`main` ブランチに push すると自動でビルド＆デプロイが実行される。
+ワークフローは `.github/workflows/deploy.yml` に定義済み。
 
-> ⚠️ **注意**: このサイトはSSG（ビルド時に静的HTML生成）のため、`PUBLIC_` プレフィックス付き環境変数はビルド時に埋め込まれる。
-> Cloudflare Dashboard での環境変数設定は、CI/CD（GitHub連携デプロイ）を使う場合に必要。
-> ローカルから `wrangler deploy` する場合は、ローカルの `.env` が使われる。
+### 6-1. Cloudflare API トークンの作成
 
-### CI/CD（GitHub Actions等）でデプロイする場合
+1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → 右上のアイコン → **「My Profile」**
+2. 左メニュー **「API Tokens」** → **「Create Token」**
+3. **「Edit Cloudflare Workers」** テンプレートを選択
+4. Account Resources: 自分のアカウントを選択
+5. Zone Resources: `All zones` または対象ドメインを選択
+6. **「Continue to summary」** → **「Create Token」**
+7. 表示されたトークンをコピー（この画面を閉じると二度と表示されない）
 
-GitHub リポジトリの Settings → Secrets に以下を設定：
+### 6-2. Cloudflare Account ID の確認
 
-| 変数名 | 用途 |
-|--------|----|
-| `CLOUDFLARE_API_TOKEN` | Wrangler デプロイ用 API トークン |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare アカウントID |
-| `PUBLIC_GA4_MEASUREMENT_ID` | Google Analytics 4 トラッキングID |
-| `PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms アクセスキー（お問い合わせフォーム） |
+1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → 任意のドメインを選択
+2. 右サイドバーの **「Account ID」** をコピー
 
-> ⚠️ **セキュリティ**: シークレットキーの実値をドキュメント・Git履歴に残してはならない。
+### 6-3. GitHub Secrets の設定
+
+1. GitHub リポジトリ → **「Settings」** → **「Secrets and variables」** → **「Actions」**
+2. **「New repository secret」** で以下4つを追加：
+
+| Secret 名 | 値 |
+|-----------|-----|
+| `CLOUDFLARE_API_TOKEN` | 6-1 で作成したトークン |
+| `CLOUDFLARE_ACCOUNT_ID` | 6-2 で確認したAccount ID |
+| `PUBLIC_GA4_MEASUREMENT_ID` | GA4 測定ID |
+| `PUBLIC_WEB3FORMS_ACCESS_KEY` | Web3Forms アクセスキー |
+
+設定後、`main` に push すれば自動デプロイが実行される。
+進捗は GitHub リポジトリの **「Actions」** タブで確認可能。
 
 ---
 
@@ -190,7 +204,6 @@ DNS 切り替え後、以下を順番に確認する：
 - [ ] `https://take77-port.com` でサイトが表示される
 - [ ] `https://take77-port.com` で HTTPS 接続（鍵マーク）が表示される
 - [ ] お問い合わせフォームからテスト送信ができる（Web3Forms でメール受信を確認）
-- [ ] Turnstile のチェックボックスが表示・動作する
 - [ ] Google Analytics でリアルタイムデータを受信している（GA4 ダッシュボードで確認）
 - [ ] ページ遷移・アニメーションが正常動作する
 - [ ] 実績一覧ページ（`/works`）のフィルター機能が動作する
@@ -225,9 +238,9 @@ DNS 切り替え後、以下を順番に確認する：
 - `wrangler.jsonc` の `assets.directory` が `./dist` になっているか確認
 - `dist/` フォルダが存在するか確認（`npm run build` を先に実行）
 
-### フォームが送信できない / Turnstile が表示されない
+### フォームが送信できない
 
-- 環境変数がビルド時に正しく設定されているか確認
+- 環境変数 `PUBLIC_WEB3FORMS_ACCESS_KEY` がビルド時に正しく設定されているか確認
 - 変数名が `.env` の名前と完全一致しているか確認
 - リデプロイが実行されているか確認
 
