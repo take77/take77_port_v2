@@ -10,7 +10,7 @@
 - スタイリング: Tailwind CSS v4（CSS-in-JS禁止）
 - コンポーネント: shadcn/ui（必要なもののみ）
 - コンテンツ: Markdown + Content Collections + Zod
-- ホスティング: Cloudflare Pages
+- ホスティング: Cloudflare Workers（Static Assets）
 - フォーム: Web3Forms
 - アナリティクス: GA4
 

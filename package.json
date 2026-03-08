@@ -9,7 +9,9 @@
     "astro": "astro",
     "lint": "eslint . --ext .js,.cjs,.mjs,.ts,.tsx,.astro",
     "typecheck": "astro check",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:preview": "npm run build && wrangler dev"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -33,6 +35,7 @@
     "eslint-plugin-astro": "^1.6.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.71.0"
   }
 }

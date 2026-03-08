@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -19,89 +19,77 @@ const SERVICE_OPTIONS = [
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (container: string | HTMLElement, options: Record<string, unknown>) => string;
-      reset: (widgetId: string) => void;
-      remove: (widgetId: string) => void;
-    };
-    onTurnstileLoad?: () => void;
-  }
-}
-
 export default function ContactSection() {
   const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY as string;
-  const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string;
 
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const serviceRef = useRef<HTMLSelectElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
-  const turnstileRef = useRef<HTMLDivElement>(null);
-  const turnstileWidgetId = useRef<string>("");
 
-  useEffect(() => {
-    if (!siteKey) return;
-
-    const renderTurnstile = () => {
-      if (window.turnstile && turnstileRef.current && !turnstileWidgetId.current) {
-        turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
-          sitekey: siteKey,
-          theme: "dark",
-          size: "normal",
-        });
-      }
-    };
-
-    if (window.turnstile) {
-      renderTurnstile();
-      return;
+  const validateField = (field: keyof FormErrors): string | undefined => {
+    if (field === "name") {
+      const name = nameRef.current?.value.trim() ?? "";
+      if (!name) return "お名前を入力してください";
     }
+    if (field === "email") {
+      const email = emailRef.current?.value.trim() ?? "";
+      if (!email) return "メールアドレスを入力してください";
+      if (!EMAIL_REGEX.test(email)) return "正しいメールアドレスを入力してください";
+    }
+    if (field === "message") {
+      const message = messageRef.current?.value.trim() ?? "";
+      if (!message) return "メッセージを入力してください";
+    }
+    return undefined;
+  };
 
-    window.onTurnstileLoad = renderTurnstile;
-
-    const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad";
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-
-    return () => {
-      if (turnstileWidgetId.current && window.turnstile) {
-        window.turnstile.remove(turnstileWidgetId.current);
-        turnstileWidgetId.current = "";
-      }
-    };
-  }, [siteKey]);
-
-  const validate = (): FormErrors => {
-    const errs: FormErrors = {};
+  const updateValidation = () => {
     const name = nameRef.current?.value.trim() ?? "";
     const email = emailRef.current?.value.trim() ?? "";
     const message = messageRef.current?.value.trim() ?? "";
+    setIsFormValid(name.length > 0 && EMAIL_REGEX.test(email) && message.length > 0);
+  };
 
-    if (!name) errs.name = "お名前を入力してください";
-    if (!email) {
-      errs.email = "メールアドレスを入力してください";
-    } else if (!EMAIL_REGEX.test(email)) {
-      errs.email = "正しいメールアドレスを入力してください";
+  const handleFieldChange = (field: keyof FormErrors) => {
+    updateValidation();
+    if (touched[field]) {
+      const error = validateField(field);
+      setErrors((prev) => {
+        if (error) return { ...prev, [field]: error };
+        const { [field]: _, ...rest } = prev;
+        return rest;
+      });
     }
-    if (!message) errs.message = "メッセージを入力してください";
+  };
 
-    return errs;
+  const handleFieldBlur = (field: keyof FormErrors) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    const error = validateField(field);
+    setErrors((prev) => {
+      if (error) return { ...prev, [field]: error };
+      const { [field]: _, ...rest } = prev;
+      return rest;
+    });
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors({});
     setErrorMessage("");
 
-    const validationErrors = validate();
+    setTouched({ name: true, email: true, message: true });
+    const fields: (keyof FormErrors)[] = ["name", "email", "message"];
+    const validationErrors: FormErrors = {};
+    for (const field of fields) {
+      const error = validateField(field);
+      if (error) validationErrors[field] = error;
+    }
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -124,9 +112,6 @@ export default function ContactSection() {
       if (data.success) {
         setFormState("success");
         form.reset();
-        if (turnstileWidgetId.current && window.turnstile) {
-          window.turnstile.reset(turnstileWidgetId.current);
-        }
       } else {
         setFormState("error");
         setErrorMessage(data.message ?? "送信に失敗しました。もう一度お試しください。");
@@ -141,6 +126,8 @@ export default function ContactSection() {
     setFormState("idle");
     setErrorMessage("");
     setErrors({});
+    setTouched({});
+    updateValidation();
   };
 
   const inputClass =
@@ -301,6 +288,8 @@ export default function ContactSection() {
                     aria-invalid={!!errors.name}
                     className={inputClass}
                     disabled={formState === "loading"}
+                    onChange={() => handleFieldChange("name")}
+                    onBlur={() => handleFieldBlur("name")}
                   />
                   {errors.name && (
                     <p
@@ -342,6 +331,8 @@ export default function ContactSection() {
                     aria-invalid={!!errors.email}
                     className={inputClass}
                     disabled={formState === "loading"}
+                    onChange={() => handleFieldChange("email")}
+                    onBlur={() => handleFieldBlur("email")}
                   />
                   {errors.email && (
                     <p
@@ -418,6 +409,8 @@ export default function ContactSection() {
                   className={inputClass}
                   style={{ resize: "vertical" }}
                   disabled={formState === "loading"}
+                  onChange={() => handleFieldChange("message")}
+                  onBlur={() => handleFieldBlur("message")}
                 />
                 {errors.message && (
                   <p
@@ -429,11 +422,6 @@ export default function ContactSection() {
                   </p>
                 )}
               </div>
-
-              {/* Cloudflare Turnstile */}
-              {siteKey && (
-                <div ref={turnstileRef} className="cf-turnstile" data-sitekey={siteKey} />
-              )}
 
               {/* Submit / Retry Button */}
               {formState === "error" ? (
@@ -461,9 +449,9 @@ export default function ContactSection() {
               ) : (
                 <button
                   type="submit"
-                  disabled={formState === "loading"}
+                  disabled={!isFormValid || formState === "loading"}
                   style={{
-                    background: formState === "loading" ? "rgba(139,92,246,0.5)" : "#8b5cf6",
+                    background: !isFormValid || formState === "loading" ? "rgba(139,92,246,0.3)" : "#8b5cf6",
                     color: "#fff",
                     border: "none",
                     borderRadius: 12,
@@ -471,7 +459,7 @@ export default function ContactSection() {
                     fontSize: 14,
                     fontWeight: 500,
                     letterSpacing: "0.1em",
-                    cursor: formState === "loading" ? "not-allowed" : "pointer",
+                    cursor: !isFormValid || formState === "loading" ? "not-allowed" : "pointer",
                     fontFamily: "var(--font-heading)",
                     transition: "all 0.3s ease",
                     marginTop: 4,
@@ -480,14 +468,15 @@ export default function ContactSection() {
                     justifyContent: "center",
                     gap: 8,
                     width: "100%",
+                    opacity: !isFormValid ? 0.5 : 1,
                   }}
                   onMouseEnter={(e) => {
-                    if (formState !== "loading") {
+                    if (isFormValid && formState !== "loading") {
                       (e.currentTarget as HTMLButtonElement).style.background = "#7c3aed";
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (formState !== "loading") {
+                    if (isFormValid && formState !== "loading") {
                       (e.currentTarget as HTMLButtonElement).style.background = "#8b5cf6";
                     }
                   }}
@@ -575,16 +564,7 @@ export default function ContactSection() {
           background-color: #1a0f24;
           color: #f0f0f5;
         }
-        /* Hide Turnstile badge (officially permitted) */
-        #contact .cf-turnstile {
-          position: absolute;
-          visibility: hidden;
-          width: 0;
-          height: 0;
-          overflow: hidden;
-          pointer-events: none;
-        }
-      `}</style>
+`}</style>
     </section>
   );
 }
