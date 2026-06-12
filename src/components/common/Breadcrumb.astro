@@ -35,7 +35,7 @@ const schema = JSON.stringify({
           {isLast ? (
             <span class="text-current-page" aria-current="page">{item.label}</span>
           ) : (
-            <a href={item.href} class="text-breadcrumb hover:text-white transition-colors duration-200">{item.label}</a>
+            <a href={item.href} class="text-breadcrumb hover:text-heading transition-colors duration-200">{item.label}</a>
           )}
           {!isLast && (
             <span class="text-breadcrumb select-none" aria-hidden="true">/</span>
@@ -48,10 +48,10 @@ const schema = JSON.stringify({
 
 <style>
   .text-breadcrumb {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
   }
 
   .text-current-page {
-    color: #f0f0f5;
+    color: var(--text-body);
   }
 </style>

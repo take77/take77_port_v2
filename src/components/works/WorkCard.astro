@@ -18,7 +18,7 @@ const {
   description,
   thumbnail,
   serviceCategory,
-  themeColor = '#8b5cf6',
+  themeColor = 'var(--accent)',
   technologies,
 } = Astro.props;
 
@@ -60,27 +60,21 @@ const categoryLabels: Record<string, string> = {
 <style>
   .work-card {
     display: block;
-    background: var(--glass-bg, rgba(255, 255, 255, 0.09));
+    background: var(--card-bg);
     backdrop-filter: blur(var(--glass-blur, 20px)) saturate(var(--glass-saturate, 200%));
     -webkit-backdrop-filter: blur(var(--glass-blur, 20px)) saturate(var(--glass-saturate, 200%));
-    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+    border: 1px solid var(--card-border);
     border-radius: 0.75rem;
     overflow: hidden;
     text-decoration: none;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-      0 8px 32px var(--glass-shadow, rgba(0, 0, 0, 0.4)),
-      inset 0 1px 0 var(--glass-highlight, rgba(255, 255, 255, 0.28)),
-      inset 0 0 20px var(--glass-glow, rgba(255, 255, 255, 0.04));
+    box-shadow: var(--card-shadow);
   }
 
   .work-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.28);
-    box-shadow:
-      0 16px 40px var(--glass-shadow, rgba(0, 0, 0, 0.4)),
-      inset 0 1px 0 var(--glass-highlight, rgba(255, 255, 255, 0.28)),
-      inset 0 0 24px var(--glass-glow, rgba(255, 255, 255, 0.04));
+    border-color: var(--card-border-hover);
+    box-shadow: var(--card-shadow-hover);
   }
 
   .card-image {
@@ -111,8 +105,8 @@ const categoryLabels: Record<string, string> = {
     font-size: 0.625rem;
     padding: 3px 10px;
     border-radius: 9999px;
-    background: rgba(139, 92, 246, 0.2);
-    color: #a78bfa;
+    background: var(--accent-soft);
+    color: var(--text-accent);
     letter-spacing: 0.05em;
     font-family: 'Jost', sans-serif;
   }
@@ -120,7 +114,7 @@ const categoryLabels: Record<string, string> = {
   .card-title {
     font-size: 1rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-heading);
     margin: 0 0 8px;
     line-height: 1.5;
     letter-spacing: 0.02em;
@@ -129,7 +123,7 @@ const categoryLabels: Record<string, string> = {
 
   .card-description {
     font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     margin: 0 0 16px;
     line-height: 1.7;
     display: -webkit-box;
@@ -147,26 +141,26 @@ const categoryLabels: Record<string, string> = {
 
   .card-tech {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--text-faint);
     letter-spacing: 0.03em;
     white-space: nowrap;
   }
 
   .card-link {
     font-size: 0.75rem;
-    color: #a78bfa;
+    color: var(--text-accent);
     font-family: 'Jost', sans-serif;
     letter-spacing: 0.05em;
     transition: color 0.2s ease;
   }
 
   .work-card:hover .card-link {
-    color: #c4b5fd;
+    color: var(--accent-hover);
   }
 
   @media (prefers-reduced-transparency: reduce) {
     .work-card {
-      background: rgba(30, 15, 40, 0.95);
+      background: var(--opaque-surface);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }

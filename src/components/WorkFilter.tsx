@@ -29,7 +29,7 @@ const categoryLabels: Record<string, string> = {
   'video-editing': '動画編集',
 };
 
-const ICON_COLOR = '#a78bfa';
+const ICON_COLOR = 'var(--accent)';
 const ICON_SIZE = 28;
 
 const serviceInfo: Record<
@@ -91,20 +91,20 @@ export default function WorkFilter({ works }: Props) {
               onClick={() => setActiveFilter(tab.id)}
               style={{
                 background: isActive
-                  ? 'rgba(139, 92, 246, 0.35)'
-                  : 'rgba(255, 255, 255, 0.04)',
-                border: `1px solid ${isActive ? 'rgba(139, 92, 246, 0.6)' : 'rgba(255, 255, 255, 0.08)'}`,
+                  ? 'color-mix(in srgb, var(--accent) 30%, transparent)'
+                  : 'var(--surface-weak)',
+                border: `1px solid ${isActive ? 'color-mix(in srgb, var(--accent) 60%, transparent)' : 'var(--border-weak)'}`,
                 borderRadius: '100px',
                 padding: '7px 20px',
                 fontSize: '12px',
-                color: isActive ? '#a78bfa' : 'rgba(255, 255, 255, 0.5)',
+                color: isActive ? 'var(--text-accent)' : 'var(--text-sub)',
                 cursor: 'pointer',
                 fontFamily: "'Jost', 'Sawarabi Gothic', sans-serif",
                 letterSpacing: '0.05em',
                 transition: 'all 0.3s ease',
                 outline: 'none',
                 fontWeight: isActive ? 600 : 400,
-                boxShadow: isActive ? '0 0 12px rgba(139, 92, 246, 0.3)' : 'none',
+                boxShadow: isActive ? '0 0 12px color-mix(in srgb, var(--accent) 30%, transparent)' : 'none',
               }}
             >
               {tab.label}
@@ -124,12 +124,12 @@ export default function WorkFilter({ works }: Props) {
             gap: '16px',
             padding: '16px 24px',
             marginBottom: '32px',
-            background: 'rgba(255, 255, 255, 0.06)',
+            background: 'var(--card-bg)',
             backdropFilter: 'blur(16px) saturate(180%)',
             WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-            border: '1px solid rgba(139, 92, 246, 0.2)',
+            border: '1px solid color-mix(in srgb, var(--accent) 20%, transparent)',
             borderRadius: '16px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+            boxShadow: 'var(--card-shadow)',
             textDecoration: 'none',
             color: 'inherit',
             animation: 'wfFadeIn 200ms ease-in-out',
@@ -151,7 +151,7 @@ export default function WorkFilter({ works }: Props) {
           <div style={{ flex: 1, minWidth: 0 }}>
             <p
               style={{
-                color: '#a78bfa',
+                color: 'var(--text-accent)',
                 fontSize: '11px',
                 fontFamily: "'Jost', sans-serif",
                 letterSpacing: '0.08em',
@@ -163,7 +163,7 @@ export default function WorkFilter({ works }: Props) {
             </p>
             <p
               style={{
-                color: 'rgba(255, 255, 255, 0.6)',
+                color: 'var(--text-muted)',
                 fontSize: '13px',
                 margin: 0,
                 lineHeight: 1.5,
@@ -176,7 +176,7 @@ export default function WorkFilter({ works }: Props) {
           {/* Link */}
           <span
             style={{
-              color: '#8b5cf6',
+              color: 'var(--accent)',
               fontSize: '12px',
               fontFamily: "'Jost', sans-serif",
               letterSpacing: '0.05em',
@@ -210,10 +210,10 @@ export default function WorkFilter({ works }: Props) {
           style={{
             textAlign: 'center',
             padding: '60px 20px',
-            background: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--surface-weak)',
+            border: '1px solid var(--border-weak)',
             borderRadius: '16px',
-            color: 'rgba(255, 255, 255, 0.5)',
+            color: 'var(--text-sub)',
             fontSize: '14px',
           }}
         >
@@ -235,14 +235,13 @@ function WorkCard({ work }: { work: Work }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'block',
-        background: 'rgba(255, 255, 255, 0.06)',
+        background: 'var(--card-bg)',
         backdropFilter: 'blur(16px) saturate(180%)',
         WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-        border: `1px solid ${hovered ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.1)'}`,
+        border: `1px solid ${hovered ? 'var(--card-border-hover)' : 'var(--card-border)'}`,
         borderRadius: '16px',
         overflow: 'hidden',
-        boxShadow:
-          '0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
+        boxShadow: 'var(--card-shadow)',
         transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
         transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
         textDecoration: 'none',
@@ -273,7 +272,7 @@ function WorkCard({ work }: { work: Work }) {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            filter: 'grayscale(100%) brightness(0.6) contrast(1.1)',
+            filter: 'var(--duotone-img-filter)',
           }}
         />
         {/* Color blend overlay (duotone tint) */}
@@ -282,7 +281,7 @@ function WorkCard({ work }: { work: Work }) {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(to bottom, rgba(139, 92, 246, 0.4) 0%, transparent 100%)',
+              'linear-gradient(to bottom, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 100%)',
             mixBlendMode: 'color',
           }}
         />
@@ -292,7 +291,7 @@ function WorkCard({ work }: { work: Work }) {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.06) 100%)',
+              'linear-gradient(to bottom, transparent 50%, var(--card-fade) 100%)',
           }}
         />
       </div>
@@ -315,8 +314,8 @@ function WorkCard({ work }: { work: Work }) {
                 fontSize: '10px',
                 padding: '4px 12px',
                 borderRadius: '100px',
-                background: 'rgba(139, 92, 246, 0.2)',
-                color: '#a78bfa',
+                background: 'var(--accent-soft)',
+                color: 'var(--text-accent)',
                 letterSpacing: '0.05em',
                 fontFamily: "'Jost', sans-serif",
               }}
@@ -331,7 +330,7 @@ function WorkCard({ work }: { work: Work }) {
           style={{
             fontSize: '16px',
             fontWeight: 400,
-            color: '#ffffff',
+            color: 'var(--text-heading)',
             margin: '0 0 12px',
             fontFamily: "'Jost', 'Sawarabi Gothic', sans-serif",
             lineHeight: 1.6,
@@ -344,7 +343,7 @@ function WorkCard({ work }: { work: Work }) {
         <p
           style={{
             fontSize: '13px',
-            color: 'rgba(255, 255, 255, 0.5)',
+            color: 'var(--text-sub)',
             margin: 0,
             lineHeight: 1.75,
             display: '-webkit-box',

@@ -197,7 +197,7 @@ const creativeWorkJsonLd = {
 
   .work-date {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     font-family: 'Jost', sans-serif;
     letter-spacing: 0.05em;
   }
@@ -212,9 +212,9 @@ const creativeWorkJsonLd = {
     font-size: 0.75rem;
     padding: 4px 12px;
     border-radius: 9999px;
-    background: rgba(139, 92, 246, 0.2);
-    color: #a78bfa;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    background: var(--accent-soft);
+    color: var(--text-accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
     text-decoration: none;
     font-family: 'Jost', sans-serif;
     letter-spacing: 0.05em;
@@ -222,14 +222,14 @@ const creativeWorkJsonLd = {
   }
 
   .category-tag:hover {
-    background: rgba(139, 92, 246, 0.3);
-    border-color: rgba(139, 92, 246, 0.5);
+    background: color-mix(in srgb, var(--accent) 30%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 50%, transparent);
   }
 
   .work-title {
     font-size: clamp(1.6rem, 4vw, 2.5rem);
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-heading);
     margin: 0 0 16px;
     line-height: 1.3;
     font-family: 'Jost', 'Sawarabi Gothic', sans-serif;
@@ -238,7 +238,7 @@ const creativeWorkJsonLd = {
 
   .work-description {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-muted);
     line-height: 1.8;
     margin: 0;
     max-width: 800px;
@@ -285,7 +285,7 @@ const creativeWorkJsonLd = {
     font-size: 0.75rem;
     font-family: 'Jost', sans-serif;
     letter-spacing: 0.1em;
-    color: #a78bfa;
+    color: var(--text-accent);
     text-transform: uppercase;
     min-width: 100px;
     padding-top: 2px;
@@ -294,7 +294,7 @@ const creativeWorkJsonLd = {
 
   .info-value {
     font-size: 0.9rem;
-    color: #f0f0f5;
+    color: var(--text-body);
   }
 
   .tech-badges {
@@ -307,12 +307,12 @@ const creativeWorkJsonLd = {
     font-size: 0.75rem;
     padding: 5px 14px;
     border-radius: 8px;
-    background: rgba(139, 92, 246, 0.18);
-    border: 1px solid rgba(139, 92, 246, 0.35);
-    color: #c4b5fd;
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    color: var(--text-accent);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow: var(--card-shadow);
     font-family: 'Jost', sans-serif;
     letter-spacing: 0.05em;
     white-space: nowrap;
@@ -320,13 +320,13 @@ const creativeWorkJsonLd = {
 
   .external-link {
     font-size: 0.9rem;
-    color: #a78bfa;
+    color: var(--text-accent);
     text-decoration: none;
     transition: color 0.2s ease;
   }
 
   .external-link:hover {
-    color: #c4b5fd;
+    color: var(--accent-hover);
   }
 
   /* ── Prose content (Markdown body) ── */
@@ -334,13 +334,13 @@ const creativeWorkJsonLd = {
     max-width: 800px;
     margin-bottom: 80px;
     line-height: 1.8;
-    color: #f0f0f5;
+    color: var(--text-body);
   }
 
   .prose-content :global(h2) {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-heading);
     margin: 2.5rem 0 1rem;
     font-family: 'Jost', 'Sawarabi Gothic', sans-serif;
     letter-spacing: 0.04em;
@@ -349,7 +349,7 @@ const creativeWorkJsonLd = {
   .prose-content :global(h3) {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-heading);
     margin: 2rem 0 0.75rem;
     font-family: 'Jost', 'Sawarabi Gothic', sans-serif;
   }
@@ -357,12 +357,12 @@ const creativeWorkJsonLd = {
   .prose-content :global(h4) {
     font-size: 1rem;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--text-heading);
     margin: 1.5rem 0 0.5rem;
   }
 
   .prose-content :global(p) {
-    color: #f0f0f5;
+    color: var(--text-body);
     line-height: 1.8;
     margin: 0 0 1.5rem;
   }
@@ -371,7 +371,7 @@ const creativeWorkJsonLd = {
   .prose-content :global(ol) {
     padding-left: 1.5rem;
     margin: 0 0 1.5rem;
-    color: #f0f0f5;
+    color: var(--text-body);
   }
 
   .prose-content :global(li) {
@@ -380,41 +380,41 @@ const creativeWorkJsonLd = {
   }
 
   .prose-content :global(ul li::marker) {
-    color: #a78bfa;
+    color: var(--text-accent);
   }
 
   .prose-content :global(ol li::marker) {
-    color: #a78bfa;
+    color: var(--text-accent);
   }
 
   .prose-content :global(a) {
-    color: #a78bfa;
+    color: var(--text-accent);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
   .prose-content :global(a:hover) {
-    color: #c4b5fd;
+    color: var(--accent-hover);
   }
 
   .prose-content :global(strong) {
-    color: #ffffff;
+    color: var(--text-heading);
     font-weight: 600;
   }
 
   .prose-content :global(code) {
     font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
     font-size: 0.875em;
-    background: rgba(139, 92, 246, 0.15);
-    border: 1px solid rgba(139, 92, 246, 0.2);
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
     border-radius: 4px;
     padding: 2px 6px;
-    color: #c4b5fd;
+    color: var(--text-accent);
   }
 
   .prose-content :global(pre) {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--pre-bg);
+    border: 1px solid var(--pre-border);
     border-radius: 8px;
     padding: 20px 24px;
     overflow-x: auto;
@@ -426,7 +426,7 @@ const creativeWorkJsonLd = {
     border: none;
     padding: 0;
     font-size: 0.875rem;
-    color: #f0f0f5;
+    color: var(--text-body);
   }
 
   .prose-content :global(table) {
@@ -439,11 +439,11 @@ const creativeWorkJsonLd = {
   }
 
   .prose-content :global(th) {
-    background: rgba(139, 92, 246, 0.15);
-    color: #a78bfa;
+    background: var(--accent-soft);
+    color: var(--text-accent);
     padding: 10px 16px;
     text-align: left;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-soft);
     font-family: 'Jost', sans-serif;
     letter-spacing: 0.05em;
     font-size: 0.8rem;
@@ -451,25 +451,25 @@ const creativeWorkJsonLd = {
 
   .prose-content :global(td) {
     padding: 10px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #f0f0f5;
+    border: 1px solid var(--border-weak);
+    color: var(--text-body);
   }
 
   .prose-content :global(tr:nth-child(even) td) {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--surface-faint);
   }
 
   .prose-content :global(blockquote) {
-    border-left: 3px solid rgba(139, 92, 246, 0.5);
+    border-left: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
     padding-left: 1rem;
     margin: 1.5rem 0;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-muted);
     font-style: italic;
   }
 
   .prose-content :global(hr) {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-soft);
     margin: 2rem 0;
   }
 

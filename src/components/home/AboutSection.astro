@@ -175,8 +175,8 @@ import avatarImg from '../../../avatar.jpg';
     align-items: center;
     justify-content: center;
     gap: 24px;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(139, 92, 246, 0.04);
+    border-right: 1px solid var(--border-soft);
+    background: color-mix(in srgb, var(--accent) 4%, transparent);
   }
 
   .avatar-img {
@@ -184,8 +184,8 @@ import avatarImg from '../../../avatar.jpg';
     height: 160px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+    border: 2px solid var(--border-soft);
+    box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 15%, transparent);
     display: block;
   }
 
@@ -197,21 +197,21 @@ import avatarImg from '../../../avatar.jpg';
     font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 400;
-    color: #ffffff;
+    color: var(--text-heading);
     letter-spacing: 0.1em;
     margin-bottom: 2px;
   }
 
   .name-secondary {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     letter-spacing: 0.06em;
     margin-bottom: 4px;
   }
 
   .name-title {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     letter-spacing: 0.04em;
     line-height: 1.5;
   }
@@ -228,20 +228,20 @@ import avatarImg from '../../../avatar.jpg';
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--surface-weak);
+    border: 1px solid var(--border-weak);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     flex-shrink: 0;
   }
 
   .social-link:hover {
-    background: rgba(139, 92, 246, 0.15);
-    border-color: rgba(139, 92, 246, 0.25);
-    color: #a78bfa;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 25%, transparent);
+    color: var(--text-accent);
   }
 
   /* ── Right Panel ── */
@@ -261,7 +261,7 @@ import avatarImg from '../../../avatar.jpg';
 
   .bio-text {
     font-size: 0.875rem;
-    color: #f0f0f5;
+    color: var(--text-body);
     line-height: 2.2;
     letter-spacing: 0.04em;
     margin: 0;
@@ -273,7 +273,7 @@ import avatarImg from '../../../avatar.jpg';
     flex-direction: column;
     gap: 16px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-soft);
   }
 
   .strength-item {
@@ -286,12 +286,12 @@ import avatarImg from '../../../avatar.jpg';
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    background: rgba(139, 92, 246, 0.08);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: #a78bfa;
+    color: var(--text-accent);
   }
 
   .strength-text {
@@ -301,7 +301,7 @@ import avatarImg from '../../../avatar.jpg';
 
   .strength-label {
     font-size: 0.8125rem;
-    color: #ffffff;
+    color: var(--text-heading);
     font-weight: 400;
     letter-spacing: 0.04em;
     margin-bottom: 3px;
@@ -309,7 +309,7 @@ import avatarImg from '../../../avatar.jpg';
 
   .strength-desc {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-sub);
     line-height: 1.7;
   }
 
@@ -321,7 +321,7 @@ import avatarImg from '../../../avatar.jpg';
 
     .about-left {
       border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--border-soft);
       padding: 32px 24px;
     }
 

@@ -4,6 +4,8 @@ import SectionTitle from "../common/SectionTitle.astro";
 import WorkCard from "../works/WorkCard.astro";
 import SectionWrapper from "../common/SectionWrapper.astro";
 
+// 案件テーマカラー（デュオトーン用）— カラーリデザインのスコープ外につき現状維持
+// （docs/color-redesign-instructions.md §3.4 / §7。問題があれば報告のみ）
 const categoryColors: Record<string, string> = {
   "system-development": "#6366f1",
   "web-development": "#8b5cf6",
@@ -39,7 +41,7 @@ if (works.length < 3) {
   <div class="works-grid">
     {works.map((work) => {
       const primaryCategory = work.data.serviceCategory[0];
-      const themeColor = categoryColors[primaryCategory] ?? "#8b5cf6";
+      const themeColor = categoryColors[primaryCategory] ?? "var(--accent)";
       // work.id is like "corporate-site-redesign/index" from glob loader
       const slug = work.id.split("/")[0];
 
@@ -91,7 +93,7 @@ if (works.length < 3) {
 
   .works-all-link {
     display: inline-block;
-    color: var(--color-text-accent);
+    color: var(--text-accent);
     font-family: var(--font-heading);
     font-size: 14px;
     letter-spacing: 0.1em;
@@ -100,6 +102,6 @@ if (works.length < 3) {
   }
 
   .works-all-link:hover {
-    color: #ffffff;
+    color: var(--text-heading);
   }
 </style>

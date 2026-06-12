@@ -30,44 +30,44 @@
     will-change: transform;
   }
 
-  /* Primary: 550px, purple rgba(139,92,246,0.28), wide elliptical orbit + scale pulse, 28s */
+  /* Primary: 550px, var(--blob-1), wide elliptical orbit + scale pulse, 28s */
   .blob-primary {
     width: 550px;
     height: 550px;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.28) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--blob-1) 0%, transparent 70%);
     filter: blur(80px);
     top: -5%;
     left: 5%;
     animation: blob-primary 28s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   }
 
-  /* Pink: 480px, pink rgba(236,72,153,0.18), counter-clockwise, asymmetric easing, 24s */
+  /* Blob 2: 480px, var(--blob-2), counter-clockwise, asymmetric easing, 24s */
   .blob-pink {
     width: 480px;
     height: 480px;
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.18) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--blob-2) 0%, transparent 70%);
     filter: blur(90px);
     top: 15%;
     right: -5%;
     animation: blob-pink 24s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
   }
 
-  /* Blue: 420px, blue rgba(59,130,246,0.14), tight orbit, 19s */
+  /* Blob 3: 420px, var(--blob-3), tight orbit, 19s */
   .blob-blue {
     width: 420px;
     height: 420px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.14) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--blob-3) 0%, transparent 70%);
     filter: blur(100px);
     bottom: 10%;
     left: 25%;
     animation: blob-blue 19s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  /* Ambient: 350px, light purple rgba(167,139,250,0.10), ultra-slow drift + opacity pulse, 35s */
+  /* Ambient: 350px, var(--blob-4), ultra-slow drift + opacity pulse, 35s */
   .blob-ambient {
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, rgba(167, 139, 250, 0.10) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--blob-4) 0%, transparent 70%);
     filter: blur(80px);
     bottom: 25%;
     right: 15%;
