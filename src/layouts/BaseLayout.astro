@@ -49,6 +49,32 @@ const jsonLd = {
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfbfd" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181b28" />
+
+    <!-- FOUC防止: 描画前に html.dark を確定する（localStorage > prefers-color-scheme） -->
+    <script is:inline>
+      (function () {
+        var stored = null;
+        try {
+          stored = localStorage.getItem('theme');
+        } catch (e) {
+          /* localStorage 不可の環境では OS 設定に従う */
+        }
+        var dark = stored
+          ? stored === 'dark'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', dark);
+        // 手動選択がある場合は theme-color メタも解決済みモードへ上書き
+        if (stored) {
+          var metas = document.querySelectorAll('meta[name="theme-color"]');
+          for (var i = 0; i < metas.length; i++) {
+            metas[i].setAttribute('content', dark ? '#181b28' : '#fbfbfd');
+          }
+        }
+      })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
