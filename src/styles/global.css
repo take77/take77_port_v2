@@ -87,10 +87,11 @@
   --noise-blend: multiply;
 
   /* Duotone work cards
-     ライトは「モノクロ印刷」に見えないよう色味を残す（2026-06 ユーザー調整。指示書値 brightness(0.85) から変更） */
+     ライトはほぼ原色 + コントラスト/彩度ブーストで鮮明に（2026-06 ユーザー調整。
+     指示書値 grayscale(100%) brightness(0.85) から段階調整） */
   --duotone-base: #e8eaef;
-  --duotone-img-filter: grayscale(45%) brightness(1.05) contrast(1);
-  --duotone-tint-opacity: 0.45;
+  --duotone-img-filter: grayscale(15%) saturate(1.08) brightness(1.02) contrast(1.06);
+  --duotone-tint-opacity: 0.25;
   --card-fade: rgba(251, 251, 253, 0.92);
 
   /* Blobs（サイズ・動き・周期は spec §5.2 を維持、色のみモード別） */

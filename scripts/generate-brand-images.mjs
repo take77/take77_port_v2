@@ -155,17 +155,23 @@ function touchIconSvg() {
 </svg>`;
 }
 
-const svgToFile = (svg, file, format = 'jpeg') => {
-  const pipe = sharp(Buffer.from(svg), { density: 96 });
+/* 高密度でラスタライズしてから目標サイズへ（Retina対応・テキストのアンチエイリアスを綺麗に） */
+const svgToFile = (svg, file, { width, height, format = 'jpeg' }) => {
+  const pipe = sharp(Buffer.from(svg), { density: 288 }).resize(width, height);
   return (format === 'jpeg' ? pipe.jpeg({ quality: 85, mozjpeg: true }) : pipe.png())
     .toFile(join(root, file))
-    .then(() => console.log('generated:', file));
+    .then(() => console.log('generated:', file, `${width}x${height}`));
 };
 
 await mkdir(join(root, 'public'), { recursive: true });
-await svgToFile(ogSvg(), 'public/og-image.jpg');
-await svgToFile(touchIconSvg(), 'public/apple-touch-icon.png', 'png');
+// OGPは標準サイズ固定（1200x630）
+await svgToFile(ogSvg(), 'public/og-image.jpg', { width: 1200, height: 630 });
+await svgToFile(touchIconSvg(), 'public/apple-touch-icon.png', { width: 180, height: 180, format: 'png' });
+// 実績カードはRetina対応の2倍解像度（表示は最大1200px幅）
 for (const work of CARD_WORKS) {
-  await svgToFile(workCardSvg(work), `content/works/${work.slug}/thumbnail.jpg`);
+  await svgToFile(workCardSvg(work), `content/works/${work.slug}/thumbnail.jpg`, {
+    width: 2400,
+    height: 1350,
+  });
 }
 console.log('done');

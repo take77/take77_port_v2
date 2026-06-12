@@ -8,9 +8,11 @@ interface Props {
   height: number;
   /** hex値（案件テーマカラー）または 'var(--accent)' などのCSS色 */
   themeColor: string;
+  /** Retina対応のsrcset倍率（例: [1, 2]）。省略時は width 単一解像度 */
+  densities?: number[];
 }
 
-const { src, alt, width, height, themeColor } = Astro.props;
+const { src, alt, width, height, themeColor, densities } = Astro.props;
 
 // 旧実装の hex+アルファ接尾辞（cc/66/45）と等価のアルファを color-mix で表現する。
 // CSS変数（var(--accent)）をテーマカラーに渡せるようにするための変更。
@@ -24,6 +26,7 @@ const tint = (percent: number) => `color-mix(in srgb, ${themeColor} ${percent}%,
     alt={alt}
     width={width}
     height={height}
+    densities={densities}
     class="duotone-image"
     loading="lazy"
   />

@@ -39,7 +39,8 @@
 - コントラスト比4.5:1以上を両モードで維持
 - フォント: Jost（見出しラテン）+ Sawarabi Gothic（本文日本語）
 - ヒーロー: ノイズ（ライト=multiply 0.025 / ダーク=overlay 0.035）+ 4ブロブ + グリッドパターン
-- 実績カード: デュオトーン処理（ライトは grayscale(45%) brightness(1.05) + ティント0.45で色味を残す、ダークは grayscale(100%) brightness(0.6) + ティント1.0）
+- 実績カード: デュオトーン処理（ライトはほぼ原色 grayscale(15%) saturate(1.08) contrast(1.06) + ティント0.25、ダークは grayscale(100%) brightness(0.6) + ティント1.0）
+- 画像素材: サムネイルは2400×1350で用意し、表示側で densities による srcset を必ず指定（Retina対応）
 - 実績詳細ページでは画像は原色表示（デュオトーンなし）
 - ホバー: translateY(-4px) + border明度アップ、transition 0.35s cubic-bezier(0.4,0,0.2,1)
 
