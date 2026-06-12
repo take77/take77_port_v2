@@ -372,9 +372,9 @@ draft: false
 1. 下端フェード：`linear-gradient(to bottom, transparent 50%, var(--card-fade) 100%)`
 2. カラーオーバーレイ（overlay）：`案件テーマカラー 27% → transparent`（color-mixで適用、不透明度 `var(--duotone-tint-opacity)`）
 3. カラーティント（color blend）：`案件テーマカラー 80% → 40%`（color-mixで適用、不透明度 `var(--duotone-tint-opacity)`）
-4. ベース画像：ダーク `grayscale(100%) brightness(0.6) contrast(1.1)` / ライト `grayscale(15%) saturate(1.08) brightness(1.02) contrast(1.06)`（`var(--duotone-img-filter)` で切替）
+4. ベース画像：ダーク `grayscale(20%) saturate(1.05) brightness(0.85) contrast(1.08)` / ライト `grayscale(15%) saturate(1.08) brightness(1.02) contrast(1.06)`（`var(--duotone-img-filter)` で切替）
 
-**ライトのトーン（2026-06 ユーザー調整）：** 当初のライト値 `grayscale(100%) brightness(0.85)`（指示書 §3.4）では「モノクロ印刷」のように見えたため段階調整し、最終的にほぼ原色 + コントラスト/彩度ブースト、ティント層の不透明度 0.25（`--duotone-tint-opacity`、ダークは 1.0）とした。
+**トーン（2026-06 ユーザー調整）：** 当初の `grayscale(100%)` + ティント1.0 では、ライトは「モノクロ印刷」、ダークは「くすんだセージの靄」に見えたため段階調整。最終的に両モードとも「ほぼ原色 + コントラスト/彩度ブースト」とし、ダークのみ brightness(0.85) で減光。ティント層の不透明度は `--duotone-tint-opacity`（ライト 0.25 / ダーク 0.3）。
 
 **画像素材の解像度（2026-06 追記）：** Retina 対応のため、サムネイル素材は 2400×1350 で用意し、カードは `densities={[1, 2, 3]}`、詳細ページのメイン画像は `densities={[1, 2]}` の srcset を出力する。実績一覧（WorkFilter）は 1200px 幅で最適化（表示幅最大 ~600px の 2x）。
 

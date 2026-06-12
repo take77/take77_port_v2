@@ -178,8 +178,10 @@
   --noise-blend: overlay;
 
   --duotone-base: #23263a;
-  --duotone-img-filter: grayscale(100%) brightness(0.6) contrast(1.1);
-  --duotone-tint-opacity: 1;
+  /* ダークもほぼ原色 + 減光に統一（2026-06 ユーザー調整。grayscale(100%)+ティント1.0 は
+     明るい実スクショ素材だと全面がくすんだセージの靄になるため） */
+  --duotone-img-filter: grayscale(20%) saturate(1.05) brightness(0.85) contrast(1.08);
+  --duotone-tint-opacity: 0.3;
   --card-fade: rgba(24, 27, 40, 0.92);
 
   --blob-1: rgba(140, 150, 121, 0.26);
