@@ -283,6 +283,7 @@ function WorkCard({ work }: { work: Work }) {
             background:
               'linear-gradient(to bottom, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 100%)',
             mixBlendMode: 'color',
+            opacity: 'var(--duotone-tint-opacity)',
           }}
         />
         {/* Bottom fade into card background */}

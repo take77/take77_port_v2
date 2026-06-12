@@ -370,9 +370,11 @@ draft: false
 
 **処理レイヤー（上から順）：**
 1. 下端フェード：`linear-gradient(to bottom, transparent 50%, var(--card-fade) 100%)`
-2. カラーオーバーレイ（overlay）：`案件テーマカラー 27% → transparent`（color-mixで適用）
-3. カラーティント（color blend）：`案件テーマカラー 80% → 40%`（color-mixで適用）
-4. ベース画像：ダーク `grayscale(100%) brightness(0.6) contrast(1.1)` / ライト `grayscale(100%) brightness(0.85) contrast(1.05)`（明背景で黒く沈むのを防ぐ。`var(--duotone-img-filter)` で切替）
+2. カラーオーバーレイ（overlay）：`案件テーマカラー 27% → transparent`（color-mixで適用、不透明度 `var(--duotone-tint-opacity)`）
+3. カラーティント（color blend）：`案件テーマカラー 80% → 40%`（color-mixで適用、不透明度 `var(--duotone-tint-opacity)`）
+4. ベース画像：ダーク `grayscale(100%) brightness(0.6) contrast(1.1)` / ライト `grayscale(45%) brightness(1.05) contrast(1)`（`var(--duotone-img-filter)` で切替）
+
+**ライトのトーン（2026-06 ユーザー調整）：** 当初のライト値 `grayscale(100%) brightness(0.85)`（指示書 §3.4）では「モノクロ印刷」のように見えたため、グレースケールを 45% に緩めて元の色味を残し、ティント層の不透明度を 0.45（`--duotone-tint-opacity`、ダークは 1.0）に低減した。
 
 **実装方式（2026-06改訂）：** ランタイムCSS filterに統一。テーマがクライアントサイドで切り替わるため、Sharpによるモード別2枚生成よりCSS変数切替の方がシンプルかつ追加コストゼロ（filterは1回描画でアニメーションなし）。
 

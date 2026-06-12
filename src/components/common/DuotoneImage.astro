@@ -69,10 +69,12 @@ const tint = (percent: number) => `color-mix(in srgb, ${themeColor} ${percent}%,
 
   .duotone-color {
     mix-blend-mode: color;
+    opacity: var(--duotone-tint-opacity);
   }
 
   .duotone-overlay {
     mix-blend-mode: overlay;
+    opacity: var(--duotone-tint-opacity);
   }
 
   .duotone-fade {

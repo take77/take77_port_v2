@@ -79,36 +79,38 @@ const gridDefs = (id, color, size) => `
 const blob = (cx, cy, r, color, opacity) =>
   `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="${opacity}" filter="url(#blur)"/>`;
 
-/* --- 実績カード SVG（1200×675、ダークB1基調 — デュオトーン処理・両モードのカードに馴染む） --- */
+/* --- 実績カード SVG（1200×675、ライトA2基調）
+   実スクリーンショット（明るいサイト画面）と明度を揃える（2026-06 ユーザー調整でダーク基調から変更）。
+   ライトモードでは明るいまま馴染み、ダークモードではデュオトーン処理（brightness 0.6）で減光される。 --- */
 function workCardSvg({ category }) {
   const W = 1200, H = 675;
   const label = CATEGORY_LABELS[category];
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="${dark.bgGrad[0]}"/>
-      <stop offset="0.55" stop-color="${dark.bgGrad[1]}"/>
-      <stop offset="1" stop-color="${dark.bgGrad[2]}"/>
+      <stop offset="0" stop-color="${light.bgGrad[0]}"/>
+      <stop offset="0.55" stop-color="${light.bgGrad[1]}"/>
+      <stop offset="1" stop-color="${light.bgGrad[2]}"/>
     </linearGradient>
-    ${gridDefs('grid', dark.grid, 80)}
+    ${gridDefs('grid', 'rgba(48,52,77,0.08)', 80)}
     <filter id="blur" x="-80%" y="-80%" width="260%" height="260%">
       <feGaussianBlur stdDeviation="70"/>
     </filter>
   </defs>
   <rect width="${W}" height="${H}" fill="url(#bg)"/>
-  ${blob(180, 140, 200, dark.sage, 0.22)}
-  ${blob(1040, 540, 230, dark.navyBlue, 0.3)}
-  ${blob(950, 100, 150, dark.beige, 0.13)}
+  ${blob(180, 140, 220, light.sage, 0.28)}
+  ${blob(1040, 540, 240, '#4a5170', 0.2)}
+  ${blob(980, 110, 160, light.beige, 0.32)}
   <rect width="${W}" height="${H}" fill="url(#grid)"/>
   <g transform="translate(${W / 2 - 44}, 210) scale(${88 / 24})" fill="none"
-     stroke="${dark.sage}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+     stroke="${light.sage}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
     ${MOTIFS[category]}
   </g>
   <text x="${W / 2}" y="400" text-anchor="middle" font-family="${FONT_EN}" font-size="44"
-        letter-spacing="6" fill="#f0f0f5" font-weight="500">${label}</text>
+        letter-spacing="6" fill="${light.heading}" font-weight="500">${label}</text>
   <text x="${W / 2}" y="452" text-anchor="middle" font-family="${FONT_EN}" font-size="19"
-        letter-spacing="4" fill="${dark.sub}">take77 Portfolio</text>
-  <rect x="${W / 2 - 28}" y="490" width="56" height="3" rx="1.5" fill="${dark.sage}" opacity="0.8"/>
+        letter-spacing="4" fill="${light.sub}">take77 Portfolio</text>
+  <rect x="${W / 2 - 28}" y="490" width="56" height="3" rx="1.5" fill="${light.sage}"/>
 </svg>`;
 }
 
