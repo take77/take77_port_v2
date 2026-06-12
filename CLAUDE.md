@@ -39,9 +39,11 @@
 - コントラスト比4.5:1以上を両モードで維持
 - フォント: Jost（見出しラテン）+ Sawarabi Gothic（本文日本語）
 - ヒーロー: ノイズ（ライト=multiply 0.025 / ダーク=overlay 0.035）+ 4ブロブ + グリッドパターン
-- 実績カード: デュオトーン処理（ライトは brightness(0.85)、ダークは brightness(0.6)）
+- 実績カード: 両モードともほぼ原色 + 軽い統一ティント（ライト grayscale(15%)+ティント0.25 / ダーク grayscale(20%) brightness(0.85)+ティント0.3）
+- 画像素材: サムネイルは2400×1350で用意し、表示側で densities による srcset を必ず指定（Retina対応）
 - 実績詳細ページでは画像は原色表示（デュオトーンなし）
 - ホバー: translateY(-4px) + border明度アップ、transition 0.35s cubic-bezier(0.4,0,0.2,1)
+- セクションタイトル→コンテンツの間隔: SectionTitle の mb-12 に加え、グリッド側に margin-top: 2.5rem を必ず指定
 
 ## コンテンツ
 - content/works/ にMarkdownで制作実績を管理

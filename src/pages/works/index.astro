@@ -16,9 +16,10 @@ allWorks.sort((a, b) => {
 });
 
 // Serialize works data: process ImageMetadata → usable src/width/height
+// カード表示幅は最大~600px。Retina(2x)を見込んで1200px幅で最適化する
 const serializedWorks = await Promise.all(
   allWorks.map(async (work) => {
-    const optimized = await getImage({ src: work.data.thumbnail });
+    const optimized = await getImage({ src: work.data.thumbnail, width: 1200, height: 675 });
     return {
       id: work.id,
       title: work.data.title,
@@ -27,8 +28,8 @@ const serializedWorks = await Promise.all(
       serviceCategory: work.data.serviceCategory as string[],
       thumbnail: {
         src: optimized.src,
-        width: work.data.thumbnail.width,
-        height: work.data.thumbnail.height,
+        width: 1200,
+        height: 675,
       },
     };
   })

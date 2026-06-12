@@ -86,9 +86,12 @@
   --noise-opacity: 0.025;
   --noise-blend: multiply;
 
-  /* Duotone work cards */
+  /* Duotone work cards
+     ライトはほぼ原色 + コントラスト/彩度ブーストで鮮明に（2026-06 ユーザー調整。
+     指示書値 grayscale(100%) brightness(0.85) から段階調整） */
   --duotone-base: #e8eaef;
-  --duotone-img-filter: grayscale(100%) brightness(0.85) contrast(1.05);
+  --duotone-img-filter: grayscale(15%) saturate(1.08) brightness(1.02) contrast(1.06);
+  --duotone-tint-opacity: 0.25;
   --card-fade: rgba(251, 251, 253, 0.92);
 
   /* Blobs（サイズ・動き・周期は spec §5.2 を維持、色のみモード別） */
@@ -175,7 +178,10 @@
   --noise-blend: overlay;
 
   --duotone-base: #23263a;
-  --duotone-img-filter: grayscale(100%) brightness(0.6) contrast(1.1);
+  /* ダークもほぼ原色 + 減光に統一（2026-06 ユーザー調整。grayscale(100%)+ティント1.0 は
+     明るい実スクショ素材だと全面がくすんだセージの靄になるため） */
+  --duotone-img-filter: grayscale(20%) saturate(1.05) brightness(0.85) contrast(1.08);
+  --duotone-tint-opacity: 0.3;
   --card-fade: rgba(24, 27, 40, 0.92);
 
   --blob-1: rgba(140, 150, 121, 0.26);
