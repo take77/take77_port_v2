@@ -62,7 +62,7 @@ import GridPattern from './common/GridPattern.astro';
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-text-accent);
+    color: var(--text-accent);
     margin-bottom: 1.25rem;
     animation: fadeInUp 0.8s ease both;
     animation-delay: 0.1s;
@@ -76,13 +76,13 @@ import GridPattern from './common/GridPattern.astro';
     line-height: 1.1;
     letter-spacing: 0.02em;
     margin-bottom: 1.5rem;
-    color: #ffffff;
+    color: var(--text-heading);
     animation: fadeInUp 0.8s ease both;
     animation-delay: 0.2s;
   }
 
   .hero-title-accent {
-    background: linear-gradient(135deg, #b8a5f8 0%, #c084d4 100%);
+    background: var(--hero-title-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -91,7 +91,7 @@ import GridPattern from './common/GridPattern.astro';
   /* ── Sub text ── */
   .hero-sub {
     font-size: clamp(0.9rem, 2vw, 1.05rem);
-    color: var(--color-text-sub);
+    color: var(--text-sub);
     line-height: 1.9;
     letter-spacing: 0.04em;
     margin-bottom: 2.5rem;
@@ -127,27 +127,27 @@ import GridPattern from './common/GridPattern.astro';
   }
 
   .btn-primary {
-    background: var(--color-accent);
-    color: #ffffff;
-    border: 1px solid var(--color-accent);
+    background: var(--accent);
+    color: var(--on-accent);
+    border: 1px solid var(--accent);
   }
 
   .btn-primary:hover {
-    background: var(--color-accent-hover);
-    border-color: var(--color-accent-hover);
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 35%, transparent);
   }
 
   .btn-outline {
     background: transparent;
-    color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-strong);
+    border: 1px solid color-mix(in srgb, var(--text-heading) 22%, transparent);
   }
 
   .btn-outline:hover {
-    border-color: rgba(255, 255, 255, 0.45);
-    color: #ffffff;
+    border-color: color-mix(in srgb, var(--text-heading) 45%, transparent);
+    color: var(--text-heading);
     transform: translateY(-2px);
   }
 
@@ -160,7 +160,7 @@ import GridPattern from './common/GridPattern.astro';
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    color: var(--color-text-sub);
+    color: var(--text-sub);
     font-family: var(--font-heading);
     font-size: 0.7rem;
     letter-spacing: 0.2em;
@@ -171,7 +171,7 @@ import GridPattern from './common/GridPattern.astro';
   .scroll-line {
     width: 1px;
     height: 40px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--text-heading) 30%, transparent), transparent);
   }
 
   /* ── Animations ── */

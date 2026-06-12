@@ -8,6 +8,11 @@
 /* --- Tailwind CSS v4 --- */
 @import 'tailwindcss';
 
+/* --- Dark mode: class strategy (html.dark) ---
+   手動トグルと prefers-color-scheme を両立させるため class 戦略を採用
+   （docs/color-redesign-instructions.md §3.2） */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* --- @font-face: Jost Variable (self-hosted) --- */
 @font-face {
   font-family: 'Jost';
@@ -17,52 +22,195 @@
   src: url('/fonts/jost-variable.woff2') format('woff2');
 }
 
-/* --- Tailwind v4 custom theme --- */
-@theme {
-  --color-bg-start: #362742;
-  --color-bg-mid: #1a0f24;
-  --color-bg-end: #211829;
-  --color-text: #f0f0f5;
-  --color-text-heading: #ffffff;
-  --color-text-sub: rgba(255, 255, 255, 0.5);
-  --color-text-accent: #a78bfa;
-  --color-accent: #8b5cf6;
-  --color-accent-hover: #7c3aed;
-  --color-glass-bg: rgba(255, 255, 255, 0.09);
-  --color-glass-border: rgba(255, 255, 255, 0.18);
+/* ============================================================
+   Semantic color tokens — 2モード制
+   ライト（デフォルト）= ネイビー×ピュアホワイト（A2）
+   ダーク = ネイビー×セージ（B1）
+   色の生値はコンポーネントに直書きせず、必ずこの変数を参照する。
+   アクセントの中間アルファは color-mix(in srgb, var(--accent) N%, transparent) で派生させる。
+   ============================================================ */
 
+/* --- Light mode (default) --- */
+:root {
+  color-scheme: light;
+
+  --bg-gradient: linear-gradient(135deg, #fbfbfd 0%, #f3f5f8 55%, #edf0f4 100%);
+  --bg-solid: #fbfbfd;
+
+  /* Text emphasis ladder */
+  --text-heading: #1c2138;
+  --text-body: #2b2f45;
+  --text-strong: rgba(43, 47, 69, 0.82);
+  --text-nav: rgba(43, 47, 69, 0.72);
+  --text-muted: rgba(43, 47, 69, 0.66);
+  --text-sub: rgba(43, 47, 69, 0.55);
+  --text-weak: rgba(43, 47, 69, 0.5);
+  --text-faint: rgba(43, 47, 69, 0.4);
+  --text-faintest: rgba(43, 47, 69, 0.35);
+  --text-accent: #353a5c;
+
+  /* Accent */
+  --accent: #353a5c;
+  --accent-hover: #2a2e4a;
+  --accent-soft: rgba(53, 58, 92, 0.1);
+  --on-accent: #ffffff;
+
+  /* Surfaces */
+  --card-bg: rgba(255, 255, 255, 0.78);
+  --card-border: rgba(48, 52, 77, 0.1);
+  --card-border-hover: rgba(48, 52, 77, 0.22);
+  --card-shadow: 0 10px 30px rgba(48, 52, 77, 0.08);
+  --card-shadow-hover: 0 16px 40px rgba(48, 52, 77, 0.12);
+  --surface-weak: rgba(48, 52, 77, 0.04);
+  --surface-faint: rgba(48, 52, 77, 0.03);
+  --border-weak: rgba(48, 52, 77, 0.08);
+  --border-soft: rgba(48, 52, 77, 0.1);
+  --opaque-surface: rgba(251, 251, 253, 0.97);
+
+  /* Nav / drawer */
+  --nav-bg: rgba(251, 251, 253, 0.82);
+  --nav-border: rgba(48, 52, 77, 0.12);
+  --drawer-bg: rgba(251, 251, 253, 0.92);
+  --drawer-shadow: -8px 0 32px rgba(48, 52, 77, 0.18);
+  --overlay-bg: rgba(28, 33, 56, 0.3);
+
+  /* Form */
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --input-bg-focus: #ffffff;
+  --input-border: rgba(48, 52, 77, 0.16);
+  --input-placeholder: rgba(43, 47, 69, 0.4);
+
+  /* Hero / decoration */
+  --grid-line: rgba(48, 52, 77, 0.06);
+  --hero-title-gradient: linear-gradient(135deg, #353a5c 0%, #4a5170 100%);
+  --noise-opacity: 0.025;
+  --noise-blend: multiply;
+
+  /* Duotone work cards */
+  --duotone-base: #e8eaef;
+  --duotone-img-filter: grayscale(100%) brightness(0.85) contrast(1.05);
+  --card-fade: rgba(251, 251, 253, 0.92);
+
+  /* Blobs（サイズ・動き・周期は spec §5.2 を維持、色のみモード別） */
+  --blob-1: rgba(74, 81, 112, 0.16);
+  --blob-2: rgba(140, 150, 121, 0.16);
+  --blob-3: rgba(201, 191, 169, 0.22);
+  --blob-4: rgba(53, 58, 92, 0.06);
+
+  /* Code blocks (works detail prose) */
+  --pre-bg: rgba(48, 52, 77, 0.05);
+  --pre-border: rgba(48, 52, 77, 0.12);
+
+  /* Form error states（既存の赤系をライト可読に暗色化、新色相は導入しない） */
+  --error-text: #b3261e;
+  --error-banner-text: #8c1d18;
+  --error-bg: rgba(179, 38, 30, 0.08);
+  --error-border: rgba(179, 38, 30, 0.35);
+
+  /* Glass machinery (mode-invariant) */
+  --glass-blur: 20px;
+  --glass-saturate: 200%;
+  --glass-radius: 16px;
+
+  /* Fonts */
   --font-heading: 'Jost', 'Sawarabi Gothic', sans-serif;
   --font-body: 'Sawarabi Gothic', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 }
 
-/* --- CSS Custom Properties (design tokens) --- */
-:root {
-  --color-bg-start: #362742;
-  --color-bg-mid: #1a0f24;
-  --color-bg-end: #211829;
-  --color-text: #f0f0f5;
-  --color-text-heading: #ffffff;
-  --color-text-sub: rgba(255, 255, 255, 0.5);
-  --color-text-accent: #a78bfa;
-  --color-accent: #8b5cf6;
-  --color-accent-hover: #7c3aed;
-  --color-glass-bg: rgba(255, 255, 255, 0.09);
-  --color-glass-border: rgba(255, 255, 255, 0.18);
+/* --- Dark mode --- */
+.dark {
+  color-scheme: dark;
 
+  --bg-gradient: linear-gradient(135deg, #2a2e42 0%, #181b28 55%, #20242f 100%);
+  --bg-solid: #181b28;
+
+  --text-heading: #ffffff;
+  --text-body: #f0f0f5;
+  --text-strong: rgba(255, 255, 255, 0.82);
+  --text-nav: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-sub: rgba(255, 255, 255, 0.5);
+  --text-weak: rgba(255, 255, 255, 0.45);
+  --text-faint: rgba(255, 255, 255, 0.3);
+  --text-faintest: rgba(255, 255, 255, 0.25);
+  --text-accent: #a3b18a;
+
+  --accent: #a3b18a;
+  --accent-hover: #b6c3a0;
+  --accent-soft: rgba(163, 177, 138, 0.16);
+  --on-accent: #1f2335;
+
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-border-hover: rgba(255, 255, 255, 0.18);
+  --card-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --card-shadow-hover:
+    0 16px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --surface-weak: rgba(255, 255, 255, 0.04);
+  --surface-faint: rgba(255, 255, 255, 0.02);
+  --border-weak: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.1);
+  --opaque-surface: rgba(24, 27, 40, 0.97);
+
+  --nav-bg: rgba(24, 27, 40, 0.72);
+  --nav-border: rgba(255, 255, 255, 0.15);
+  --drawer-bg: rgba(24, 27, 40, 0.88);
+  --drawer-shadow:
+    -8px 0 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+
+  --input-bg: rgba(255, 255, 255, 0.06);
+  --input-bg-focus: rgba(255, 255, 255, 0.1);
+  --input-border: rgba(255, 255, 255, 0.14);
+  --input-placeholder: rgba(255, 255, 255, 0.3);
+
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --hero-title-gradient: linear-gradient(135deg, #a3b18a 0%, #c9bfa9 100%);
+  --noise-opacity: 0.035;
+  --noise-blend: overlay;
+
+  --duotone-base: #23263a;
+  --duotone-img-filter: grayscale(100%) brightness(0.6) contrast(1.1);
+  --card-fade: rgba(24, 27, 40, 0.92);
+
+  --blob-1: rgba(140, 150, 121, 0.26);
+  --blob-2: rgba(201, 191, 169, 0.14);
+  --blob-3: rgba(74, 81, 112, 0.3);
+  --blob-4: rgba(163, 177, 138, 0.1);
+
+  --pre-bg: rgba(0, 0, 0, 0.4);
+  --pre-border: rgba(255, 255, 255, 0.08);
+
+  --error-text: #f87171;
+  --error-banner-text: #fca5a5;
+  --error-bg: rgba(239, 68, 68, 0.15);
+  --error-border: rgba(239, 68, 68, 0.4);
+}
+
+/* --- Tailwind v4 theme mapping（セマンティックユーティリティ化） ---
+   inline 参照のため、生成されるユーティリティはモード切替に追従する */
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-heading: var(--text-heading);
+  --color-body: var(--text-body);
+  --color-sub: var(--text-sub);
+  --color-input: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-placeholder: var(--input-placeholder);
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+}
+
+@theme {
   --font-heading: 'Jost', 'Sawarabi Gothic', sans-serif;
   --font-body: 'Sawarabi Gothic', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
-
-  /* --- Glass Design Tokens (iOS 26 Liquid Glass) --- */
-  --glass-blur: 20px;
-  --glass-saturate: 200%;
-  --glass-bg: rgba(255, 255, 255, 0.09);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-highlight: rgba(255, 255, 255, 0.28);
-  --glass-glow: rgba(255, 255, 255, 0.04);
-  --glass-shadow: rgba(0, 0, 0, 0.4);
-  --glass-radius: 16px;
 }
 
 /* --- Reset & Base --- */
@@ -77,15 +225,15 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-mid) 50%, var(--color-bg-end) 100%);
+  background: var(--bg-gradient);
   background-attachment: fixed;
   min-height: 100%;
 }
 
 body {
-  background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-mid) 50%, var(--color-bg-end) 100%);
+  background: var(--bg-gradient);
   background-attachment: fixed;
-  color: var(--color-text);
+  color: var(--text-body);
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.75;
@@ -96,7 +244,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  color: var(--color-text-heading);
+  color: var(--text-heading);
   line-height: 1.25;
 }
 
@@ -111,31 +259,27 @@ img, video {
   display: block;
 }
 
-/* --- Glass Morphism utility (iOS 26 Liquid Glass) --- */
+/* --- Glass Morphism utility ---
+   ダーク: 白アルファ + inset ハイライト / ライト: 白0.78 + ネイビーボーダー + ソフトシャドウ
+   （シャドウの inset 有無は --card-shadow トークン側で表現） */
 .glass {
-  background: var(--glass-bg);
+  background: var(--card-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   border-radius: var(--glass-radius);
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 8px 32px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight),
-    inset 0 0 20px var(--glass-glow);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow:
-    0 16px 40px var(--glass-shadow),
-    inset 0 1px 0 var(--glass-highlight),
-    inset 0 0 24px var(--glass-glow);
+  border-color: var(--card-border-hover);
+  box-shadow: var(--card-shadow-hover);
 }
 
 /* --- Focus visible accessibility (WCAG 2.4.7) --- */
 :focus-visible {
-  outline: 2px solid #8b5cf6;
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -143,7 +287,7 @@ img, video {
 /* --- Reduced transparency accessibility --- */
 @media (prefers-reduced-transparency: reduce) {
   .glass {
-    background: rgba(30, 15, 40, 0.95);
+    background: var(--opaque-surface);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }

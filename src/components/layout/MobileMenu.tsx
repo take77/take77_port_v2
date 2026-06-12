@@ -51,7 +51,7 @@ export default function MobileMenu() {
         style={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'var(--overlay-bg)',
           backdropFilter: 'blur(4px)',
           zIndex: 90,
           opacity: isOpen ? 1 : 0,
@@ -72,11 +72,11 @@ export default function MobileMenu() {
           width: '280px',
           height: '100%',
           zIndex: 95,
-          background: 'rgba(26, 15, 36, 0.88)',
+          background: 'var(--drawer-bg)',
           backdropFilter: 'blur(20px) saturate(200%)',
           WebkitBackdropFilter: 'blur(20px) saturate(200%)',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.18)',
-          boxShadow: '-8px 0 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 0 20px rgba(255, 255, 255, 0.04)',
+          borderLeft: '1px solid var(--card-border-hover)',
+          boxShadow: 'var(--drawer-shadow)',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
           display: 'flex',
@@ -102,12 +102,12 @@ export default function MobileMenu() {
                 style={{
                   display: 'block',
                   padding: '1rem 0',
-                  color: 'rgba(255, 255, 255, 0.85)',
+                  color: 'var(--text-strong)',
                   fontFamily: 'var(--font-heading)',
                   fontSize: '1.1rem',
                   fontWeight: 400,
                   textDecoration: 'none',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderBottom: '1px solid var(--border-weak)',
                   letterSpacing: '0.02em',
                 }}
               >

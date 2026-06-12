@@ -91,7 +91,7 @@ import Breadcrumb from '../components/common/Breadcrumb.astro';
     font-family: var(--font-heading);
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 600;
-    color: var(--color-text-heading);
+    color: var(--text-heading);
     letter-spacing: -0.02em;
     margin-top: 2rem;
     margin-bottom: 2.5rem;
@@ -101,21 +101,21 @@ import Breadcrumb from '../components/common/Breadcrumb.astro';
     font-family: var(--font-heading);
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--color-text-heading);
+    color: var(--text-heading);
     margin-top: 2.5rem;
     margin-bottom: 0.75rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border-soft);
   }
 
   p {
-    color: var(--color-text);
+    color: var(--text-body);
     line-height: 1.8;
     margin-bottom: 1rem;
   }
 
   ul {
-    color: var(--color-text);
+    color: var(--text-body);
     line-height: 1.8;
     padding-left: 1.5rem;
     margin-bottom: 1rem;
@@ -127,7 +127,7 @@ import Breadcrumb from '../components/common/Breadcrumb.astro';
   }
 
   a {
-    color: var(--color-accent);
+    color: var(--accent);
     text-decoration: none;
     transition: text-decoration 0.2s;
   }
@@ -137,14 +137,14 @@ import Breadcrumb from '../components/common/Breadcrumb.astro';
   }
 
   strong {
-    color: var(--color-text-heading);
+    color: var(--text-heading);
     font-weight: 600;
   }
 
   .updated {
     margin-top: 3rem;
     font-size: 0.875rem;
-    color: rgba(240, 240, 245, 0.5);
+    color: var(--text-sub);
   }
 
   @media (max-width: 640px) {

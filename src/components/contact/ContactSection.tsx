@@ -132,7 +132,7 @@ export default function ContactSection() {
 
   const inputClass =
     "w-full rounded-[10px] text-sm outline-none font-[inherit] transition-[border-color] duration-300 " +
-    "bg-white/[0.08] border border-white/[0.15] text-[#f0f0f5] placeholder:text-white/30";
+    "bg-input border border-input-border text-body placeholder:text-placeholder";
 
   return (
     <section
@@ -148,7 +148,7 @@ export default function ContactSection() {
             fontWeight: 600,
             letterSpacing: "0.25em",
             textTransform: "uppercase",
-            color: "#8b5cf6",
+            color: "var(--accent)",
             marginBottom: 8,
             fontFamily: "var(--font-heading)",
           }}
@@ -159,7 +159,7 @@ export default function ContactSection() {
           style={{
             fontSize: "clamp(1.6rem, 4vw, 2.4rem)",
             fontWeight: 300,
-            color: "#ffffff",
+            color: "var(--text-heading)",
             fontFamily: "var(--font-heading)",
             letterSpacing: "0.04em",
             marginBottom: 16,
@@ -167,7 +167,7 @@ export default function ContactSection() {
         >
           お問い合わせ
         </h2>
-        <p style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", lineHeight: 2 }}>
+        <p style={{ fontSize: 14, color: "var(--text-sub)", lineHeight: 2 }}>
           ご相談・お見積りは無料です。2営業日以内にご返信いたします。
         </p>
       </div>
@@ -189,7 +189,7 @@ export default function ContactSection() {
             height="40"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#8b5cf6"
+            stroke="var(--accent)"
             strokeWidth="1.2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -202,7 +202,7 @@ export default function ContactSection() {
           <h3
             style={{
               fontSize: 18,
-              color: "#ffffff",
+              color: "var(--text-heading)",
               fontWeight: 300,
               fontFamily: "var(--font-heading)",
               letterSpacing: "0.08em",
@@ -211,7 +211,7 @@ export default function ContactSection() {
           >
             送信しました
           </h3>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", margin: 0 }}>
+          <p style={{ fontSize: 13, color: "var(--text-sub)", margin: 0 }}>
             お問い合わせありがとうございます。
           </p>
         </div>
@@ -232,13 +232,13 @@ export default function ContactSection() {
             <div
               role="alert"
               style={{
-                background: "rgba(239,68,68,0.15)",
-                border: "1px solid rgba(239,68,68,0.4)",
+                background: "var(--error-bg)",
+                border: "1px solid var(--error-border)",
                 borderRadius: 10,
                 padding: "12px 16px",
                 marginBottom: 24,
                 fontSize: 13,
-                color: "#fca5a5",
+                color: "var(--error-banner-text)",
               }}
             >
               {errorMessage}
@@ -269,7 +269,7 @@ export default function ContactSection() {
                     style={{
                       display: "block",
                       fontSize: 12,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "var(--text-sub)",
                       marginBottom: 6,
                       letterSpacing: "0.05em",
                     }}
@@ -295,7 +295,7 @@ export default function ContactSection() {
                     <p
                       id="error-name"
                       role="alert"
-                      style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}
+                      style={{ fontSize: 12, color: "var(--error-text)", marginTop: 4 }}
                     >
                       {errors.name}
                     </p>
@@ -312,7 +312,7 @@ export default function ContactSection() {
                     style={{
                       display: "block",
                       fontSize: 12,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "var(--text-sub)",
                       marginBottom: 6,
                       letterSpacing: "0.05em",
                     }}
@@ -338,7 +338,7 @@ export default function ContactSection() {
                     <p
                       id="error-email"
                       role="alert"
-                      style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}
+                      style={{ fontSize: 12, color: "var(--error-text)", marginTop: 4 }}
                     >
                       {errors.email}
                     </p>
@@ -356,7 +356,7 @@ export default function ContactSection() {
                   style={{
                     display: "block",
                     fontSize: 12,
-                    color: "rgba(255,255,255,0.5)",
+                    color: "var(--text-sub)",
                     marginBottom: 6,
                     letterSpacing: "0.05em",
                   }}
@@ -389,7 +389,7 @@ export default function ContactSection() {
                   style={{
                     display: "block",
                     fontSize: 12,
-                    color: "rgba(255,255,255,0.5)",
+                    color: "var(--text-sub)",
                     marginBottom: 6,
                     letterSpacing: "0.05em",
                   }}
@@ -416,7 +416,7 @@ export default function ContactSection() {
                   <p
                     id="error-message"
                     role="alert"
-                    style={{ fontSize: 12, color: "#f87171", marginTop: 4 }}
+                    style={{ fontSize: 12, color: "var(--error-text)", marginTop: 4 }}
                   >
                     {errors.message}
                   </p>
@@ -430,8 +430,8 @@ export default function ContactSection() {
                   onClick={handleRetry}
                   style={{
                     background: "transparent",
-                    color: "#f0f0f5",
-                    border: "1px solid rgba(255,255,255,0.2)",
+                    color: "var(--text-body)",
+                    border: "1px solid var(--card-border-hover)",
                     borderRadius: 12,
                     padding: "12px 32px",
                     fontSize: 14,
@@ -451,8 +451,11 @@ export default function ContactSection() {
                   type="submit"
                   disabled={!isFormValid || formState === "loading"}
                   style={{
-                    background: !isFormValid || formState === "loading" ? "rgba(139,92,246,0.3)" : "#8b5cf6",
-                    color: "#fff",
+                    background:
+                      !isFormValid || formState === "loading"
+                        ? "color-mix(in srgb, var(--accent) 35%, transparent)"
+                        : "var(--accent)",
+                    color: "var(--on-accent)",
                     border: "none",
                     borderRadius: 12,
                     padding: "16px 32px",
@@ -472,12 +475,12 @@ export default function ContactSection() {
                   }}
                   onMouseEnter={(e) => {
                     if (isFormValid && formState !== "loading") {
-                      (e.currentTarget as HTMLButtonElement).style.background = "#7c3aed";
+                      (e.currentTarget as HTMLButtonElement).style.background = "var(--accent-hover)";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (isFormValid && formState !== "loading") {
-                      (e.currentTarget as HTMLButtonElement).style.background = "#8b5cf6";
+                      (e.currentTarget as HTMLButtonElement).style.background = "var(--accent)";
                     }
                   }}
                 >
@@ -550,8 +553,8 @@ export default function ContactSection() {
         #contact input:focus,
         #contact select:focus,
         #contact textarea:focus {
-          border-color: #8b5cf6;
-          background: rgba(255,255,255,0.10);
+          border-color: var(--accent);
+          background: var(--input-bg-focus);
         }
         #contact input:disabled,
         #contact select:disabled,
@@ -561,8 +564,8 @@ export default function ContactSection() {
         }
         /* Fix: select option white-on-white bug */
         #contact select option {
-          background-color: #1a0f24;
-          color: #f0f0f5;
+          background-color: var(--bg-solid);
+          color: var(--text-body);
         }
 `}</style>
     </section>
