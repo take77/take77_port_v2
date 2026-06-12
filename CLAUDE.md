@@ -31,13 +31,15 @@
 - AboutSectionはトップページのみに配置
 
 ## デザインルール
-- カラー: ダークパープル背景（#362742 → #1a0f24 → #211829）
-- グラスモーフィズム: backdrop-blur-[16px] + bg-white/[0.06] + border-white/10
+- カラー: 2モード制。ライト（デフォルト）= ネイビー×ピュアホワイト、ダーク = ネイビー×セージ
+- 色はすべて global.css のセマンティック変数（--accent, --card-bg 等）を参照。生値の直書き禁止
+- モード切替: class戦略（html.dark）。初期値は localStorage > prefers-color-scheme の優先順
+- グラスモーフィズム: ダークは白アルファ+inset、ライトは白0.78+ネイビーボーダー+ソフトシャドウ（insetなし）
 - 画面内のblur要素は5個以下、blur値は25px以下
-- テキスト: 白系（#f0f0f5）、コントラスト比4.5:1以上
+- コントラスト比4.5:1以上を両モードで維持
 - フォント: Jost（見出しラテン）+ Sawarabi Gothic（本文日本語）
-- ヒーロー: ノイズテクスチャ + 4ブロブ（緩急アニメーション）+ グリッドパターン
-- 実績カード: デュオトーン処理（grayscale → color blend → bottom fade）
+- ヒーロー: ノイズ（ライト=multiply 0.025 / ダーク=overlay 0.035）+ 4ブロブ + グリッドパターン
+- 実績カード: デュオトーン処理（ライトは brightness(0.85)、ダークは brightness(0.6)）
 - 実績詳細ページでは画像は原色表示（デュオトーンなし）
 - ホバー: translateY(-4px) + border明度アップ、transition 0.35s cubic-bezier(0.4,0,0.2,1)
 
@@ -63,7 +65,8 @@
 - それ以外は.astro（JSゼロ）
 
 ## デザインリファレンス
-- prototype-v5.jsx: 承認済みデスクトッププロトタイプ（全ページ遷移・ビジュアル確定）
+- prototype-v5.jsx: 承認済みデスクトッププロトタイプ（カラーは docs/color-redesign-instructions.md が優先。レイアウトの参照元としては有効）
+- docs/color-redesign-instructions.md: カラーリデザイン指示書（2モード制パレットの正）
 - spec.md: 仕様書v4（詳細なデザイントークン・レイヤー構成・パフォーマンス目標あり）
 
 ## 規約
