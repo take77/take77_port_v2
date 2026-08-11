@@ -8,7 +8,7 @@ serviceCategory:
 technologies: []
 thumbnail: ./thumbnail.jpg
 url: "https://www.plaru.co.jp"
-featured: true
+featured: false
 draft: false
 order: 4
 ---
