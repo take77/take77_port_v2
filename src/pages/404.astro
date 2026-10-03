@@ -1,0 +1,210 @@
+---
+// 404.astro — Not-found page, served by Cloudflare via not_found_handling: "404-page"
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const recoveryLinks = [
+  { index: '01', label: 'Home', caption: 'トップページへ戻る', href: '/' },
+  { index: '02', label: 'Works', caption: '実績を見る', href: '/works/' },
+  { index: '03', label: 'Contact', caption: 'お問い合わせ', href: '/#contact' },
+];
+---
+
+<BaseLayout
+  title="ページが見つかりません | take77"
+  description="お探しのページは見つかりませんでした。トップページ・実績・お問い合わせからお探しください。"
+>
+  <section class="section">
+    <div class="section-inner not-found">
+      <p class="not-found-code" aria-hidden="true">404</p>
+
+      <div class="glass not-found-panel">
+        <p class="not-found-eyebrow">Error 404 — Page not found</p>
+        <h1 class="not-found-title">お探しのページは<wbr />見つかりませんでした</h1>
+        <p class="not-found-lead">
+          URLが変わったか、ページが削除された可能性があります。アドレスをご確認いただくか、下記のページからお探しください。
+        </p>
+
+        <nav aria-label="主要ページへのリンク">
+          <ul class="recovery-links">
+            {
+              recoveryLinks.map((link) => (
+                <li>
+                  <a href={link.href} class="recovery-link">
+                    <span class="recovery-index" aria-hidden="true">{link.index}</span>
+                    <span class="recovery-text">
+                      <span class="recovery-label">{link.label}</span>
+                      <span class="recovery-caption">{link.caption}</span>
+                    </span>
+                    <span class="recovery-arrow" aria-hidden="true">→</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    position: relative;
+    padding: 4rem clamp(1.5rem, 6vw, 5rem) 6rem;
+  }
+
+  .section-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .not-found {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: end;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    min-height: 62vh;
+  }
+
+  /* Decorative numeral: thin Jost, pulled slightly left so the stroke aligns optically with the gutter */
+  .not-found-code {
+    font-family: var(--font-heading);
+    font-size: clamp(7rem, 24vw, 22rem);
+    font-weight: 200;
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+    color: var(--text-heading);
+    margin-left: -0.06em;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+  }
+
+  .not-found-panel {
+    position: relative;
+    padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  }
+
+  .not-found-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .not-found-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    font-feature-settings: 'palt';
+    word-break: auto-phrase;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+  }
+
+  .not-found-lead {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-strong);
+    word-break: auto-phrase;
+    margin-bottom: 2rem;
+  }
+
+  .recovery-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .recovery-link {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 0.25rem;
+    border-top: 1px solid var(--border-soft);
+    color: var(--text-heading);
+    text-decoration: none;
+    transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .recovery-index {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+  }
+
+  .recovery-text {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 0.9rem;
+    row-gap: 0.15rem;
+  }
+
+  .recovery-label {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .recovery-caption {
+    font-size: 0.8rem;
+    color: var(--text-strong);
+  }
+
+  .recovery-arrow {
+    color: var(--text-sub);
+    transition:
+      transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .recovery-link:hover {
+    background-color: var(--surface-faint);
+  }
+
+  .recovery-link:hover .recovery-label,
+  .recovery-link:hover .recovery-arrow {
+    color: var(--accent);
+  }
+
+  .recovery-link:hover .recovery-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 767px) {
+    .not-found {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+      gap: 1.25rem;
+      min-height: auto;
+    }
+
+    .recovery-text {
+      flex-direction: column;
+    }
+
+    .not-found-code {
+      font-size: clamp(6rem, 34vw, 9rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .recovery-link,
+    .recovery-label,
+    .recovery-arrow {
+      transition: none;
+    }
+  }
+</style>

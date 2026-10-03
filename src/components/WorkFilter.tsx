@@ -117,7 +117,7 @@ export default function WorkFilter({ works }: Props) {
       {activeService && (
         <a
           key={`mini-${activeFilter}`}
-          href={`/services/${activeService.slug}`}
+          href={`/services/${activeService.slug}/`}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -230,7 +230,7 @@ function WorkCard({ work }: { work: Work }) {
 
   return (
     <a
-      href={`/works/${work.id}`}
+      href={`/works/${work.id}/`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{

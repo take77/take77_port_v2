@@ -8,6 +8,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'static',
   site: 'https://take77-port.com',
+  trailingSlash: 'always',
   integrations: [
     react(),
     sitemap(),

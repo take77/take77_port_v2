@@ -11,12 +11,14 @@ export interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  ogType?: 'website' | 'article';
 }
 
 const {
   title = 'take77 | フリーランスエンジニア',
   description = 'システム開発・HP制作・経営企画・動画編集まで幅広く手がけるフリーランスエンジニア take77 のポートフォリオサイトです。',
   ogImage = '/og-image.jpg',
+  ogType = 'website',
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -85,7 +87,7 @@ const jsonLd = {
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -93,11 +95,11 @@ const jsonLd = {
     <meta property="og:locale" content="ja_JP" />
 
     <!-- Twitter Card -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- Font Preload: Jost Variable (LCP heading font, self-hosted) -->
     <link rel="preload" href="/fonts/jost-variable.woff2" as="font" type="font/woff2" crossorigin />
