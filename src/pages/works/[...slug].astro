@@ -62,6 +62,7 @@ const creativeWorkJsonLd = {
   title={`${work.data.title} | take77`}
   description={work.data.description}
   ogImage={work.data.thumbnail.src}
+  ogType="article"
 >
   <script type="application/ld+json" set:html={JSON.stringify(creativeWorkJsonLd)} />
   <div class="page-container">
