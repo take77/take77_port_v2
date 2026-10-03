@@ -52,7 +52,7 @@ const creativeWorkJsonLd = {
   description: work.data.description,
   author: { '@type': 'Person', name: 'take77', url: 'https://take77-port.com' },
   dateCreated: work.data.date.toISOString().split('T')[0],
-  url: `https://take77-port.com/works/${work.id}`,
+  url: `https://take77-port.com/works/${work.id}/`,
   ...(work.data.url ? { sameAs: work.data.url } : {}),
   ...(work.data.client ? { contributor: { '@type': 'Organization', name: work.data.client } } : {}),
 };
@@ -69,7 +69,7 @@ const creativeWorkJsonLd = {
     <Breadcrumb
       items={[
         { label: 'ホーム', href: '/' },
-        { label: '実績一覧', href: '/works' },
+        { label: '実績一覧', href: '/works/' },
         { label: work.data.title },
       ]}
     />
@@ -83,7 +83,7 @@ const creativeWorkJsonLd = {
         <div class="category-tags">
           {
             work.data.serviceCategory.map((cat) => (
-              <a href={`/services/${cat}`} class="category-tag">
+              <a href={`/services/${cat}/`} class="category-tag">
                 {categoryLabels[cat] ?? cat}
               </a>
             ))
