@@ -1,3 +1,6 @@
+/about/ /#about 301
+/contact/ /#contact 301
+/services/ /services/system-development/ 301
 /about /#about 301
 /contact /#contact 301
 /blog/* https://zenn.dev/take77 301
