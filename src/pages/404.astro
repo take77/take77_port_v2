@@ -30,7 +30,7 @@ const recoveryLinks = [
               recoveryLinks.map((link) => (
                 <li>
                   <a href={link.href} class="recovery-link">
-                    <span class="recovery-index">{link.index}</span>
+                    <span class="recovery-index" aria-hidden="true">{link.index}</span>
                     <span class="recovery-text">
                       <span class="recovery-label">{link.label}</span>
                       <span class="recovery-caption">{link.caption}</span>
@@ -91,7 +91,7 @@ const recoveryLinks = [
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--text-sub);
+    color: var(--text-accent);
     margin-bottom: 1.25rem;
   }
 
@@ -110,7 +110,7 @@ const recoveryLinks = [
   .not-found-lead {
     font-size: 0.95rem;
     line-height: 1.9;
-    color: var(--text-muted);
+    color: var(--text-strong);
     word-break: auto-phrase;
     margin-bottom: 2rem;
   }
@@ -139,7 +139,7 @@ const recoveryLinks = [
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     font-variant-numeric: tabular-nums;
-    color: var(--text-faint);
+    color: var(--text-muted);
   }
 
   .recovery-text {
@@ -160,7 +160,7 @@ const recoveryLinks = [
 
   .recovery-caption {
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: var(--text-strong);
   }
 
   .recovery-arrow {
